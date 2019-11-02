@@ -1,0 +1,128 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:PhoneStore.Resources.Styles">
+    <Style TargetType="{x:Type Border}" x:Key="BorderCatalogOutside">
+        <Setter Property="Width" Value="320"/>
+        <Setter Property="Height" Value="490"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueDarkBrush}"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Border.MouseEnter">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Width" Duration="0:0:0:0.1" To="325" />
+                                <DoubleAnimation Storyboard.TargetProperty="Height" Duration="0:0:0:0.1" To="495"/>
+                                <DoubleAnimation
+                                            Storyboard.TargetProperty="(Border.Effect).(DropShadowEffect.BlurRadius)"
+                                            To="20" AccelerationRatio="0.3" Duration="0:0:0.1"/>
+                                <DoubleAnimation
+                                            Storyboard.TargetProperty="(Border.Effect).(DropShadowEffect.Opacity)"
+                                            To="1" AccelerationRatio="0.3" Duration="0:0:0.1"/>
+                            </Storyboard>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="Border.MouseLeave">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Width" Duration="0:0:0:0.1" To="320" />
+                                <DoubleAnimation Storyboard.TargetProperty="Height" Duration="0:0:0:0.1" To="490"/>
+                                <DoubleAnimation
+                                            Storyboard.TargetProperty="(Border.Effect).(DropShadowEffect.BlurRadius)"
+                                            To="0" AccelerationRatio="0.2" Duration="0:0:0.1"/>
+                                <DoubleAnimation
+                                            Storyboard.TargetProperty="(Border.Effect).(DropShadowEffect.Opacity)"
+                                            To="0.0" AccelerationRatio="0.3" Duration="0:0:0.1"/>
+                            </Storyboard>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="{x:Type Border}" x:Key="BorderCatalogInside">
+        <Setter Property="Width" Value="315"/>
+        <Setter Property="Height" Value="485"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Background" Value="White"/>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Border.MouseEnter">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Width" Duration="0:0:0:0.1" To="318" />
+                                <DoubleAnimation Storyboard.TargetProperty="Height" Duration="0:0:0:0.1" To="488"/>
+                            </Storyboard>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="Border.MouseLeave">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Width" Duration="0:0:0:0.1" To="315" />
+                                <DoubleAnimation Storyboard.TargetProperty="Height" Duration="0:0:0:0.1" To="485"/>
+                            </Storyboard>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="{x:Type Border}" x:Key="BorderPersonalAccountOutside">
+        <Setter Property="Width" Value="400"/>
+        <Setter Property="Margin" Value="0 0 20 20"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Height" Value="300"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueDarkBrush}"/>
+        <Setter Property="BorderThickness" Value="4"/>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Border.MouseEnter">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Width" Duration="0:0:0:0.1" To="405" />
+                                <DoubleAnimation Storyboard.TargetProperty="Height" Duration="0:0:0:0.1" To="305"/>
+                                <DoubleAnimation
+                                            Storyboard.TargetProperty="(Border.Effect).(DropShadowEffect.BlurRadius)"
+                                            To="20" AccelerationRatio="0.3" Duration="0:0:0.1"/>
+                                <DoubleAnimation
+                                            Storyboard.TargetProperty="(Border.Effect).(DropShadowEffect.Opacity)"
+                                            To="1" AccelerationRatio="0.3" Duration="0:0:0.1"/>
+                            </Storyboard>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="Border.MouseLeave">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Width" Duration="0:0:0:0.1" To="400" />
+                                <DoubleAnimation Storyboard.TargetProperty="Height" Duration="0:0:0:0.1" To="300"/>
+                                <DoubleAnimation
+                                            Storyboard.TargetProperty="(Border.Effect).(DropShadowEffect.BlurRadius)"
+                                            To="0" AccelerationRatio="0.2" Duration="0:0:0.1"/>
+                                <DoubleAnimation
+                                            Storyboard.TargetProperty="(Border.Effect).(DropShadowEffect.Opacity)"
+                                            To="0.0" AccelerationRatio="0.3" Duration="0:0:0.1"/>
+                            </Storyboard>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

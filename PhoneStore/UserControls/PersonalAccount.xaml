@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="PhoneStore.UserControls.PersonalAccount"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PhoneStore.UserControls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="1500">
+    <Grid>
+        <local:PersonalInfo x:Name="PersonalInfoView" Visibility="Hidden"></local:PersonalInfo>
+        <StackPanel x:Name="PersonalAccountSP" Orientation="Vertical" Visibility="Visible">
+            <StackPanel Height="50" VerticalAlignment="Top">
+                <local:Header></local:Header>
+            </StackPanel>
+            <StackPanel Height="Auto">
+                <Label Content="Personal Account" Foreground="{DynamicResource PrimaryHueDarkBrush}"  HorizontalAlignment="Center" 
+                       Margin="0 35 0 0" FontFamily="Xfinity"  FontSize="30" FontWeight="Bold"/>
+                <Separator VerticalAlignment="Top" Margin="90 0 90 30" Background="{DynamicResource PrimaryHueDarkBrush}"/>  
+            </StackPanel>
+        
+            <WrapPanel HorizontalAlignment="Center"  Orientation="Horizontal" Margin="20 20 0 0" VerticalAlignment="Top">
+                <Border x:Name="PersonalInfo" Style="{DynamicResource BorderPersonalAccountOutside}" PreviewMouseDown="PersonalInfo_PreviewMouseDown">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius ="0"  Color="Gray" Opacity="0.0"></DropShadowEffect>
+                    </Border.Effect>
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <materialDesign:PackIcon Kind="AccountBadge" Foreground="{DynamicResource PrimaryHueDarkBrush}" Width="80" Height="80" 
+                                             Margin="5" FontFamily="Xfinity" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        <TextBlock Text="Personal Info" Style="{DynamicResource TextBlockPerosnalAccount}" />
+                    </StackPanel>
+                </Border>
+                <Border Style="{DynamicResource BorderPersonalAccountOutside}">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius ="0"  Color="Gray" Opacity="0.0"></DropShadowEffect>
+                    </Border.Effect>
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <materialDesign:PackIcon Kind="BookOpen" Foreground="{DynamicResource PrimaryHueDarkBrush}" Width="80" Height="80" 
+                                                 Margin="5" FontFamily="Xfinity" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        <TextBlock Text="History" Style="{DynamicResource TextBlockPerosnalAccount}"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{DynamicResource BorderPersonalAccountOutside}">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius ="0"  Color="Gray" Opacity="0.0"></DropShadowEffect>
+                    </Border.Effect>
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <materialDesign:PackIcon Kind="ShoppingCartOutline" Foreground="{DynamicResource PrimaryHueDarkBrush}" Width="80" Height="80" 
+                                                 Margin="5" FontFamily="Xfinity" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        <TextBlock Text="Basket" Style="{DynamicResource TextBlockPerosnalAccount}"/>
+                    </StackPanel>
+                </Border>
+                <Border  Style="{DynamicResource BorderPersonalAccountOutside}">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius ="0"  Color="Gray" Opacity="0.0"></DropShadowEffect>
+                    </Border.Effect>
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <materialDesign:PackIcon Kind="ChartBar" Foreground="{DynamicResource PrimaryHueDarkBrush}" Width="80" Height="80" 
+                                                 Margin="5" FontFamily="Xfinity" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        <TextBlock Text="Basket" Style="{DynamicResource TextBlockPerosnalAccount}"/>
+                    </StackPanel>
+                </Border>
+                <Border  Style="{DynamicResource BorderPersonalAccountOutside}">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius ="0"  Color="Gray" Opacity="0.0"></DropShadowEffect>
+                    </Border.Effect>
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <materialDesign:PackIcon Kind="HeartOutline" Foreground="{DynamicResource PrimaryHueDarkBrush}" Width="80" Height="80" 
+                                                 Margin="5" FontFamily="Xfinity" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        <TextBlock Text="Featured" Style="{DynamicResource TextBlockPerosnalAccount}"/>
+                    </StackPanel>
+                </Border>
+            </WrapPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

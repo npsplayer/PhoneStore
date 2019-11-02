@@ -1,0 +1,22 @@
+﻿<Window x:Class="PhoneStore.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PhoneStore.UserControls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d" x:Name="Window"
+        Title="MainWindow" WindowState="Maximized" WindowStyle="None"  Height="800" Width="1550">
+    <Grid>
+        <!--<Frame x:Name="HeaderFrame" Visibility="Visible"/>
+        <Frame x:Name="FilterFrame" Visibility="Visible"/>-->
+
+        <local:Header x:Name="Header"/>
+        <local:ShowCatalog x:Name="ShowCatalog" Margin="0 0 0 0 " Visibility="Visible"/>
+
+        <local:Login x:Name="Login" Visibility="Hidden"/>
+        <local:Register x:Name="SignUp" Visibility="Hidden"/>
+        <!--<local:PersonalAccount x:Name="PersonalAccout" Visibility="Hidden"/>-->
+
+    </Grid>
+</Window>
