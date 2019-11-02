@@ -6,26 +6,22 @@
              xmlns:local="clr-namespace:PhoneStore.UserControls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="1500">
+             d:DesignHeight="900" d:DesignWidth="1500">
     <Grid>
-        <local:PersonalInfo x:Name="PersonalInfoView" Visibility="Hidden"></local:PersonalInfo>
         <StackPanel x:Name="PersonalAccountSP" Orientation="Vertical" Visibility="Visible">
-            <StackPanel Height="50" VerticalAlignment="Top">
-                <local:Header></local:Header>
-            </StackPanel>
-            <StackPanel Height="Auto">
+            <StackPanel Height="Auto" Margin="0 40 0 0">
                 <Label Content="Personal Account" Foreground="{DynamicResource PrimaryHueDarkBrush}"  HorizontalAlignment="Center" 
                        Margin="0 35 0 0" FontFamily="Xfinity"  FontSize="30" FontWeight="Bold"/>
-                <Separator VerticalAlignment="Top" Margin="90 0 90 30" Background="{DynamicResource PrimaryHueDarkBrush}"/>  
+                <Separator VerticalAlignment="Top" Margin="90 0 90 30" Background="{DynamicResource PrimaryHueDarkBrush}"/>
             </StackPanel>
-        
+
             <WrapPanel HorizontalAlignment="Center"  Orientation="Horizontal" Margin="20 20 0 0" VerticalAlignment="Top">
                 <Border x:Name="PersonalInfo" Style="{DynamicResource BorderPersonalAccountOutside}" PreviewMouseDown="PersonalInfo_PreviewMouseDown">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius ="0"  Color="Gray" Opacity="0.0"></DropShadowEffect>
                     </Border.Effect>
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <materialDesign:PackIcon Kind="AccountBadge" Foreground="{DynamicResource PrimaryHueDarkBrush}" Width="80" Height="80" 
+                        <materialDesign:PackIcon Kind="AccountBadge" Foreground="{DynamicResource PrimaryHueDarkBrush}" Width="80" Height="80" 
                                              Margin="5" FontFamily="Xfinity" VerticalAlignment="Center" HorizontalAlignment="Center" 
                                              VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                         <TextBlock Text="Personal Info" Style="{DynamicResource TextBlockPerosnalAccount}" />
@@ -73,6 +69,26 @@
                                                  Margin="5" FontFamily="Xfinity" VerticalAlignment="Center" HorizontalAlignment="Center" 
                                                  VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                         <TextBlock Text="Featured" Style="{DynamicResource TextBlockPerosnalAccount}"/>
+                    </StackPanel>
+                </Border>
+                <Border x:Name="Back" Style="{DynamicResource BorderPersonalAccountOutside}" PreviewMouseDown="Back_PreviewMouseDown">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius ="0"  Color="Gray" Opacity="0.0"></DropShadowEffect>
+                    </Border.Effect>
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <materialDesign:PackIcon Kind="Arrow" Foreground="{DynamicResource PrimaryHueDarkBrush}" Width="80" Height="80" 
+                                                 Margin="5" FontFamily="Xfinity" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                            <materialDesign:PackIcon.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleY="1" ScaleX="-1"/>
+                                    <SkewTransform AngleY="0" AngleX="0"/>
+                                    <RotateTransform Angle="0"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </materialDesign:PackIcon.RenderTransform>
+                        </materialDesign:PackIcon>
+                        <TextBlock Text="Back" Style="{DynamicResource TextBlockPerosnalAccount}"/>
                     </StackPanel>
                 </Border>
             </WrapPanel>

@@ -11,15 +11,14 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PhoneStore.UserControls
+namespace PhoneStore.View
 {
     /// <summary>
     /// Логика взаимодействия для Register.xaml
     /// </summary>
-    public partial class Register : UserControl
+    public partial class Register : Window
     {
         OracleDbContext db = null;
         public Register()
@@ -37,13 +36,26 @@ namespace PhoneStore.UserControls
                 Password = Password.Password
             };
             db.Users.Add(user);
+            Address address = new Address();
+            db.Addresses.Add(address);
+
+            Customer customer = new Customer()
+            {
+                UserID = user.UserID,
+                AddressID = address.AddressID
+            };
+            db.Customers.Add(customer);
             db.SaveChanges();
-            MainWindow.SignUpUC.Visibility = Visibility.Hidden;
+
+            
+            this.Close();
+            MainWindow.Snackbar.IsActive = true;
+            MainWindow.SnackbarMessage.Content = "Registration successful!";
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.SignUpUC.Visibility = Visibility.Hidden;
+            this.Close();
         }
     }
 }

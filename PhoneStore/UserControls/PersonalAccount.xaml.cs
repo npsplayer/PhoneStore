@@ -20,19 +20,24 @@ namespace PhoneStore.UserControls
     /// </summary>
     public partial class PersonalAccount : UserControl
     {
-        public static UserControl PersonalInfoUC;
-        public static StackPanel PersonalAccountStackPanel;
+        
         public PersonalAccount()
         {
             InitializeComponent();
-            PersonalInfoUC = PersonalInfoView;
-            PersonalAccountStackPanel = PersonalAccountSP;
         }
 
         private void PersonalInfo_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            PersonalInfoView.Visibility = Visibility.Visible;
-            PersonalAccountSP.Visibility = Visibility.Hidden;
+            View.PersonalInfo personalInfo = new View.PersonalInfo();
+            personalInfo.ShowDialog();
+        }
+
+
+        private void Back_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MainWindow.PersonalAccoutUC.Visibility = Visibility.Hidden;
+            UserControls.ShowCatalog.FilterUC.Visibility = Visibility.Visible;
+            MainWindow.ShowCatalogUC.Visibility = Visibility.Visible;
         }
     }
 }

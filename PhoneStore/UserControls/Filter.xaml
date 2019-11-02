@@ -95,8 +95,8 @@
                             <ComboBoxItem Content="Text"/>
                         </ComboBox>
                     </StackPanel>
-                    <Button Height="40" Width="100" Margin="15 20 15 0" materialDesign:ButtonAssist.CornerRadius="6" Content="Apply" FontSize="16" FontFamily="XFINITY Standard"/>
-                    <Button Height="40" Width="100" Margin="15 20 15 0" materialDesign:ButtonAssist.CornerRadius="6" Content="Clear All" FontSize="16" FontFamily="XFINITY Standard"/>
+                    <Button Foreground="White" Height="40" Width="100" Margin="15 20 15 0" materialDesign:ButtonAssist.CornerRadius="6" Content="Apply" FontSize="16" FontFamily="XFINITY Standard"/>
+                    <Button Height="40" Width="100" Foreground="White" Margin="15 20 15 0" materialDesign:ButtonAssist.CornerRadius="6" Content="Clear All" FontSize="16" FontFamily="XFINITY Standard"/>
                 </StackPanel>
                 <Separator HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0 20 0 0"/>
             </StackPanel>

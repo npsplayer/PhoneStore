@@ -9,7 +9,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Purple.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Purple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/PhoneStore;component/Resources/Styles/Image.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/PhoneStore;component/Resources/Styles/TextBlock.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/PhoneStore;component/Resources/Styles/Border.xaml"/>

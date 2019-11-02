@@ -1,4 +1,6 @@
-﻿using PhoneStore.Model;
+﻿using MaterialDesignThemes.Wpf;
+using PhoneStore.Model;
+using PhoneStore.View;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -22,33 +24,76 @@ namespace PhoneStore
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static Window win;
-        public static UserControl LoginUC;
+        
         public static UserControl ShowCatalogUC;
         public static UserControl FilterUC;
-        public static UserControl HeaderUC;
         public static UserControl PersonalAccoutUC;
-        public static UserControl SignUpUC;
-
         
+        public static Button ExitAccountBtn;
+        public static Button PersonalAccountBtn;
+
+        public static Snackbar Snackbar;
+        public static SnackbarMessage SnackbarMessage;
+
+
         public MainWindow()
         {
             InitializeComponent();
-            InitializeComponent();
-            win = Window;
-            LoginUC = Login;
             ShowCatalogUC = ShowCatalog;
             PersonalAccoutUC = PersonalAccout;
-            HeaderUC = Header;
-            SignUpUC = SignUp;
+
+            Snackbar = LoginSnackBar;
+            SnackbarMessage = SnackBarMessage;
+            ExitAccountBtn = ExitAccount;
+
 
 
         }
-        public MainWindow(UserControls.Header header)
+
+        private void SnackbarMessage_ActionClick(object sender, RoutedEventArgs e)
         {
-            
-           
-            
+            LoginSnackBar.IsActive = false;
+        }
+        private void Login_Click(object sender, RoutedEventArgs e)
+        {
+            View.Login login = new View.Login();
+            login.ShowDialog();
+        }
+
+        private void Register_Click(object sender, RoutedEventArgs e)
+        {
+            View.Register register = new View.Register();
+            register.ShowDialog();
+        }
+
+        private void CloseApp_Click(object sender, RoutedEventArgs e)
+        {
+            Window.Close();
+        }
+
+        private void PersonalAccount_Click(object sender, RoutedEventArgs e)
+        {
+            PersonalAccoutUC.Visibility = Visibility.Visible;
+            UserControls.ShowCatalog.FilterUC.Visibility = Visibility.Hidden;
+            MainWindow.ShowCatalogUC.Visibility = Visibility.Hidden;
+        }
+
+        private void LogoName_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MainWindow.PersonalAccoutUC.Visibility = Visibility.Hidden;
+            UserControls.ShowCatalog.FilterUC.Visibility = Visibility.Visible;
+            MainWindow.ShowCatalogUC.Visibility = Visibility.Visible;
+        }
+
+        private void ExitAccount_Click(object sender, RoutedEventArgs e)
+        {
+            Login.UserID = 0;
+            App.CurrentUser = null;
+            PersonalInfo.SaveBut.IsEnabled = false;
+            ExitAccount.IsEnabled = false;
+            SnackBarMessage.Content = "You exit account!";
+            LoginSnackBar.IsActive = true;
+
         }
     }
 }
