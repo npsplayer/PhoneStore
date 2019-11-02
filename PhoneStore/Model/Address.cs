@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -14,13 +15,13 @@ namespace PhoneStore.Model
        
         public int AddressID {get; set;}
 
-        
+        [StringLength(50)]
         public string Street { get; set; }
 
-        
+        [StringLength(50)]
         public string HouseNumber { get; set; }
 
-        
+        [StringLength(50)]
         public string Entrance { get; set; }
 
         public virtual ICollection<Customer> Customers { get; set; }

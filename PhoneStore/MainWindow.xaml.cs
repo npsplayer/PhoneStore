@@ -29,19 +29,26 @@ namespace PhoneStore
         public static UserControl HeaderUC;
         public static UserControl PersonalAccoutUC;
         public static UserControl SignUpUC;
+
+        
         public MainWindow()
         {
             InitializeComponent();
+            InitializeComponent();
             win = Window;
-            //Loader_Frame_Header();
-            //Loader_Freme_Filer();
             LoginUC = Login;
             ShowCatalogUC = ShowCatalog;
-            //PersonalAccoutUC = PersonalAccout;
+            PersonalAccoutUC = PersonalAccout;
             HeaderUC = Header;
             SignUpUC = SignUp;
 
 
+        }
+        public MainWindow(UserControls.Header header)
+        {
+            
+           
+            
         }
     }
 }

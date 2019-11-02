@@ -29,6 +29,8 @@ namespace PhoneStore.UserControls
             PersonalAccountBtn = PersonalAccount;
             
         }
+        
+        
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
@@ -52,6 +54,8 @@ namespace PhoneStore.UserControls
             UserControls.PersonalAccount.PersonalAccountStackPanel.Visibility = Visibility.Visible;
             ShowCatalog.FilterUC.Visibility = Visibility.Hidden;
             MainWindow.ShowCatalogUC.Visibility = Visibility.Hidden;
+
+
         }
 
         private void LogoName_PreviewMouseDown(object sender, MouseButtonEventArgs e)

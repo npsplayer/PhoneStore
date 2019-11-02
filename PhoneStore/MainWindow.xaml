@@ -16,7 +16,7 @@
 
         <local:Login x:Name="Login" Visibility="Hidden"/>
         <local:Register x:Name="SignUp" Visibility="Hidden"/>
-        <!--<local:PersonalAccount x:Name="PersonalAccout" Visibility="Hidden"/>-->
+        <local:PersonalAccount x:Name="PersonalAccout" Visibility="Hidden"/>
 
     </Grid>
 </Window>

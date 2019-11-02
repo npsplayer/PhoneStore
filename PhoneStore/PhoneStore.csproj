@@ -113,6 +113,14 @@
     <Compile Include="Migrations\201911011712034_Update_UserN.Designer.cs">
       <DependentUpon>201911011712034_Update_UserN.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911020715515_UpdateTable_Address_Customer.cs" />
+    <Compile Include="Migrations\201911020715515_UpdateTable_Address_Customer.Designer.cs">
+      <DependentUpon>201911020715515_UpdateTable_Address_Customer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911020718372_UpdateTable_Address_CustomerNew.cs" />
+    <Compile Include="Migrations\201911020718372_UpdateTable_Address_CustomerNew.Designer.cs">
+      <DependentUpon>201911020718372_UpdateTable_Address_CustomerNew.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\Customer.cs" />
@@ -228,6 +236,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911011712034_Update_UserN.resx">
       <DependentUpon>201911011712034_Update_UserN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911020715515_UpdateTable_Address_Customer.resx">
+      <DependentUpon>201911020715515_UpdateTable_Address_Customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911020718372_UpdateTable_Address_CustomerNew.resx">
+      <DependentUpon>201911020718372_UpdateTable_Address_CustomerNew.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

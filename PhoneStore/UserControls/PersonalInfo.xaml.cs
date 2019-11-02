@@ -25,14 +25,11 @@ namespace PhoneStore.UserControls
         OracleDbContext db = null;
         public PersonalInfo()
         {
+            ShowPersonalInfo();
             InitializeComponent();
             db = new OracleDbContext();
-            ShowPersonalInfo();
-            
-
-            
-            
         }
+
         public void ShowPersonalInfo()
         {
             db = new OracleDbContext();
@@ -84,5 +81,10 @@ namespace PhoneStore.UserControls
             UserControls.PersonalAccount.PersonalAccountStackPanel.Visibility = Visibility.Visible;
             UserControls.PersonalAccount.PersonalInfoUC.Visibility = Visibility.Hidden;
         }
+
+        //private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        //{
+        //    ShowPersonalInfo();
+        //}
     }
 }
