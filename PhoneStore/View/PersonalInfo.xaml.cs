@@ -66,7 +66,7 @@ namespace PhoneStore.View
             var select1 = db.Customers.Where(cus => cus.UserID == View.Login.UserID).FirstOrDefault();
             if (select1 != null)
             {
-                
+                SaveButton.IsEnabled = true;
                 FirstName.Text = select1.FirstName;
                 SecondName.Text = select1.SecondName;
                 Patronymic.Text = select1.Patronymic;
@@ -78,7 +78,6 @@ namespace PhoneStore.View
                 Entrance.Text = select1.Address.Entrance;
                 Username.Text = select1.User.Username;
                 Password.Password = select1.User.Password;
-                SaveBut.IsEnabled = true;
             } 
         }
         private void SaveButton_Click(object sender, RoutedEventArgs e)

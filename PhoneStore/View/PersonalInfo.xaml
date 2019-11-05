@@ -7,7 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="PersonalInfo" WindowState="Maximized" Width="1550" Height="800" WindowStyle="None" x:Name="PersonalInfos">
-    <Grid>
+    <Grid Background="White">
         <StackPanel Height="Auto">
             <Label Content="Personal Info" Foreground="{DynamicResource PrimaryHueDarkBrush}"  HorizontalAlignment="Center" 
                        Margin="0 35 0 0" FontFamily="Xfinity"  FontSize="30" FontWeight="Bold"/>
@@ -16,14 +16,14 @@
                 <Label Content="Person Data" FontFamily="Xfinity"  FontSize="25" Width="Auto" FontWeight="Bold"/>
                 <StackPanel Orientation="Horizontal" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Stretch"
                                 Margin="100 0 0 0">
-                    <TextBox x:Name="FirstName" Text="" materialDesign:HintAssist.Hint="First Name" Width="250"
+                    <TextBox x:Name="FirstName" Text="" materialDesign:HintAssist.Hint="First Name" Width="250"  Foreground="Black"
                              Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"
                                  />
-                    <TextBox x:Name="SecondName" materialDesign:HintAssist.Hint="Second Name" Width="250"
+                    <TextBox x:Name="SecondName" materialDesign:HintAssist.Hint="Second Name" Width="250"  Foreground="Black"
                              Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
-                    <TextBox x:Name="Patronymic" materialDesign:HintAssist.Hint="Patronymic" Width="250"
+                    <TextBox x:Name="Patronymic" materialDesign:HintAssist.Hint="Patronymic" Width="250"  Foreground="Black"
                              Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
-                    <DatePicker x:Name="DateOfBirth" materialDesign:HintAssist.Hint="Date of Birth" Width="250"
+                    <DatePicker x:Name="DateOfBirth" materialDesign:HintAssist.Hint="Date of Birth" Width="250"  Foreground="Black"
                              Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
                 </StackPanel>
             </StackPanel>
@@ -31,11 +31,11 @@
                 <Label Content= "Address" FontFamily="Xfinity"  FontSize="25" Width="Auto" FontWeight="Bold"/>
                 <StackPanel Orientation="Horizontal" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Stretch"
                                 Margin="100 0 0 0">
-                    <TextBox x:Name="Street" materialDesign:HintAssist.Hint="Street" Width="250"
+                    <TextBox x:Name="Street" materialDesign:HintAssist.Hint="Street" Width="250" Foreground="Black"
                              Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
-                    <TextBox x:Name="HomeNumber" materialDesign:HintAssist.Hint="Home Number" Width="250"
+                    <TextBox x:Name="HomeNumber" materialDesign:HintAssist.Hint="Home Number" Width="250" Foreground="Black"
                              Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
-                    <TextBox x:Name="Entrance" materialDesign:HintAssist.Hint="Entrance" Width="250"
+                    <TextBox x:Name="Entrance" materialDesign:HintAssist.Hint="Entrance" Width="250" Foreground="Black"
                              Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
                 </StackPanel>
             </StackPanel>
@@ -44,9 +44,9 @@
                     <Label Content= "Contact Info" FontFamily="Xfinity"  FontSize="25" Width="Auto" FontWeight="Bold"/>
                     <StackPanel Orientation="Horizontal" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Stretch"
                                 Margin="100 0 0 0">
-                        <TextBox x:Name="Email" Text="1311231" materialDesign:HintAssist.Hint="E-mail" Width="250"
+                        <TextBox x:Name="Email" Text="1311231" materialDesign:HintAssist.Hint="E-mail" Width="250" Foreground="Black"
                              Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
-                        <TextBox x:Name="PhoneNumber" materialDesign:HintAssist.Hint="Phone Number" Width="250"
+                        <TextBox x:Name="PhoneNumber" materialDesign:HintAssist.Hint="Phone Number" Width="250" Foreground="Black"
                              Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
                     </StackPanel>
                 </StackPanel>
@@ -56,9 +56,9 @@
                     <Label Content= "Confidential Info" FontFamily="Xfinity"  FontSize="25" Width="Auto" FontWeight="Bold"/>
                     <StackPanel Orientation="Horizontal" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Stretch"
                                 Margin="100 0 0 0">
-                        <TextBox x:Name="Username" materialDesign:HintAssist.Hint="Username" Width="250"
+                        <TextBox x:Name="Username" materialDesign:HintAssist.Hint="Username" Width="250" Foreground="Black"
                              Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
-                        <PasswordBox x:Name="Password" materialDesign:HintAssist.Hint="Password" Width="250"
+                        <PasswordBox x:Name="Password" materialDesign:HintAssist.Hint="Password" Width="250" Foreground="Black"
                              Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
                     </StackPanel>
                 </StackPanel>

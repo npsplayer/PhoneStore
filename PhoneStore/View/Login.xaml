@@ -11,22 +11,30 @@
         <SolidColorBrush Opacity="0.9" Color="#ffdadada"/>
     </Window.Background>
     <Grid>
-        <Grid Background="Transparent">
+        <Grid Background="Transparent" PreviewMouseDown="Grid_PreviewMouseDown">
             <Border CornerRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                Width="300" Height="240" Background="{DynamicResource PrimaryHueDarkBrush}" Opacity="1">
+                Width="320" Height="240" Background="{DynamicResource PrimaryHueDarkBrush}" Opacity="1">
                 <Border.Effect>
                     <DropShadowEffect Color="LightGray" BlurRadius="30" ShadowDepth="0"/>
                 </Border.Effect>
-                <Border Margin="0 0 0 0"  Width="290" Height="230" Background="White" CornerRadius="10">
+                <Border Margin="0 0 0 0"  Width="310" Height="230" Background="White" CornerRadius="10">
                     <StackPanel>
-                        <TextBox x:Name="Username" materialDesign:HintAssist.Hint="Username" Width="220" 
+                        <StackPanel Orientation="Horizontal" Margin="15 0" HorizontalAlignment="Right">
+                        <TextBox x:Name="Username" materialDesign:HintAssist.Hint="Username" Width="220"  
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                              Margin="5 35 5 5" Foreground="Black" FontFamily="XFINITY Standard" FontSize="16"/>
-                        <PasswordBox x:Name="Password" materialDesign:HintAssist.Hint="Password" Width="220"  
+                            <materialDesign:PackIcon x:Name="IconErrorUsername" Kind="AlertCircleOutline" Foreground="Red" Width="25" Height="25" 
+                                                     HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="Hidden" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="15 0" HorizontalAlignment="Right">
+                            <PasswordBox x:Name="Password" materialDesign:HintAssist.Hint="Password" Width="220"  
                                  Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" 
-                                 Margin="5 10 5 5" Foreground="Black" FontFamily="XFINITY Standard" FontSize="16"/>
+                                 Margin="5 0 5 5" Foreground="Black" FontFamily="XFINITY Standard" FontSize="16"/>
+                            <materialDesign:PackIcon x:Name="IconErrorPassword" Kind="AlertCircleOutline" Foreground="Red" Width="25" Height="25" 
+                                                     HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="Hidden"/>
+                        </StackPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 35 0 0">
-                            <Button x:Name="LoginButton" Width="105" Margin="5" 
+                            <Button x:Name="LoginButton" Width="105" Margin="5" KeyUp="LoginButton_KeyDown"
                                 materialDesign:ButtonAssist.CornerRadius="5" Content="Login" 
                                 Foreground="White" FontSize="16" FontFamily="XFINITY Standard" Click="LoginButton_Click"/>
                             <Button x:Name="CancelButton" Width="105" Margin="5"
@@ -47,6 +55,10 @@
 
             </Border>
         </Grid>
-
+        <materialDesign:Snackbar IsActive="False"  x:Name="LoginSnackBar" HorizontalAlignment="Stretch" 
+                                     VerticalContentAlignment="Stretch">
+            <materialDesign:SnackbarMessage Content="Login successful" FontSize="25" Width="Auto" ActionContent="OK" 
+                                               x:Name="SnackBarMessage" ActionClick="SnackbarMessage_ActionClick"/>
+        </materialDesign:Snackbar>
     </Grid>
 </Window>

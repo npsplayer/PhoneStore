@@ -133,6 +133,7 @@
     <Compile Include="UserControls\ShowCatalog.xaml.cs">
       <DependentUpon>ShowCatalog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Validation.cs" />
     <Compile Include="View\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
