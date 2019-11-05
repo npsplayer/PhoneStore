@@ -26,36 +26,55 @@ namespace PhoneStore.View
             InitializeComponent();
             db = new OracleDbContext();
         }
-
-        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        public void Registration()
         {
             db = new OracleDbContext();
-            User user = new User()
-            {
-                Username = Username.Text,
-                Password = Password.Password
-            };
-            db.Users.Add(user);
-            Address address = new Address();
-            db.Addresses.Add(address);
+            if (Validation.ValidateRegisterAndLogin(Username, ErrorUsername, IconUsername,
+                                                    Password, ErrorPassword, IconPassword,
+                                                    ConfirmPassword, ErrorConfirmPassword, IconConfirmPassword)) { 
+                //User user = new User()
+                //{
+                //    Username = Username.Text,
+                //    Password = Password.Password
+                //};
+                //db.Users.Add(user);
 
-            Customer customer = new Customer()
-            {
-                UserID = user.UserID,
-                AddressID = address.AddressID
-            };
-            db.Customers.Add(customer);
-            db.SaveChanges();
+                //Address address = new Address();
+                //db.Addresses.Add(address);
 
-            
-            this.Close();
-            MainWindow.Snackbar.IsActive = true;
-            MainWindow.SnackbarMessage.Content = "Registration successful!";
+                //Customer customer = new Customer()
+                //{
+                //    UserID = user.UserID,
+                //    AddressID = address.AddressID
+                //};
+                //db.Customers.Add(customer);
+                //db.SaveChanges();
+
+
+                
+                MainWindow.Snackbar.IsActive = true;
+                MainWindow.SnackbarMessage.Content = "Registration successful!";
+                this.Close();
+            }
+            //else
+            //{
+            //    RegisterSnackBar.IsActive = true;
+            //    SnackBarMessage.Content = "Username,password and confirm password are not entered correctly!\nCheck the correctness of the entered data!";
+            //}
+        }
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+            Registration();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void SnackbarMessage_ActionClick(object sender, RoutedEventArgs e)
+        {
+            RegisterSnackBar.IsActive = false;
         }
     }
 }

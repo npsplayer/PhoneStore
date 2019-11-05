@@ -25,38 +25,37 @@ namespace PhoneStore.View
     {
         OracleDbContext db = null;
         public static int UserID = 0;
-        public string username;
-        public string password;
         public Login()
         {
             InitializeComponent();
             db = new OracleDbContext();
             db.Users.Load();
-            username = Username.Text;
-            password = Password.Password;
         }
         public void LogIn()
         {
             db = new OracleDbContext();
-            var checkuser = db.Users.Where(user => user.Username.Equals(Username.Text)).FirstOrDefault();
-            if (Validation.ValidateRegisterAndLogin(Username, IconErrorUsername, Password, IconErrorPassword, null, null))
+            var checkuser = db.Users.Where(user => user.Username.Equals(Username.Text) && user.Password.Equals(Password.Password)).FirstOrDefault();
+            if (Validation.ValidateRegisterAndLogin(Username, ErrorUsername,IconUsername, 
+                                                    Password, ErrorPassword, IconPassword, 
+                                                    null, null, null))
             {
                 if (checkuser != null)
                 {
                     UserID = checkuser.UserID;
                     MainWindow.Snackbar.IsActive = true;
                     MainWindow.ExitAccountBtn.IsEnabled = true;
-                    MainWindow.SnackbarMessage.Content = "Welcome, " + checkuser.Username;
+                    MainWindow.SnackbarMessage.Content = "Welcome, " + checkuser.Username + "!";
                     this.Close();
                 }
-            }
-            if (checkuser == null)
-            {
+                if (checkuser == null)
+                {
 
-                LoginSnackBar.IsActive = true;
-                SnackBarMessage.Content = "Username and password are not entered correctly!";
+                    LoginSnackBar.IsActive = true;
+                    SnackBarMessage.Content = "Username and password are not entered correctly!\nCheck the correctness of the entered data!";
 
+                }
             }
+            
         }
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
