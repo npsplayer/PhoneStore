@@ -1,8 +1,10 @@
 ﻿using MaterialDesignThemes.Wpf;
+using Oracle.ManagedDataAccess.Client;
 using PhoneStore.Model;
 using PhoneStore.UserControls;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -28,34 +30,33 @@ namespace PhoneStore.View
         public Login()
         {
             InitializeComponent();
-            db = new OracleDbContext();
-            db.Users.Load();
         }
         public void LogIn()
         {
-            db = new OracleDbContext();
-            var checkuser = db.Users.Where(user => user.Username.Equals(Username.Text) && user.Password.Equals(Password.Password)).FirstOrDefault();
-            if (Validation.ValidateRegisterAndLogin(Username, ErrorUsername,IconUsername, 
-                                                    Password, ErrorPassword, IconPassword, 
-                                                    null, null, null))
+            try
             {
-                if (checkuser != null)
+                db = new OracleDbContext();
+                var USERNAME = new OracleParameter("Username", OracleDbType.NVarchar2, Username.Text, ParameterDirection.Input);
+                var PASSWORD = new OracleParameter("Password", OracleDbType.NVarchar2, Password.Password, ParameterDirection.Input);
+                var USERID_OUT = new OracleParameter("UserID_OUT", OracleDbType.Int32, ParameterDirection.Output);
+                var sql = "BEGIN LOGIN(:Username, :Password, :UserID_OUT); END;";           
+                if (Validation.ValidateRegisterAndLogin(Username, ErrorUsername, IconUsername,
+                                                        Password, ErrorPassword, IconPassword,
+                                                        null, null, null))
                 {
-                    UserID = checkuser.UserID;
-                    MainWindow.Snackbar.IsActive = true;
-                    MainWindow.ExitAccountBtn.IsEnabled = true;
-                    MainWindow.SnackbarMessage.Content = "Welcome, " + checkuser.Username + "!";
-                    this.Close();
+                    var checkuser = db.Database.ExecuteSqlCommand(sql, USERNAME, PASSWORD, USERID_OUT);
+                    
+                        UserID = Convert.ToInt32(USERID_OUT.Value.ToString());
+                        MainWindow.Snackbar.IsActive = true;
+                        MainWindow.ExitAccountBtn.IsEnabled = true;
+                        MainWindow.SnackbarMessage.Content = "Welcome, " + USERNAME.Value + "!";
+                        this.Close();
                 }
-                if (checkuser == null)
-                {
-
-                    LoginSnackBar.IsActive = true;
-                    SnackBarMessage.Content = "Username and password are not entered correctly!\nCheck the correctness of the entered data!";
-
-                }
-            }
-            
+            } catch 
+            {
+                LoginSnackBar.IsActive = true;
+                SnackBarMessage.Content = "Username and password are not entered correctly!\nCheck the correctness of the entered data!";
+            }            
         }
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {

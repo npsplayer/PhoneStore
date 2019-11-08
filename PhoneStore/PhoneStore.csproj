@@ -121,6 +121,22 @@
     <Compile Include="Migrations\201911020718372_UpdateTable_Address_CustomerNew.Designer.cs">
       <DependentUpon>201911020718372_UpdateTable_Address_CustomerNew.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911060616467_AddCityToCustomer.cs" />
+    <Compile Include="Migrations\201911060616467_AddCityToCustomer.Designer.cs">
+      <DependentUpon>201911060616467_AddCityToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911061157193_RemoveAddress.cs" />
+    <Compile Include="Migrations\201911061157193_RemoveAddress.Designer.cs">
+      <DependentUpon>201911061157193_RemoveAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911061852360_RemoveName.cs" />
+    <Compile Include="Migrations\201911061852360_RemoveName.Designer.cs">
+      <DependentUpon>201911061852360_RemoveName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911061936539_RemoveAddress1.cs" />
+    <Compile Include="Migrations\201911061936539_RemoveAddress1.Designer.cs">
+      <DependentUpon>201911061936539_RemoveAddress1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\Customer.cs" />
@@ -237,6 +253,18 @@
     <EmbeddedResource Include="Migrations\201911020718372_UpdateTable_Address_CustomerNew.resx">
       <DependentUpon>201911020718372_UpdateTable_Address_CustomerNew.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911060616467_AddCityToCustomer.resx">
+      <DependentUpon>201911060616467_AddCityToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911061157193_RemoveAddress.resx">
+      <DependentUpon>201911061157193_RemoveAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911061852360_RemoveName.resx">
+      <DependentUpon>201911061852360_RemoveName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911061936539_RemoveAddress1.resx">
+      <DependentUpon>201911061936539_RemoveAddress1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -266,6 +294,10 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="SQLFile\Procedure.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -29,7 +29,6 @@ namespace PhoneStore.Model
 
         [StringLength(50)]
         public string Email { get; set; }
-
         
         public DateTime DateOfBirth { get; set; }
 

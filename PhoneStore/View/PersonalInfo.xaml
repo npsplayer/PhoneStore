@@ -16,27 +16,76 @@
                 <Label Content="Person Data" FontFamily="Xfinity"  FontSize="25" Width="Auto" FontWeight="Bold"/>
                 <StackPanel Orientation="Horizontal" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Stretch"
                                 Margin="100 0 0 0">
-                    <TextBox x:Name="FirstName" Text="" materialDesign:HintAssist.Hint="First Name" Width="250"  Foreground="Black"
-                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"
-                                 />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="FirstName" materialDesign:HintAssist.Hint="First Name" Width="250"  Foreground="Black"
+                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 5 0"/>
+                        <TextBlock x:Name="ErrorFirstName" Foreground="MediumVioletRed" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Visibility="Hidden" Margin="0 0 5 0">
+                                <materialDesign:PackIcon x:Name="IconFirstName" Kind="AlertCircleOutline" Width="30" Height="30"  />
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
                     <TextBox x:Name="SecondName" materialDesign:HintAssist.Hint="Second Name" Width="250"  Foreground="Black"
-                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
+                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 5 0"/>
+                        <TextBlock x:Name="ErrorSecondName" Foreground="MediumVioletRed" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Visibility="Hidden" Margin="0 0 5 0">
+                                <materialDesign:PackIcon x:Name="IconSecondName" Kind="AlertCircleOutline" Width="30" Height="30"  />
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
                     <TextBox x:Name="Patronymic" materialDesign:HintAssist.Hint="Patronymic" Width="250"  Foreground="Black"
-                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
+                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 5 0"/>
+                        <TextBlock x:Name="ErrorPatronymic" Foreground="MediumVioletRed" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Visibility="Hidden" Margin="0 0 5 0">
+                                <materialDesign:PackIcon x:Name="IconPatronymic" Kind="AlertCircleOutline" Width="30" Height="30"  />
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
                     <DatePicker x:Name="DateOfBirth" materialDesign:HintAssist.Hint="Date of Birth" Width="250"  Foreground="Black"
-                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
+                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 5 0"/>
+                        <TextBlock x:Name="ErrorDateOfBirth" Foreground="MediumVioletRed" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Visibility="Hidden" Margin="0 0 5 0">
+                                <materialDesign:PackIcon x:Name="IconDateOfBirth" Kind="AlertCircleOutline" Width="30" Height="30"  />
+                        </TextBlock>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Vertical" Width="Auto" Margin="90 0 90 50" Height="85" Background="#efefef">
                 <Label Content= "Address" FontFamily="Xfinity"  FontSize="25" Width="Auto" FontWeight="Bold"/>
                 <StackPanel Orientation="Horizontal" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Stretch"
                                 Margin="100 0 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="City" materialDesign:HintAssist.Hint="City" Width="250" Foreground="Black"
+                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 5 0"/>
+                        <TextBlock x:Name="ErrorCity" Foreground="MediumVioletRed" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Visibility="Hidden" Margin="0 0 5 0">
+                                <materialDesign:PackIcon x:Name="IconCity" Kind="AlertCircleOutline" Width="30" Height="30"  />
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
                     <TextBox x:Name="Street" materialDesign:HintAssist.Hint="Street" Width="250" Foreground="Black"
-                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
+                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 5 0"/>
+                        <TextBlock x:Name="ErrorStreet" Foreground="MediumVioletRed" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Visibility="Hidden" Margin="0 0 5 0">
+                                <materialDesign:PackIcon x:Name="IconStreet" Kind="AlertCircleOutline" Width="30" Height="30"  />
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
                     <TextBox x:Name="HomeNumber" materialDesign:HintAssist.Hint="Home Number" Width="250" Foreground="Black"
-                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
-                    <TextBox x:Name="Entrance" materialDesign:HintAssist.Hint="Entrance" Width="250" Foreground="Black"
-                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
+                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 5 0"/>
+                        <TextBlock x:Name="ErrorHomeNumber" Foreground="MediumVioletRed" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Visibility="Hidden" Margin="0 0 5 0">
+                                <materialDesign:PackIcon x:Name="IconHomeNumber" Kind="AlertCircleOutline" Width="30" Height="30"  />
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="Room" materialDesign:HintAssist.Hint="Room" Width="250" Foreground="Black"
+                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 5 0"/>
+                        <TextBlock x:Name="ErrorRoom" Foreground="MediumVioletRed" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Visibility="Hidden" Margin="0 0 5 0">
+                                <materialDesign:PackIcon x:Name="IconRoom" Kind="AlertCircleOutline" Width="30" Height="30"  />
+                        </TextBlock>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
             <StackPanel>
@@ -44,10 +93,22 @@
                     <Label Content= "Contact Info" FontFamily="Xfinity"  FontSize="25" Width="Auto" FontWeight="Bold"/>
                     <StackPanel Orientation="Horizontal" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Stretch"
                                 Margin="100 0 0 0">
-                        <TextBox x:Name="Email" Text="1311231" materialDesign:HintAssist.Hint="E-mail" Width="250" Foreground="Black"
-                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="Email"  materialDesign:HintAssist.Hint="E-mail" Width="250" Foreground="Black"
+                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 5 0"/>
+                            <TextBlock x:Name="ErrorEmail" Foreground="MediumVioletRed" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Visibility="Hidden" Margin="0 0 5 0">
+                                <materialDesign:PackIcon x:Name="IconEmail" Kind="AlertCircleOutline" Width="30" Height="30"  />
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
                         <TextBox x:Name="PhoneNumber" materialDesign:HintAssist.Hint="Phone Number" Width="250" Foreground="Black"
-                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
+                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 5 0"/>
+                            <TextBlock x:Name="ErrorPhoneNumber" Foreground="MediumVioletRed" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Visibility="Hidden" Margin="0 0 5 0">
+                                <materialDesign:PackIcon x:Name="IconPhoneNumber" Kind="AlertCircleOutline" Width="30" Height="30"  />
+                           </TextBlock>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
@@ -56,10 +117,22 @@
                     <Label Content= "Confidential Info" FontFamily="Xfinity"  FontSize="25" Width="Auto" FontWeight="Bold"/>
                     <StackPanel Orientation="Horizontal" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Stretch"
                                 Margin="100 0 0 0">
+                        <StackPanel Orientation="Horizontal">
                         <TextBox x:Name="Username" materialDesign:HintAssist.Hint="Username" Width="250" Foreground="Black"
-                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
+                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 5 0"/>
+                            <TextBlock x:Name="ErrorUsername" Foreground="MediumVioletRed" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Visibility="Hidden" Margin="0 0 5 0">
+                                <materialDesign:PackIcon x:Name="IconUsername" Kind="AlertCircleOutline" Width="30" Height="30"  />
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
                         <PasswordBox x:Name="Password" materialDesign:HintAssist.Hint="Password" Width="250" Foreground="Black"
-                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 25 0"/>
+                             Height="40" FontFamily="Xfinity"  FontSize="22" HorizontalAlignment="Left" Margin="10 0 5 0"/>
+                            <TextBlock x:Name="ErrorPassword" Foreground="MediumVioletRed" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Visibility="Hidden" Margin="0 0 5 0">
+                                <materialDesign:PackIcon x:Name="IconPassword" Kind="AlertCircleOutline" Width="30" Height="30"  />
+                            </TextBlock>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

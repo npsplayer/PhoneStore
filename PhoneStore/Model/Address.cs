@@ -15,6 +15,10 @@ namespace PhoneStore.Model
        
         public int AddressID {get; set;}
 
+
+        [StringLength(50)]
+        public string City { get; set; }
+
         [StringLength(50)]
         public string Street { get; set; }
 
@@ -22,7 +26,7 @@ namespace PhoneStore.Model
         public string HouseNumber { get; set; }
 
         [StringLength(50)]
-        public string Entrance { get; set; }
+        public string Room { get; set; }
 
         public virtual ICollection<Customer> Customers { get; set; }
 
