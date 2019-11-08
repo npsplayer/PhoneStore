@@ -26,12 +26,12 @@ namespace PhoneStore.View
         OracleDbContext db = null;
         View.PersonalInfo personalInfo;
         public static Button SaveBut;
+        int userid = Login.UserID;
+        int addressid = Login.AddressID;
         public PersonalInfo()
         {
-
             InitializeComponent();
-            db = new OracleDbContext();
-            ClearInfo();
+            CheckNull();
             ShowPersonalInfo();
             SaveBut = SaveButton;
         }
@@ -40,62 +40,45 @@ namespace PhoneStore.View
             InitializeComponent();
             db = new OracleDbContext();
             personalInfo = personal;
-            ClearInfo();
-            ShowPersonalInfo();
-            SaveBut = SaveButton;
         }
-
-        public void ClearInfo()
+        public void CheckNull()
         {
-            FirstName.Text = "";
-            SecondName.Text = String.Empty;
-            Patronymic.Text = String.Empty;
-            DateOfBirth.Text = String.Empty;
-            Email.Text = String.Empty;
-            PhoneNumber.Text = String.Empty;
-            Street.Text = String.Empty;
-            HomeNumber.Text = String.Empty;
-            Room.Text = String.Empty;
-            Username.Text = String.Empty;
-            Password.Password = String.Empty;
+            if (FirstName.Text == "null" || FirstName.Text == "") { FirstName.Text = String.Empty; }
+            if (SecondName.Text == "null" || SecondName.Text == "") { SecondName.Text = String.Empty; }
+            if (Patronymic.Text == "null" || Patronymic.Text == "") { Patronymic.Text = String.Empty; }
+            if (DateOfBirth.Text == "null" || DateOfBirth.Text == "") { DateOfBirth.Text = String.Empty; }
+            if (Email.Text == "null" || Email.Text == "") { Email.Text = String.Empty; }
+            if (PhoneNumber.Text == "null" || PhoneNumber.Text == "") { PhoneNumber.Text = String.Empty; }
+            if (Street.Text == "null" || Street.Text == "") { Street.Text = String.Empty; }
+            if (City.Text == "null" || City.Text == "") { City.Text = String.Empty; }
+            if (HomeNumber.Text == "null" || HomeNumber.Text == "") { HomeNumber.Text = String.Empty; }
+            if (Room.Text == "null" || Room.Text == "") { Room.Text = String.Empty; }
+            if (Username.Text == "null" || Username.Text == "") { Username.Text = String.Empty; }
+            if (Password.Password == "null" || Password.Password == "") { Password.Password = String.Empty; }
         }
         public void ShowPersonalInfo()
         {
             try
             {
                 db = new OracleDbContext();
-                Int32 userid = Login.UserID;
-                var id = new OracleParameter("id", OracleDbType.Decimal, ParameterDirection.Input);
-                id.Value = 26;
                 var id_out = new OracleParameter("id_out", OracleDbType.Decimal, ParameterDirection.Output);
-                var username_out = new OracleParameter("username_out", OracleDbType.NVarchar2, ParameterDirection.Output);
-                username_out.Size = 50;
-                var password_out = new OracleParameter("password_out", OracleDbType.NVarchar2, Password.Password, ParameterDirection.Output);
-                password_out.Size = 50;
-                var city_out = new OracleParameter("city_out", OracleDbType.NVarchar2, ParameterDirection.Output);
-                city_out.Size = 50;
-                var street_out = new OracleParameter("street_out", OracleDbType.NVarchar2, ParameterDirection.Output);
-                street_out.Size = 50;
-                var hosenumber_out = new OracleParameter("hosenumber_out", OracleDbType.NVarchar2, ParameterDirection.Output);
-                hosenumber_out.Size = 50;
-                var room_out = new OracleParameter("room_out", OracleDbType.NVarchar2, ParameterDirection.Output);
-                room_out.Size = 50;
-                var firstname_out = new OracleParameter("firstname_out", OracleDbType.NVarchar2, ParameterDirection.Output);
-                firstname_out.Size = 50;
-                var secondname_out = new OracleParameter("secondname_out", OracleDbType.NVarchar2, ParameterDirection.Output);
-                secondname_out.Size = 50;
-                var patronymic_out = new OracleParameter("patronymic_out", OracleDbType.NVarchar2, ParameterDirection.Output);
-                patronymic_out.Size = 50;
+                var username_out = new OracleParameter("username_out", OracleDbType.NVarchar2, ParameterDirection.Output); username_out.Size = 50;
+                var password_out = new OracleParameter("password_out", OracleDbType.NVarchar2, Password.Password, ParameterDirection.Output); password_out.Size = 50;
+                var city_out = new OracleParameter("city_out", OracleDbType.NVarchar2, ParameterDirection.Output); city_out.Size = 50;
+                var street_out = new OracleParameter("street_out", OracleDbType.NVarchar2, ParameterDirection.Output); street_out.Size = 50;
+                var homenumber_out = new OracleParameter("homenumber_out", OracleDbType.NVarchar2, ParameterDirection.Output); homenumber_out.Size = 50;
+                var room_out = new OracleParameter("room_out", OracleDbType.NVarchar2, ParameterDirection.Output); room_out.Size = 50;
+                var firstname_out = new OracleParameter("firstname_out", OracleDbType.NVarchar2, ParameterDirection.Output); firstname_out.Size = 50;
+                var secondname_out = new OracleParameter("secondname_out", OracleDbType.NVarchar2, ParameterDirection.Output); secondname_out.Size = 50;
+                var patronymic_out = new OracleParameter("patronymic_out", OracleDbType.NVarchar2, ParameterDirection.Output); patronymic_out.Size = 50;
                 var dateofbirth_out = new OracleParameter("dateofbirth_out", OracleDbType.Date, ParameterDirection.Output);
-                var email_out = new OracleParameter("email_out", OracleDbType.NVarchar2, ParameterDirection.Output);
-                email_out.Size = 50;
-                var phonenumber_out = new OracleParameter("phonenumber_out", OracleDbType.NVarchar2, ParameterDirection.Output);
-                phonenumber_out.Size = 50;
+                var email_out = new OracleParameter("email_out", OracleDbType.NVarchar2, ParameterDirection.Output); email_out.Size = 50;
+                var phonenumber_out = new OracleParameter("phonenumber_out", OracleDbType.NVarchar2, ParameterDirection.Output); phonenumber_out.Size = 50;
 
-                var sql = "BEGIN PERSONALINFOSELECT(" + userid + ", :username_out, :password_out, :city_out, :street_out, :hosenumber_out, :room_out, :firstname_out, :secondname_out, :patronymic_out, :dateofbirth_out, :email_out, :phonenumber_out); END;";
-                var checkuser = db.Database.ExecuteSqlCommand(sql, username_out, password_out, city_out, street_out, hosenumber_out, room_out, firstname_out, secondname_out, patronymic_out, dateofbirth_out, email_out, phonenumber_out);
+                var sql = "BEGIN PERSONALINFOSELECT(" + userid + ", :username_out, :password_out, :city_out, :street_out, :homenumber_out, :room_out, :firstname_out, :secondname_out, :patronymic_out, :dateofbirth_out, :email_out, :phonenumber_out); END;";
+                var select = db.Database.ExecuteSqlCommand(sql, username_out, password_out, city_out, street_out, homenumber_out, room_out, firstname_out, secondname_out, patronymic_out, dateofbirth_out, email_out, phonenumber_out);
                 SaveButton.IsEnabled = true;
-
+               
                 FirstName.Text = firstname_out.Value.ToString();
                 SecondName.Text = secondname_out.Value.ToString();
                 Patronymic.Text = patronymic_out.Value.ToString();
@@ -103,11 +86,12 @@ namespace PhoneStore.View
                 Email.Text = email_out.Value.ToString();
                 PhoneNumber.Text = phonenumber_out.Value.ToString();
                 Street.Text = street_out.Value.ToString();
-                HomeNumber.Text = hosenumber_out.Value.ToString();
+                HomeNumber.Text = homenumber_out.Value.ToString();
                 Room.Text = room_out.Value.ToString();
                 Username.Text = username_out.Value.ToString();
                 Password.Password = password_out.Value.ToString();
                 City.Text = city_out.Value.ToString();
+                CheckNull();
             }
             catch
             {
@@ -118,7 +102,6 @@ namespace PhoneStore.View
         public void SaveInfo()
         {
             db = new OracleDbContext();
-            var select1 = db.Customers.Where(cus => cus.UserID == View.Login.UserID).FirstOrDefault();
             if (Validation.ValidatePersonalInfo(FirstName, ErrorFirstName, IconFirstName,
                                                SecondName, ErrorSecondName, IconSecondName,
                                                Patronymic, ErrorPatronymic, IconPatronymic,
@@ -133,50 +116,30 @@ namespace PhoneStore.View
                                                Password, ErrorPassword, IconPassword
                                                ))
             {
-                if (select1 == null)
-                {
-                    Address address = new Address()
-                    {
-                        Street = Street.Text,
-                        HouseNumber = HomeNumber.Text,
-                        Room = Room.Text
-                    };
-                    db.Addresses.Add(address);
-                    Customer customer = new Customer()
-                    {
-                        FirstName = FirstName.Text,
-                        SecondName = SecondName.Text,
-                        Patronymic = Patronymic.Text,
-                        DateOfBirth = Convert.ToDateTime(DateOfBirth.Text),
-                        Email = Email.Text,
-                        PhoneNumber = PhoneNumber.Text,
-                        AddressID = address.AddressID,
-                        UserID = Login.UserID,
-                    };
-                    db.Customers.Add(customer);
-                    db.SaveChanges();
+                //try
+                //{
+                    var USERNAME = new OracleParameter("USERNAME", OracleDbType.NVarchar2, Username.Text, ParameterDirection.InputOutput);
+                    var PASSWORD = new OracleParameter("PASSWORD", OracleDbType.NVarchar2, Password.Password, ParameterDirection.InputOutput);
+                    var CITY = new OracleParameter("CITY", OracleDbType.NVarchar2, City.Text, ParameterDirection.InputOutput);
+                    var STREET = new OracleParameter("STREET", OracleDbType.NVarchar2, Street.Text, ParameterDirection.InputOutput);
+                    var HOMENUMBER = new OracleParameter("HOUSENUMBER", OracleDbType.NVarchar2, HomeNumber.Text, ParameterDirection.InputOutput);
+                    var ROOM = new OracleParameter("USERNAME", OracleDbType.NVarchar2, Room.Text, ParameterDirection.InputOutput);
+                    var FIRSTNAME = new OracleParameter("USERNAME", OracleDbType.NVarchar2, FirstName.Text, ParameterDirection.InputOutput);
+                    var SECONDNAME = new OracleParameter("USERNAME", OracleDbType.NVarchar2, SecondName.Text, ParameterDirection.InputOutput);
+                    var PATRONYMIC = new OracleParameter("USERNAME", OracleDbType.NVarchar2, Patronymic.Text, ParameterDirection.InputOutput);
+                    var DATEOFBIRTH = new OracleParameter("USERNAME", OracleDbType.Date, Convert.ToDateTime(DateOfBirth.Text), ParameterDirection.InputOutput);
+                    var EMAIL = new OracleParameter("USERNAME", OracleDbType.NVarchar2, Email.Text, ParameterDirection.InputOutput);
+                    var PHONENUMBER = new OracleParameter("USERNAME", OracleDbType.NVarchar2, PhoneNumber.Text, ParameterDirection.InputOutput);
+                    var sql = "BEGIN PERSONAINFOUPDATE(" + userid + ", :USERNAME, :PASSWORD," + addressid + ",:CITY, :STREET, :HOMENUMBER, :ROOM, :FIRSTNAME, :SECONDNAME, :PATRONYMIC, :DATEOFBIRTH, :EMAIL, :PHONENUMBER); END;";
+                    var update = db.Database.ExecuteSqlCommand(sql, USERNAME, PASSWORD, CITY, STREET, HOMENUMBER, ROOM, FIRSTNAME, SECONDNAME, PATRONYMIC, DATEOFBIRTH, EMAIL, PHONENUMBER);
                     PersonalInfoSnackBar.IsActive = true;
-                }
-                else if (select1 != null)
-                {
-                    Customer customerUpt = (from cust in db.Customers where cust.UserID == select1.UserID select cust).FirstOrDefault();
-                    customerUpt.FirstName = FirstName.Text;
-                    customerUpt.SecondName = SecondName.Text;
-                    customerUpt.Patronymic = Patronymic.Text;
-                    customerUpt.DateOfBirth = Convert.ToDateTime(DateOfBirth.Text);
-                    customerUpt.Email = Email.Text;
-                    customerUpt.PhoneNumber = PhoneNumber.Text;
-                    customerUpt.Address.Street = Street.Text;
-                    customerUpt.Address.HouseNumber = HomeNumber.Text;
-                    customerUpt.Address.Room = Room.Text;
-
-                    User UserUpt = (from user in db.Users where user.UserID == select1.UserID select user).Single();
-                    UserUpt.Username = Username.Text;
-                    UserUpt.Password = Password.Password;
-
-                    db.SaveChanges();
-                    PersonalInfoSnackBar.IsActive = true;
-                }
+                //}
+                //catch
+                //{
+                //    PersonalInfoSnackBar.IsActive = true;
+                //    SnackBarMessage.Content = "Ooopss... Try again?";
+                //}
+                
             }
         }
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -187,7 +150,7 @@ namespace PhoneStore.View
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            ClearInfo();
+            CheckNull();
             this.Close();
         }
 

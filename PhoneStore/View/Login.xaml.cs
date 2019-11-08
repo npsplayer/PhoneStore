@@ -27,6 +27,7 @@ namespace PhoneStore.View
     {
         OracleDbContext db = null;
         public static int UserID = 0;
+        public static int AddressID = 0;
         public Login()
         {
             InitializeComponent();
@@ -39,15 +40,17 @@ namespace PhoneStore.View
                 var USERNAME = new OracleParameter("Username", OracleDbType.NVarchar2, Username.Text, ParameterDirection.Input);
                 var PASSWORD = new OracleParameter("Password", OracleDbType.NVarchar2, Password.Password, ParameterDirection.Input);
                 var USERID_OUT = new OracleParameter("UserID_OUT", OracleDbType.Int32, ParameterDirection.Output);
-                var sql = "BEGIN LOGIN(:Username, :Password, :UserID_OUT); END;";           
+                var ADDRESSID_OUT = new OracleParameter("AddressID_OUT", OracleDbType.Decimal, ParameterDirection.Output);
+                var sql = "BEGIN LOGIN(:Username, :Password, :UserID_OUT, :ADDRESSID_OUT); END;";           
                 if (Validation.ValidateRegisterAndLogin(Username, ErrorUsername, IconUsername,
                                                         Password, ErrorPassword, IconPassword,
                                                         null, null, null))
                 {
-                    var checkuser = db.Database.ExecuteSqlCommand(sql, USERNAME, PASSWORD, USERID_OUT);
+                    var checkuser = db.Database.ExecuteSqlCommand(sql, USERNAME, PASSWORD, USERID_OUT, ADDRESSID_OUT);
                     
                         UserID = Convert.ToInt32(USERID_OUT.Value.ToString());
-                        MainWindow.Snackbar.IsActive = true;
+                        AddressID = Convert.ToInt32(ADDRESSID_OUT.Value.ToString());
+                    MainWindow.Snackbar.IsActive = true;
                         MainWindow.ExitAccountBtn.IsEnabled = true;
                         MainWindow.SnackbarMessage.Content = "Welcome, " + USERNAME.Value + "!";
                         this.Close();

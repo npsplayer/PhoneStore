@@ -298,6 +298,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="SQLFile\Procedure.sql" />
+    <Content Include="SQLFile\Script.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

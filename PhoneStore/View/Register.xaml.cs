@@ -35,8 +35,8 @@ namespace PhoneStore.View
                                                     Password, ErrorPassword, IconPassword,
                                                     ConfirmPassword, ErrorConfirmPassword, IconConfirmPassword))
             {
-                //try
-                //{
+                try
+                {
                     var USERNAME = new OracleParameter("Username", OracleDbType.NVarchar2, Username.Text, ParameterDirection.Input);
                     var PASSWORD = new OracleParameter("Password", OracleDbType.NVarchar2, Password.Password, ParameterDirection.Input);
                     var CITY = new OracleParameter("City", OracleDbType.NVarchar2, null, ParameterDirection.Input);
@@ -55,12 +55,12 @@ namespace PhoneStore.View
                     MainWindow.Snackbar.IsActive = true;
                     MainWindow.SnackbarMessage.Content = "Registration successful!";
                     this.Close();
-                //}
-                //catch
-                //{
-                //    RegisterSnackBar.IsActive = true;
-                //    SnackBarMessage.Content = "Username,password and confirm password are not entered correctly!\nCheck the correctness of the entered data!";
-                //}
+                }
+                catch
+                {
+                    RegisterSnackBar.IsActive = true;
+                    SnackBarMessage.Content = "Username,password and confirm password are not entered correctly!\nCheck the correctness of the entered data!";
+                }
 
 
             }
