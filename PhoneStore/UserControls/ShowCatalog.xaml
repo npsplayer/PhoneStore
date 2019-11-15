@@ -4,79 +4,291 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PhoneStore.UserControls"
+             xmlns:converter="clr-namespace:PhoneStore"
                      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="1500">
+             d:DesignHeight="1000" d:DesignWidth="1500">
+    <UserControl.Resources>
+        <converter:ImageConverter x:Key="Converter"/>
+    </UserControl.Resources>
     <Grid>
-        <StackPanel Orientation="Vertical">
-            <local:Filter x:Name="Filter" Margin="0 80 0 0"></local:Filter>
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            
         </StackPanel>
-        <ScrollViewer VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 165 0 0">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+        <ScrollViewer VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 0 0 0">
+            <StackPanel>
+                <WrapPanel Orientation="Vertical" Margin="0 10 0 0">
+                    <materialDesign:Card Foreground="{DynamicResource MaterialDesignBody}">
+                        <Expander HorizontalAlignment="Stretch" Header="Filter" FontWeight="UltraBold">
+                            <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="24,8,24,16">
+                                <Expander HorizontalAlignment="Stretch" Header="Basic"  FontWeight="UltraBold" FontSize="24" FontFamily="XFINITY Standard">
+                                    <WrapPanel Orientation="Horizontal" Margin="24,8,24,16">
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Label Content="Type:" Margin="15 0 0 0" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"
+                                                   FontWeight="DemiBold"/>
+                                            <ComboBox Margin="15 0 15 0" Width="130" Height="40" Padding="5" materialDesign:HintAssist.Hint="Type"
+                                                  materialDesign:HintAssist.HintOpacity="0.3" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" 
+                                                  FontSize="16" FontFamily="XFINITY Standard" FontWeight="Normal">
+                                                <ComboBoxItem Content="Smartphone"/>
+                                                <ComboBoxItem Content="Table"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="OS:" Margin="15 0 0 0" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"
+                                                   FontWeight="DemiBold"/>
+                                            <ComboBox Margin="15 0 15 0" Width="130" Height="40" Padding="5" materialDesign:HintAssist.Hint="Type"
+                                                  materialDesign:HintAssist.HintOpacity="0.3" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" 
+                                                  FontSize="16" FontFamily="XFINITY Standard" FontWeight="Normal">
+                                                <ComboBoxItem Content="iOS"/>
+                                                <ComboBoxItem Content="Android"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Height="90">
+                                            <Label Content="Screen size, inch:" FontWeight="DemiBold" Margin="15 0 0 0" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"/>
+                                            <Slider Width="200" TickFrequency="0.1" Orientation="Horizontal"  Style="{StaticResource MaterialDesignDiscreteSlider}" ToolTip="MaterialDesignDiscreteSlider" Minimum="1" Maximum="8" IsSelectionRangeEnabled="True" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="RAM, Gb:" FontWeight="DemiBold" Margin="15 0 0 0" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"/>
+                                            <ComboBox Margin="15 0 15 0" FontWeight="Normal" Width="130" Height="40" Padding="5" materialDesign:HintAssist.Hint="RAM"
+                                                  materialDesign:HintAssist.HintOpacity="0.3" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" 
+                                                  FontSize="16" FontFamily="XFINITY Standard">
+                                                <ComboBoxItem Content="1"/>
+                                                <ComboBoxItem Content="2"/>
+                                                <ComboBoxItem Content="3"/>
+                                                <ComboBoxItem Content="4"/>
+                                                <ComboBoxItem Content="6"/>
+                                                <ComboBoxItem Content="8"/>
+                                                <ComboBoxItem Content="10"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="The number of SIM cards:" FontWeight="DemiBold" Margin="15 0 0 0" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"/>
+                                            <ComboBox Margin="15 0 15 0" Width="130" Height="40" Padding="5" materialDesign:HintAssist.Hint="SIM cards"
+                                                  materialDesign:HintAssist.HintOpacity="0.3" FontWeight="Normal" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" 
+                                                  FontSize="16" FontFamily="XFINITY Standard">
+                                                <ComboBoxItem Content="1"/>
+                                                <ComboBoxItem Content="2"/>
+                                                <ComboBoxItem Content="3"/>
+                                                <ComboBoxItem Content="4"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Height="90">
+                                            <Label Content="Market Launch Date, year:" FontWeight="DemiBold" Margin="15 0 0 0" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"/>
+                                            <Slider Width="200" TickFrequency="1" Orientation="Horizontal"  Style="{StaticResource MaterialDesignDiscreteSlider}" ToolTip="MaterialDesignDiscreteSlider" Minimum="2000" Maximum="2020" IsSelectionRangeEnabled="True" />
+                                        </StackPanel>
 
-                <ItemsControl x:Name="ListViewCatalog" Width="Auto" MaxWidth="1550">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="0 20 40 20">
-                                <Border Style="{DynamicResource BorderCatalogOutside}">
-                                    <Border.Effect>
-                                        <DropShadowEffect Color="Gray" Opacity="0.0"></DropShadowEffect>
-                                    </Border.Effect>
-                                    <Border Style="{DynamicResource BorderCatalogInside}">
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock x:Name="NameCatalog" Text="HONOR 20" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                    </WrapPanel>
+                                </Expander>
+                                <Expander HorizontalAlignment="Stretch" Header="CPU">
+                                    <WrapPanel Orientation="Horizontal" Margin="24,8,24,16">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="Platform:" FontWeight="DemiBold" Margin="15 0 0 0" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"/>
+                                            <ComboBox Margin="15 0 15 0" Width="210" FontWeight="Normal" Height="40" Padding="5" materialDesign:HintAssist.Hint="Platform"
+                                                  materialDesign:HintAssist.HintOpacity="0.3" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" 
+                                                  FontSize="16" FontFamily="XFINITY Standard">
+                                                <ComboBoxItem Content="Apple A"/>
+                                                <ComboBoxItem Content="Samsung Exynos"/>
+                                                <ComboBoxItem Content="Huawei HiSilicon"/>
+                                                <ComboBoxItem Content="Intel Atom"/>
+                                                <ComboBoxItem Content="Marvell"/>
+                                                <ComboBoxItem Content="Qualcomm Snapdragon"/>
+                                                <ComboBoxItem Content="Spreadtrum"/>
+                                                <ComboBoxItem Content="Xiaomi Surge"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="Proccesor:" FontWeight="DemiBold" Margin="15 0 0 0" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"/>
+                                            <ComboBox Margin="15 0 15 0" Width="240" FontWeight="Normal" Height="40" Padding="5" materialDesign:HintAssist.Hint="Proccesor"
+                                                  materialDesign:HintAssist.HintOpacity="0.3" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" 
+                                                  FontSize="16" FontFamily="XFINITY Standard">
+                                                <ComboBoxItem Content="Apple A4"/>
+                                                <ComboBoxItem Content="Apple A6"/>
+                                                <ComboBoxItem Content="Qualcomm Snapdragon 835"/>
+                                                <ComboBoxItem Content="Qualcomm Snapdragon 845"/>
+                                                <ComboBoxItem Content="Qualcomm Snapdragon 855"/>
+                                                <ComboBoxItem Content="HiSilicon Kirin 960"/>
+                                                <ComboBoxItem Content="HiSilicon Kirin 970"/>
+                                                <ComboBoxItem Content="HiSilicon Kirin 980"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Height="90">
+                                            <Label Content="Clock frequency, GHz:" FontWeight="DemiBold" Margin="15 0 0 0" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"/>
+                                            <Slider Width="220" TickFrequency="50" Orientation="Horizontal"  Style="{StaticResource MaterialDesignDiscreteSlider}" ToolTip="MaterialDesignDiscreteSlider" Minimum="1" Maximum="3000" IsSelectionRangeEnabled="True" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="The number of cores:" FontWeight="DemiBold" Margin="15 0 0 0" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"/>
+                                            <ComboBox Margin="15 0 15 0" Width="67" Height="40" FontWeight="Normal" Padding="5" materialDesign:HintAssist.Hint="Cores"
+                                                  materialDesign:HintAssist.HintOpacity="0.3" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" 
+                                                  FontSize="16" FontFamily="XFINITY Standard">
+                                                <ComboBoxItem Content="1"/>
+                                                <ComboBoxItem Content="2"/>
+                                                <ComboBoxItem Content="3"/>
+                                                <ComboBoxItem Content="4"/>
+                                                <ComboBoxItem Content="6"/>
+                                                <ComboBoxItem Content="8"/>
+                                                <ComboBoxItem Content="10"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                    </WrapPanel>
+                                </Expander>
+                                <Expander HorizontalAlignment="Stretch" Header="Design">
+                                    <WrapPanel Orientation="Horizontal" Margin="24,8,24,16">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="Case design:" FontWeight="DemiBold" Margin="15 0 0 0" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"/>
+                                            <ComboBox Margin="15 0 15 0" Width="150" Height="40" Padding="5" materialDesign:HintAssist.Hint="Design"
+                                                  materialDesign:HintAssist.HintOpacity="0.3" FontWeight="Normal" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" 
+                                                  FontSize="16" FontFamily="XFINITY Standard">
+                                                <ComboBoxItem Content="Monoblock"/>
+                                                <ComboBoxItem Content="Cot"/>
+                                                <ComboBoxItem Content="Slider"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="Case color:" Margin="15 0 0 0" FontWeight="DemiBold" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"/>
+                                            <ComboBox Margin="15 0 15 0" Width="150" Height="40" Padding="5" FontWeight="Normal" materialDesign:HintAssist.Hint="Color"
+                                                  materialDesign:HintAssist.HintOpacity="0.3" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" 
+                                                  FontSize="16" FontFamily="XFINITY Standard">
+                                                <ComboBoxItem Content="White"/>
+                                                <ComboBoxItem Content="Black"/>
+                                                <ComboBoxItem Content="Blue"/>
+                                                <ComboBoxItem Content="Purple"/>
+                                                <ComboBoxItem Content="Pink"/>
+                                                <ComboBoxItem Content="Green"/>
+                                                <ComboBoxItem Content="Yellow"/>
+                                                <ComboBoxItem Content="Gray"/>
+                                                <ComboBoxItem Content="Red"/>
+                                                <ComboBoxItem Content="Gold"/>
+                                                <ComboBoxItem Content="Silver"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="Case material:" Margin="15 0 0 0" FontWeight="DemiBold" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"/>
+                                            <ComboBox Margin="15 0 15 0" Width="150" Height="40" Padding="5" FontWeight="Normal" materialDesign:HintAssist.Hint="Material"
+                                                  materialDesign:HintAssist.HintOpacity="0.3" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" 
+                                                  FontSize="16" FontFamily="XFINITY Standard">
+                                                <ComboBoxItem Content="Plastic"/>
+                                                <ComboBoxItem Content="Metal"/>
+                                                <ComboBoxItem Content="Rubber"/>
+                                                <ComboBoxItem Content="Glass"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                    </WrapPanel>
+                                </Expander>
+                                <Expander HorizontalAlignment="Stretch" Header="Size and weight">
+                                    <WrapPanel Orientation="Horizontal" Margin="24,8,24,16">
+                                        <StackPanel Orientation="Horizontal" Height="90">
+                                            <Label Content="Length, mm:" Margin="15 0 25 0" FontWeight="DemiBold" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"/>
+                                            <Slider Width="1200" TickFrequency="0.1" Orientation="Horizontal" FontWeight="Normal"  Style="{StaticResource MaterialDesignDiscreteSlider}" ToolTip="MaterialDesignDiscreteSlider" Minimum="1" Maximum="400" IsSelectionRangeEnabled="True" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Height="90">
+                                            <Label Content="Width, mm:" Margin="15 0 31 0" FontWeight="DemiBold" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"/>
+                                            <Slider Width="1200" TickFrequency="0.1" Orientation="Horizontal" FontWeight="Normal"   Style="{StaticResource MaterialDesignDiscreteSlider}" ToolTip="MaterialDesignDiscreteSlider" Minimum="1" Maximum="300" IsSelectionRangeEnabled="True" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Height="90">
+                                            <Label Content="Thickness, mm:" Margin="15 0 5 0" FontWeight="DemiBold" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"/>
+                                            <Slider Width="1200" TickFrequency="0.1" Orientation="Horizontal" FontWeight="Normal"   Style="{StaticResource MaterialDesignDiscreteSlider}" ToolTip="MaterialDesignDiscreteSlider" Minimum="1" Maximum="20" IsSelectionRangeEnabled="True" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Height="90">
+                                            <Label Content="Weight, g:" Margin="15 0 40 0" FontWeight="DemiBold" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"/>
+                                            <Slider Width="1200" TickFrequency="1" Orientation="Horizontal" FontWeight="Normal"   Style="{StaticResource MaterialDesignDiscreteSlider}" ToolTip="MaterialDesignDiscreteSlider" Minimum="1" Maximum="1000" IsSelectionRangeEnabled="True" />
+                                        </StackPanel>
+                                    </WrapPanel>
+                                </Expander>
+                                <Expander HorizontalAlignment="Stretch" Header="Camera">
+                                    <WrapPanel Orientation="Horizontal" Margin="24,8,24,16">
+                                        <StackPanel Orientation="Horizontal" Height="90">
+                                            <Label Content="Front camera, mp:" Margin="15 0 0 0" FontWeight="DemiBold" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"/>
+                                            <Slider Width="400" TickFrequency="1" Orientation="Horizontal"  Style="{StaticResource MaterialDesignDiscreteSlider}" ToolTip="MaterialDesignDiscreteSlider" Minimum="1" Maximum="48" IsSelectionRangeEnabled="True" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Height="90">
+                                            <Label Content="Main camera, mp:" Margin="15 0 0 0" FontSize="16" FontWeight="DemiBold" FontFamily="XFINITY Standard" VerticalAlignment="Center"/>
+                                            <Slider Width="400" TickFrequency="1" Orientation="Horizontal"  Style="{StaticResource MaterialDesignDiscreteSlider}" ToolTip="MaterialDesignDiscreteSlider" Minimum="1" Maximum="48" IsSelectionRangeEnabled="True" />
+                                        </StackPanel>
+                                    </WrapPanel>
+                                </Expander>
+                                <Expander HorizontalAlignment="Stretch" Header="Screen">
+                                    <WrapPanel Orientation="Horizontal" Margin="24,8,24,16">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="Screen technology:" FontWeight="DemiBold" Margin="15 0 0 0" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"/>
+                                            <ComboBox Margin="15 0 15 0" Width="130" Height="40" FontWeight="Normal" Padding="5" materialDesign:HintAssist.Hint="Technology"
+                                                  materialDesign:HintAssist.HintOpacity="0.3" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" 
+                                                  FontSize="16" FontFamily="XFINITY Standard">
+                                                <ComboBoxItem Content="IPS"/>
+                                                <ComboBoxItem Content="TFT"/>
+                                                <ComboBoxItem Content="AMOLED"/>
+                                                <ComboBoxItem Content="OLED"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Height="90">
+                                            <Label Content="The number of screen colors, mille:" FontWeight="DemiBold" Margin="15 0 0 0" FontSize="16" FontFamily="XFINITY Standard" VerticalAlignment="Center"/>
+                                            <Slider Width="400" TickFrequency="1" Orientation="Horizontal"  Style="{StaticResource MaterialDesignDiscreteSlider}" ToolTip="MaterialDesignDiscreteSlider" Minimum="1" Maximum="16" IsSelectionRangeEnabled="True" />
+                                        </StackPanel>
+                                    </WrapPanel>
+                                </Expander>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Stretch">
+                                    <Button Height="40" Width="200" Margin="50 10 50 10" Content="Apply" materialDesign:ButtonAssist.CornerRadius="20"/>
+                                    <Button Height="40" Width="200" Margin="50 10 50 10" Content="Clear All" materialDesign:ButtonAssist.CornerRadius="20"/>
+                                </StackPanel>
+                            </StackPanel>
+                            
+                        </Expander>
+                    </materialDesign:Card>
+                </WrapPanel>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Width="1485" Margin="25 0 0 0">
+
+                    <ItemsControl x:Name="ListViewCatalog" Width="Auto" MaxWidth="1550">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0 20 50 20">
+                                    <Border Style="{DynamicResource BorderCatalogOutside}">
+                                        <Border.Effect>
+                                            <DropShadowEffect Color="Gray" Opacity="0.0"></DropShadowEffect>
+                                        </Border.Effect>
+                                        <Border Style="{DynamicResource BorderCatalogInside}">
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock x:Name="NameCatalog" Foreground="Black" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" 
                                        FontSize="25" FontFamily="XFINITY Standard" Margin="5"/>
-                                            <Image Style="{DynamicResource ImageCatalog}" Source="/Resources/1.jpeg"/>
-                                            <StackPanel Orientation="Vertical" Width="210" Height="110">
-                                                <TextBlock>
-                                    <Label Content="OS:" FontSize="11" Height="22" FontWeight="Bold"/>
-                                    <Label x:Name="OSInfo" Content="{Binding OS}" FontSize="11" Height="22"/>
-                                                </TextBlock>
-                                                <TextBlock>
-                                    <Label Content="Screen:" FontSize="11" Height="22" FontWeight="Bold"/>
-                                    <Label  x:Name="ScreenInfo" Content="{Binding Screen}" FontSize="11" Height="22" Padding="0 5 0 0"/>
-                                                </TextBlock>
-                                                <TextBlock>
-                                    <Label Content="Camera:" FontSize="11" Height="22" FontWeight="Bold"/>
-                                    <Label x:Name="CameraInfo" Content="{Binding Camera}" Height="22" Padding="0 4 0 0"/>
-                                                </TextBlock>
-                                                <TextBlock>
-                                    <Label Content="Processors:" FontSize="11" FontWeight="Bold"/>
-                                    <Label x:Name="ProcessorsInfo" Content="{Binding Processors}" FontSize="11" Height="22" Padding="0 3 0 0"/>
-                                                </TextBlock>
-                                                <TextBlock>
+                                                <Image Style="{DynamicResource ImageCatalog}" x:Name="Photo" Source="{Binding Photo, Converter={StaticResource Converter}}"/>
+                                                <StackPanel Orientation="Vertical" Width="210" Height="60">
+                                                    <TextBlock>
+                                    <Label Content="Manufacturer:" FontSize="11" Height="22" FontWeight="Bold"/>
+                                    <Label x:Name="ManufacturerInfo" Content="{Binding Manufacturer}" FontSize="11" Height="22"/>
+                                                    </TextBlock>
+                                                    <TextBlock>
                                     <Label Content="Full price:" FontSize="11" FontWeight="Bold"/>
                                     <Label  x:Name="PriceInfo" Content="{Binding Price}" FontSize="11" Height="22" Padding="0 3 0 0"/>
                                     <Label Content="$" FontSize="11" Height="22" Padding="0 3 0 0"/>
-                                                </TextBlock>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                <Button x:Name="BuyProduct" Width="100" Height="40" Margin="5" Click="BuyProduct_Click">
-                                                    <materialDesign:PackIcon Kind="Coin" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                    </TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <Button x:Name="BuyProduct" Tag="{Binding}" Width="100" Height="40" Margin="5" Click="BuyProduct_Click">
+                                                        <materialDesign:PackIcon Kind="InfoCircleOutline" VerticalAlignment="Center" HorizontalAlignment="Center" 
                                                                              Foreground="White" Width="25" Height="25"/>
-                                                </Button>
-                                                <Button x:Name="AddToBasket" Width="100" Height="40" Margin="5" Click="AddToBasket_Click">
-                                                    <materialDesign:PackIcon Kind="AddShoppingCart" VerticalAlignment="Center" 
+                                                    </Button>
+                                                    <Button x:Name="AddToBasket" Width="100" Tag="{Binding}" Height="40" Margin="5" Click="AddToBasket_Click">
+                                                        <materialDesign:PackIcon Kind="AddShoppingCart" VerticalAlignment="Center" 
                                                                              HorizontalAlignment="Center" Foreground="White" Width="25"
                                                                              Height="25"/>
-                                                </Button>
+                                                    </Button>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <CheckBox x:Name="CompareProduct"/>
+                                                    <Label Content="Compare" FontSize="14" FontFamily="XFINITY Standard"/>
+                                                </StackPanel>
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                <CheckBox x:Name="CompareProduct"/>
-                                                <Label Content="Compare" FontSize="14" FontFamily="XFINITY Standard"/>
-                                            </StackPanel>
-                                        </StackPanel>
+                                        </Border>
                                     </Border>
-                                </Border>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>

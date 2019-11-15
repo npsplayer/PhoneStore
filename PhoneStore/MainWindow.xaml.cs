@@ -74,22 +74,25 @@ namespace PhoneStore
         private void PersonalAccount_Click(object sender, RoutedEventArgs e)
         {
             PersonalAccoutUC.Visibility = Visibility.Visible;
-            UserControls.ShowCatalog.FilterUC.Visibility = Visibility.Hidden;
             MainWindow.ShowCatalogUC.Visibility = Visibility.Hidden;
         }
 
         private void LogoName_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             MainWindow.PersonalAccoutUC.Visibility = Visibility.Hidden;
-            UserControls.ShowCatalog.FilterUC.Visibility = Visibility.Visible;
             MainWindow.ShowCatalogUC.Visibility = Visibility.Visible;
         }
 
         private void ExitAccount_Click(object sender, RoutedEventArgs e)
         {
             Login.UserID = 0;
+            Login.AddressID = 0;
+            Login.CustomerID = 0;
             App.CurrentUser = null;
-            PersonalInfo.SaveBut.IsEnabled = false;
+            if (PersonalInfo.SaveBut != null)
+            {
+                PersonalInfo.SaveBut.IsEnabled = false;
+            }
             ExitAccount.IsEnabled = false;
             SnackBarMessage.Content = "You exit account!";
             LoginSnackBar.IsActive = true;

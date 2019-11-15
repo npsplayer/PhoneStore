@@ -36,8 +36,13 @@ namespace PhoneStore.UserControls
         private void Back_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             MainWindow.PersonalAccoutUC.Visibility = Visibility.Hidden;
-            UserControls.ShowCatalog.FilterUC.Visibility = Visibility.Visible;
             MainWindow.ShowCatalogUC.Visibility = Visibility.Visible;
+        }
+
+        private void Basket_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            View.Basket basket = new View.Basket();
+            basket.ShowDialog();
         }
     }
 }

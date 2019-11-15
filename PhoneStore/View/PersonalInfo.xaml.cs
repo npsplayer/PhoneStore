@@ -24,10 +24,10 @@ namespace PhoneStore.View
     public partial class PersonalInfo : Window
     {
         OracleDbContext db = null;
-        View.PersonalInfo personalInfo;
         public static Button SaveBut;
         int userid = Login.UserID;
         int addressid = Login.AddressID;
+        public static int customerID;
         public PersonalInfo()
         {
             InitializeComponent();
@@ -35,12 +35,7 @@ namespace PhoneStore.View
             ShowPersonalInfo();
             SaveBut = SaveButton;
         }
-        public PersonalInfo(View.PersonalInfo personal)
-        {
-            InitializeComponent();
-            db = new OracleDbContext();
-            personalInfo = personal;
-        }
+        
         public void CheckNull()
         {
             if (FirstName.Text == "null" || FirstName.Text == "") { FirstName.Text = String.Empty; }

@@ -38,7 +38,7 @@
                         <TextBlock Text="History" Style="{DynamicResource TextBlockPerosnalAccount}"/>
                     </StackPanel>
                 </Border>
-                <Border Style="{DynamicResource BorderPersonalAccountOutside}">
+                <Border Style="{DynamicResource BorderPersonalAccountOutside}" x:Name="Basket" PreviewMouseDown="Basket_PreviewMouseDown">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius ="0"  Color="Gray" Opacity="0.0"></DropShadowEffect>
                     </Border.Effect>

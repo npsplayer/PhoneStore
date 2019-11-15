@@ -9,7 +9,11 @@
         Title="MainWindow" WindowState="Maximized" WindowStyle="None"  Height="800" Width="1550">
     <Grid Background="White">
         <Grid>
-            <Grid Height="50" VerticalAlignment="Top" Background="{DynamicResource PrimaryHueDarkBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Height="50" VerticalAlignment="Top" Background="{DynamicResource PrimaryHueDarkBrush}" Grid.Row="0">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
                     <materialDesign:PackIcon x:Name="Logo" Kind="CarLimousine" Foreground="White" Width="35" Height="35" VerticalAlignment="Center" 
                                              Margin="5" FontFamily="Xfinity" PreviewMouseDown="LogoName_PreviewMouseDown"/>
@@ -71,22 +75,18 @@
                         </materialDesign:PopupBox>
                     </StackPanel>
                 </StackPanel>
-
+            </Grid>
+            <Grid Grid.Row="1">
+                <local:ShowCatalog x:Name="ShowCatalog" Margin="0 0 0 0 " Visibility="Visible"/>
+                <local:PersonalAccount x:Name="PersonalAccout" Visibility="Hidden"/>
+                <materialDesign:Snackbar IsActive="False"  x:Name="LoginSnackBar" HorizontalAlignment="Stretch" 
+                                     VerticalContentAlignment="Stretch">
+                    <materialDesign:SnackbarMessage Content="Login successful" FontSize="25" Width="Auto" ActionContent="OK" 
+                                               x:Name="SnackBarMessage" ActionClick="SnackbarMessage_ActionClick"/>
+                </materialDesign:Snackbar>
             </Grid>
         </Grid>
-        <Grid>
-            <!--<Frame x:Name="HeaderFrame" Visibility="Visible"/>
-        <Frame x:Name="FilterFrame" Visibility="Visible"/>-->
-
-            <!--<local:Header x:Name="Header"/>-->
-            <local:ShowCatalog x:Name="ShowCatalog" Margin="0 0 0 0 " Visibility="Visible"/>
-            <local:PersonalAccount x:Name="PersonalAccout" Visibility="Hidden"/>
-            <materialDesign:Snackbar IsActive="False"  x:Name="LoginSnackBar" HorizontalAlignment="Stretch" 
-                                     VerticalContentAlignment="Stretch">
-                <materialDesign:SnackbarMessage Content="Login successful" FontSize="25" Width="Auto" ActionContent="OK" 
-                                               x:Name="SnackBarMessage" ActionClick="SnackbarMessage_ActionClick"/>
-            </materialDesign:Snackbar>
-        </Grid>
+        
     </Grid>
 
 </Window>

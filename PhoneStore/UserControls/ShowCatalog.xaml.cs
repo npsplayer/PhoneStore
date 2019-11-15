@@ -1,7 +1,11 @@
-﻿using PhoneStore.Model;
+﻿using Oracle.ManagedDataAccess.Client;
+using PhoneStore.Model;
+using PhoneStore.View;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,51 +27,62 @@ namespace PhoneStore.UserControls
     public partial class ShowCatalog : UserControl
     {
         OracleDbContext db = null;
-        public static UserControl FilterUC;
+        public static int productid;
         public ShowCatalog()
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<OracleDbContext>());
             InitializeComponent();
             db = new OracleDbContext();
             ShowPhone();
-            FilterUC = Filter;
-
-
         }
-        private void IntiPhone()
-        {
-            db = new OracleDbContext();
-            Phone phone1 = new Phone() { Camera = "Front: 8MP; Rear: 12.2MP", OS = "Android", Screen = "6'3'", Processors = "Qualcomm Snapdragon™ 855", Price = "600" };
-            Phone phone2 = new Phone() { Camera = "Front: 8MP;", OS = "iOS", Screen = "6'3'", Processors = "Qualcomm Snapdragon™ 865", Price = "700" };
-            Phone phone3 = new Phone() { Camera = "Front: 8MP; Rear: 12.2MP", OS = "Android", Screen = "6'3'", Processors = "Qualcomm Snapdragon™ 875", Price = "800" };
-            Phone phone4 = new Phone() { Camera = "Front: 8MP;", OS = "iOS", Screen = "6'3'", Processors = "Qualcomm Snapdragon™ 885", Price = "900" };
-            Phone phone5 = new Phone() { Camera = "Front: 8MP; Rear: 12.2MP", OS = "Android", Screen = "6'3'", Processors = "Qualcomm Snapdragon™ 895", Price = "1000" };
-            db.Phones.Add(phone1);
-            db.Phones.Add(phone2);
-            db.Phones.Add(phone3);
-            db.Phones.Add(phone4);
-            db.Phones.Add(phone5);
-            db.SaveChanges();
-        }
+        
         private void ShowPhone()
         {
             db = new OracleDbContext();
-            if (db.Phones.Count() == 0)
-            {
-                IntiPhone();
-            }
-            db.Phones.Load();
-            ListViewCatalog.ItemsSource = db.Phones.Local;
+           
+            db.Products.Load();
+            db.ProductOptions.Load();
+            ListViewCatalog.ItemsSource = db.Products.Local;
         }
+        
 
         private void BuyProduct_Click(object sender, RoutedEventArgs e)
         {
+           var product = (Product)((Button)sender).Tag;
+            productid = product.ProductID;
+            ProductView productView = new ProductView();
+            productView.ShowDialog();
 
         }
 
         private void AddToBasket_Click(object sender, RoutedEventArgs e)
         {
-
+            View.Basket basket = new View.Basket(this);
+            var product = (Product)((Button)sender).Tag;
+            if (Login.CustomerID != 0)
+            {
+                var checkbasket = db.Baskets.Where(bs => bs.ProductID == product.ProductID && bs.CustomerID == Login.CustomerID);
+                if (checkbasket != null)
+                {
+                    MainWindow.Snackbar.IsActive = true;
+                    MainWindow.SnackbarMessage.Content = "Product already added to cart!";
+                }
+                else 
+                {
+                    Model.Basket basketModel = new Model.Basket()
+                    {
+                        CustomerID = Login.CustomerID,
+                        ProductID = product.ProductID,
+                        Amount = 1
+                    };
+                    db.Baskets.Add(basketModel);
+                    db.SaveChanges();
+                }
+            }
+            else if(Login.CustomerID == 0)
+            {
+                MainWindow.Snackbar.IsActive = true;
+                MainWindow.SnackbarMessage.Content = "In order to view personal data, you must register or login to your account!";
+            }
         }
     }
 }

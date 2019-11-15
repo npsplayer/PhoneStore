@@ -145,39 +145,4 @@ PERSONAINFOUPDATE(77,username, pass, 95, city, street, housenumber, room, firstn
 DBMS_OUTPUT.put_line(username || pass|| ' ' || pass || ' ' || city || ' ' || street || ' ' || housenumber || ' ' || room ||
                      ' ' || firstname || ' ' || secondname || ' ' || patronymic || ' ' || dateofbirth|| ' ' || email ||
                      ' ' || phonenumber);
-END;         
---------------------------------------------------------------------------------------------------------------------------------
--------------------------------------------------------ShowCatalog--------------------------------------------------------------
---------------------------------------------------------------------------------------------------------------------------------
-CREATE OR REPLACE PROCEDURE SHOWCATALOG(p_productid OUT "PRODUCT"."ProductID"%TYPE, p_name OUT "PRODUCT"."Name"%TYPE,
-                                        p_manufacturer OUT "PRODUCT"."Manufacturer"%TYPE, p_price OUT "PRODUCT"."Price"%TYPE) IS
-BEGIN
-FOR rec IN (
-SELECT PRODUCT."ProductID", PRODUCT."Name", PRODUCT."Manufacturer", PRODUCT."Price"
-INTO p_productid, p_name, p_manufacturer, p_price
-FROM PRODUCT)
-LOOP
-DBMS_OUTPUT.enable;
-DBMS_OUTPUT.put_line( rec."ProductID" || rec."Name" || rec."Manufacturer" || rec."Price");
-END LOOP;
-END SHOWCATALOG;
-DECLARE
-productid "PRODUCT"."ProductID"%TYPE;
-name "PRODUCT"."Name"%TYPE;
-manufacturer "PRODUCT"."Manufacturer"%TYPE;
-price "PRODUCT"."Price"%TYPE;
-photo "PRODUCT"."Photo"%TYPE;
-BEGIN
-SHOWCATALOG(productid, name, manufacturer, price);
-END;
---------------------------------------------------------------------------------------------------------------------------------
-SELECT --"PRODUCT"."ProductID","PRODUCT"."Name", "PRODUCT"."Manufacturer", "PRODUCT"."Price", "PRODUCT"."Photo", 
-        --"OPTIONTYPE"."OptionTypeName", 
-        "OPTION"."OptionName", "PRODUCTOPTION"."Value" 
-        FROM APPUSER.PRODUCT 
-        INNER JOIN APPUSER.PRODUCTOPTION ON APPUSER.PRODUCT."ProductID" = APPUSER.PRODUCTOPTION."ProductID"
-        INNER JOIN APPUSER."OPTION" ON APPUSER."OPTION"."OptionID" = APPUSER."PRODUCTOPTION"."OptionID"
-        INNER JOIN APPUSER."OPTIONTYPE" ON APPUSER."OPTIONTYPE"."OptionTypeID" = APPUSER."OPTION"."OptionTypeID" WHERE "PRODUCT"."ProductID" = 1
-      
-SELECT LISTAGG("PRODUCTOPTION"."Value",';') WITHIN GROUP (ORDER BY "PRODUCTOPTION"."Value" DESC) FROM APPUSER."PRODUCTOPTION"  WHERE   "ProductID" = 1                
-                      
+END;                     

@@ -10,8 +10,7 @@ namespace PhoneStore.Model
 {
     [Table("CUSTOMER")]
     public class Customer
-    {
-        
+    {   
         public int CustomerID { get; set; }
 
         public int? UserID { get; set; }
@@ -39,8 +38,13 @@ namespace PhoneStore.Model
         public int? AddressID { get; set; }
 
         public virtual Address Address { get; set; }
-        
 
-        
+        public virtual ICollection<Basket> Baskets { get; set; }
+
+        public Customer()
+        {
+            Baskets = new List<Basket>();
+        }
+
     }
 }

@@ -10,11 +10,8 @@ namespace PhoneStore.Model
 {
     [Table("ADDRESS")]
     public class Address
-    {
-
-       
+    {  
         public int AddressID {get; set;}
-
 
         [StringLength(50)]
         public string City { get; set; }

@@ -9,8 +9,8 @@
              d:DesignHeight="450" d:DesignWidth="1550"
              >
     <Grid>
-        <Grid Width="1750" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 0 0 0">
-            <StackPanel>
+        <Grid Width="Auto" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 0 0 0">
+            <!--<StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Orientation="Vertical">
                         <Label Content="BRAND" Margin="15 0 0 0 " FontSize="12" FontFamily="XFINITY Standard"/>
@@ -99,6 +99,27 @@
                     <Button Height="40" Width="100" Foreground="White" Margin="15 20 15 0" materialDesign:ButtonAssist.CornerRadius="6" Content="Clear All" FontSize="16" FontFamily="XFINITY Standard"/>
                 </StackPanel>
                 <Separator HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0 20 0 0"/>
+            </StackPanel>-->
+            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <materialDesign:Card Foreground="{DynamicResource MaterialDesignBody}">
+                    <Expander HorizontalAlignment="Stretch" Header="Filter">
+                        <StackPanel Orientation="Vertical" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Margin="24,8,24,16">
+                            <Expander HorizontalAlignment="Stretch" Header="Basic">
+                                <StackPanel Orientation="Horizontal" >
+                                    <StackPanel Orientation="Vertical">
+                                        <Label Content="Type" Margin="15 0 0 0" FontSize="12" FontFamily="XFINITY Standard"/>
+                                        <ComboBox Margin="15 0 15 0" Width="130" Height="40" Padding="5" Background="LightGray" materialDesign:HintAssist.Hint="Type"
+                                                  materialDesign:HintAssist.HintOpacity="0.6" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" 
+                                                  FontSize="16" FontFamily="XFINITY Standard">
+                                            <ComboBoxItem Content="iOS"/>
+                                            <ComboBoxItem Content="Android"/>
+                                        </ComboBox>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Expander>
+                        </StackPanel>
+                    </Expander>
+                </materialDesign:Card>
             </StackPanel>
         </Grid>
     </Grid>

@@ -28,6 +28,7 @@ namespace PhoneStore.View
         OracleDbContext db = null;
         public static int UserID = 0;
         public static int AddressID = 0;
+        public static int CustomerID = 0;
         public Login()
         {
             InitializeComponent();
@@ -41,15 +42,17 @@ namespace PhoneStore.View
                 var PASSWORD = new OracleParameter("Password", OracleDbType.NVarchar2, Password.Password, ParameterDirection.Input);
                 var USERID_OUT = new OracleParameter("UserID_OUT", OracleDbType.Int32, ParameterDirection.Output);
                 var ADDRESSID_OUT = new OracleParameter("AddressID_OUT", OracleDbType.Decimal, ParameterDirection.Output);
-                var sql = "BEGIN LOGIN(:Username, :Password, :UserID_OUT, :ADDRESSID_OUT); END;";           
+                var CUSTOMERID_OUT = new OracleParameter("CustomerID_OUT", OracleDbType.Decimal, ParameterDirection.Output);
+                var sql = "BEGIN LOGIN(:Username, :Password, :UserID_OUT, :AddressID_OUT, :CustomerID_OUT); END;";           
                 if (Validation.ValidateRegisterAndLogin(Username, ErrorUsername, IconUsername,
                                                         Password, ErrorPassword, IconPassword,
                                                         null, null, null))
                 {
-                    var checkuser = db.Database.ExecuteSqlCommand(sql, USERNAME, PASSWORD, USERID_OUT, ADDRESSID_OUT);
+                    var checkuser = db.Database.ExecuteSqlCommand(sql, USERNAME, PASSWORD, USERID_OUT, ADDRESSID_OUT, CUSTOMERID_OUT);
                     
                         UserID = Convert.ToInt32(USERID_OUT.Value.ToString());
                         AddressID = Convert.ToInt32(ADDRESSID_OUT.Value.ToString());
+                        CustomerID = Convert.ToInt32(CUSTOMERID_OUT.Value.ToString());
                     MainWindow.Snackbar.IsActive = true;
                         MainWindow.ExitAccountBtn.IsEnabled = true;
                         MainWindow.SnackbarMessage.Content = "Welcome, " + USERNAME.Value + "!";

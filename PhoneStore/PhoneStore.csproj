@@ -89,6 +89,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ImageConverter.cs" />
     <Compile Include="Migrations\201911010700230_AddTable_User_Phone_Custoner_Address.cs" />
     <Compile Include="Migrations\201911010700230_AddTable_User_Phone_Custoner_Address.Designer.cs">
       <DependentUpon>201911010700230_AddTable_User_Phone_Custoner_Address.cs</DependentUpon>
@@ -137,9 +138,38 @@
     <Compile Include="Migrations\201911061936539_RemoveAddress1.Designer.cs">
       <DependentUpon>201911061936539_RemoveAddress1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911082014300_AddFullProduct.cs" />
+    <Compile Include="Migrations\201911082014300_AddFullProduct.Designer.cs">
+      <DependentUpon>201911082014300_AddFullProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911082018456_AddFullProduct1.cs" />
+    <Compile Include="Migrations\201911082018456_AddFullProduct1.Designer.cs">
+      <DependentUpon>201911082018456_AddFullProduct1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911140955470_Basket.cs" />
+    <Compile Include="Migrations\201911140955470_Basket.Designer.cs">
+      <DependentUpon>201911140955470_Basket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911141756152_UpdateProductBLOB.cs" />
+    <Compile Include="Migrations\201911141756152_UpdateProductBLOB.Designer.cs">
+      <DependentUpon>201911141756152_UpdateProductBLOB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911141756504_UpdateProductBLOB2.cs" />
+    <Compile Include="Migrations\201911141756504_UpdateProductBLOB2.Designer.cs">
+      <DependentUpon>201911141756504_UpdateProductBLOB2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911151739502_UpdateProductOptionAddUnit.cs" />
+    <Compile Include="Migrations\201911151739502_UpdateProductOptionAddUnit.Designer.cs">
+      <DependentUpon>201911151739502_UpdateProductOptionAddUnit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Address.cs" />
+    <Compile Include="Model\Basket.cs" />
     <Compile Include="Model\Customer.cs" />
+    <Compile Include="Model\Option.cs" />
+    <Compile Include="Model\OptionType.cs" />
+    <Compile Include="Model\Product.cs" />
+    <Compile Include="Model\ProductOption.cs" />
     <Compile Include="UserControls\Filter.xaml.cs">
       <DependentUpon>Filter.xaml</DependentUpon>
     </Compile>
@@ -150,11 +180,17 @@
       <DependentUpon>ShowCatalog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Validation.cs" />
+    <Compile Include="View\Basket.xaml.cs">
+      <DependentUpon>Basket.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PersonalInfo.xaml.cs">
       <DependentUpon>PersonalInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProductView.xaml.cs">
+      <DependentUpon>ProductView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
@@ -199,11 +235,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Basket.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PersonalInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProductView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -265,6 +309,24 @@
     <EmbeddedResource Include="Migrations\201911061936539_RemoveAddress1.resx">
       <DependentUpon>201911061936539_RemoveAddress1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911082014300_AddFullProduct.resx">
+      <DependentUpon>201911082014300_AddFullProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911082018456_AddFullProduct1.resx">
+      <DependentUpon>201911082018456_AddFullProduct1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911140955470_Basket.resx">
+      <DependentUpon>201911140955470_Basket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911141756152_UpdateProductBLOB.resx">
+      <DependentUpon>201911141756152_UpdateProductBLOB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911141756504_UpdateProductBLOB2.resx">
+      <DependentUpon>201911141756504_UpdateProductBLOB2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911151739502_UpdateProductOptionAddUnit.resx">
+      <DependentUpon>201911151739502_UpdateProductOptionAddUnit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -295,10 +357,14 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="SQLFile\Procedure.sql" />
-    <Content Include="SQLFile\Script.sql" />
+    <Resource Include="Resources\2.jpeg" />
+    <Resource Include="Resources\3.jpeg" />
+    <Resource Include="Resources\4.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SQLFile\Procedure..ssql" />
+    <None Include="SQLFile\Script.ssql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

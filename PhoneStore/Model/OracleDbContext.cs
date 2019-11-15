@@ -19,6 +19,11 @@ namespace PhoneStore.Model
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductOption> ProductOptions { get; set; }
+        public virtual DbSet<Option> Options { get; set; }
+        public virtual DbSet<OptionType> OptionTypes { get; set; }
+        public virtual DbSet<Basket> Baskets { get; set; }
         public virtual DbSet<Phone> Phones { get; set; }
     }
 }
