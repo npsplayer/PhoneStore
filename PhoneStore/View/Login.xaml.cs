@@ -53,8 +53,18 @@ namespace PhoneStore.View
                         UserID = Convert.ToInt32(USERID_OUT.Value.ToString());
                         AddressID = Convert.ToInt32(ADDRESSID_OUT.Value.ToString());
                         CustomerID = Convert.ToInt32(CUSTOMERID_OUT.Value.ToString());
-                    MainWindow.Snackbar.IsActive = true;
+                        MainWindow.Snackbar.IsActive = true;
                         MainWindow.ExitAccountBtn.IsEnabled = true;
+                        if (View.Basket.DeleteAllBtn != null)
+                        {
+                        View.Basket.DeleteAllBtn.IsEnabled = false;
+                        }
+                        if (View.Basket.PayBtn != null)
+                        {
+                        View.Basket.PayBtn.IsEnabled = false;
+                        }
+                        var select = db.Baskets.Where(bask => bask.CustomerID == Login.CustomerID);
+                        MainWindow.CountBasket.Text = Convert.ToString(select.LongCount());
                         MainWindow.SnackbarMessage.Content = "Welcome, " + USERNAME.Value + "!";
                         this.Close();
                 }

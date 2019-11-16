@@ -38,10 +38,10 @@
                     </materialDesign:PopupBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Width="150">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" PreviewMouseDown="Basket_PreviewMouseDown" x:Name="Basket">
                         <materialDesign:PackIcon Kind="CartOutline" Foreground="White" Width="25" Height="25" VerticalAlignment="Center" Margin="5 5 0 5" FontFamily="Xfinity"/>
                         <Border CornerRadius="10" VerticalAlignment="Center" Margin="-6 0 0 15" HorizontalAlignment="Right" Width="20" Height="20" Background="White" >
-                            <TextBlock Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14" Text="8"  VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Xfinity"/>
+                            <TextBlock x:Name="CountInBasket" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14" Text="0"  VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Xfinity"/>
                         </Border>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
@@ -79,9 +79,9 @@
             <Grid Grid.Row="1">
                 <local:ShowCatalog x:Name="ShowCatalog" Margin="0 0 0 0 " Visibility="Visible"/>
                 <local:PersonalAccount x:Name="PersonalAccout" Visibility="Hidden"/>
-                <materialDesign:Snackbar IsActive="False"  x:Name="LoginSnackBar" HorizontalAlignment="Stretch" 
+                <materialDesign:Snackbar IsActive="False"  x:Name="SnackBar" HorizontalAlignment="Stretch" 
                                      VerticalContentAlignment="Stretch">
-                    <materialDesign:SnackbarMessage Content="Login successful" FontSize="25" Width="Auto" ActionContent="OK" 
+                    <materialDesign:SnackbarMessage  FontSize="25" Width="Auto" ActionContent="OK" 
                                                x:Name="SnackBarMessage" ActionClick="SnackbarMessage_ActionClick"/>
                 </materialDesign:Snackbar>
             </Grid>

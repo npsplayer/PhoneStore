@@ -29,10 +29,11 @@ DROP PROCEDURE LOGIN;
 CREATE OR REPLACE PROCEDURE LOGIN (p_username IN USERS."Username"%TYPE, 
                                    p_password IN USERS."Password"%TYPE, 
                                    p_userid OUT USERS."UserID"%TYPE, 
-                                   p_addressid OUT ADDRESS."AddressID"%TYPE)
+                                   p_addressid OUT ADDRESS."AddressID"%TYPE,
+                                   p_customerid OUT CUSTOMER."CustomerID"%TYPE)
 IS
 BEGIN
-  SELECT USERS."UserID", ADDRESS."AddressID" INTO p_userid, p_addressid FROM CUSTOMER 
+  SELECT USERS."UserID", ADDRESS."AddressID", CUSTOMER."CustomerID" INTO p_userid, p_addressid, p_customerid FROM CUSTOMER 
              INNER JOIN ADDRESS ON CUSTOMER."AddressID" = ADDRESS."AddressID" 
              INNER JOIN USERS ON CUSTOMER."UserID" = USERS."UserID" 
     WHERE USERS."Username" = p_username AND USERS."Password" = p_password;
@@ -41,10 +42,11 @@ END LOGIN;
 DECLARE
 userid USERS."UserID"%TYPE;
 addressid ADDRESS."AddressID"%TYPE;
+customerid CUSTOMER."CustomerID"%TYPE;
 BEGIN
-LOGIN('Nikita','123456', userid, addressid);
+LOGIN('Nikita','123456', userid, addressid, customerid);
 DBMS_OUTPUT.enable;
-DBMS_OUTPUT.put_line(userid || ' ' || addressid);
+DBMS_OUTPUT.put_line(userid || ' ' || addressid || ' ' || customerid);
 END;
 --------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------PersonalInfoSelect-----------------------------------------------------------
@@ -139,6 +141,7 @@ patronymic CUSTOMER."Patronymic"%TYPE := 'Hz';
 dateofbirth date := '02.04.2000';
 email CUSTOMER."Email"%TYPE := 'mil_lesya@mail.ru';
 phonenumber CUSTOMER."PhoneNumber"%TYPE := '375333365144';
+-------------------------------------------------EXAMPLE PersonalInfoUpdate-----------------------------------------------------
 BEGIN
 PERSONAINFOUPDATE(77,username, pass, 95, city, street, housenumber, room, firstname, secondname, patronymic, dateofbirth, email, 
                   phonenumber);
@@ -150,17 +153,19 @@ END;
 -------------------------------------------------------ShowCatalog--------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------
 CREATE OR REPLACE PROCEDURE SHOWCATALOG(p_productid OUT "PRODUCT"."ProductID"%TYPE, p_name OUT "PRODUCT"."Name"%TYPE,
-                                        p_manufacturer OUT "PRODUCT"."Manufacturer"%TYPE, p_price OUT "PRODUCT"."Price"%TYPE) IS
+                                        p_manufacturer OUT "PRODUCT"."Manufacturer"%TYPE, p_price OUT "PRODUCT"."Price"%TYPE,
+                                        p_photo OUT "PRODUCT"."Photo"%TYPE) IS
 BEGIN
 FOR rec IN (
-SELECT PRODUCT."ProductID", PRODUCT."Name", PRODUCT."Manufacturer", PRODUCT."Price"
-INTO p_productid, p_name, p_manufacturer, p_price
+SELECT PRODUCT."ProductID", PRODUCT."Name", PRODUCT."Manufacturer", PRODUCT."Price", PRODUCT."Photo"
+INTO p_productid, p_name, p_manufacturer, p_price, p_photo
 FROM PRODUCT)
 LOOP
 DBMS_OUTPUT.enable;
 DBMS_OUTPUT.put_line( rec."ProductID" || rec."Name" || rec."Manufacturer" || rec."Price");
 END LOOP;
 END SHOWCATALOG;
+-------------------------------------------------EXAMPLE SHOWCATALOG------------------------------------------------------------
 DECLARE
 productid "PRODUCT"."ProductID"%TYPE;
 name "PRODUCT"."Name"%TYPE;
@@ -168,16 +173,56 @@ manufacturer "PRODUCT"."Manufacturer"%TYPE;
 price "PRODUCT"."Price"%TYPE;
 photo "PRODUCT"."Photo"%TYPE;
 BEGIN
-SHOWCATALOG(productid, name, manufacturer, price);
+SHOWCATALOG(productid, name, manufacturer, price, photo);
 END;
 --------------------------------------------------------------------------------------------------------------------------------
-SELECT --"PRODUCT"."ProductID","PRODUCT"."Name", "PRODUCT"."Manufacturer", "PRODUCT"."Price", "PRODUCT"."Photo", 
-        --"OPTIONTYPE"."OptionTypeName", 
+--------------------------------------------------Total Price Basket------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE TOTALPRICEBASKET(p_customer IN "BASKET"."CustomerID"%TYPE,
+                                             p_total OUT INTEGER) IS
+BEGIN
+    SELECT SUM((BASKET."Price")) 
+        INTO p_total 
+            FROM BASKET 
+    WHERE BASKET."CustomerID" = p_customer;
+END TOTALPRICEBASKET;
+-------------------------------------------------EXAMPLE Total Price Basket-----------------------------------------------------
+DECLARE
+total INTEGER;
+BEGIN
+TOTALPRICEBASKET(29, total);
+DBMS_OUTPUT.put_line(total);
+END;
+--------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------Rating Product-----------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE RATINGPRODUCT(p_product IN "REVIEW"."ProductID"%TYPE,
+                                             p_rating OUT INT) IS                                            
+BEGIN
+    SELECT CEIL(AVG(REVIEW."Rating")) INTO p_rating FROM REVIEW WHERE REVIEW."ProductID" = p_product; 
+END;
+-------------------------------------------------EXAMPLE Rating Product---------------------------------------------------------
+DECLARE 
+rating INT;
+BEGIN
+RATINGPRODUCT(21, rating);
+DBMS_OUTPUT.put_line(rating);
+END;
+--------------------------------------------------------------------------------------------------------------------------------
+
+SELECT DISTINCT --"PRODUCT"."ProductID","PRODUCT"."Name", "PRODUCT"."Manufacturer", "PRODUCT"."Price", "PRODUCT"."Photo", 
+        "OPTIONTYPE"."OptionTypeName", 
         "OPTION"."OptionName", "PRODUCTOPTION"."Value" 
         FROM APPUSER.PRODUCT 
         INNER JOIN APPUSER.PRODUCTOPTION ON APPUSER.PRODUCT."ProductID" = APPUSER.PRODUCTOPTION."ProductID"
         INNER JOIN APPUSER."OPTION" ON APPUSER."OPTION"."OptionID" = APPUSER."PRODUCTOPTION"."OptionID"
-        INNER JOIN APPUSER."OPTIONTYPE" ON APPUSER."OPTIONTYPE"."OptionTypeID" = APPUSER."OPTION"."OptionTypeID" WHERE "PRODUCT"."ProductID" = 1
+        INNER JOIN APPUSER."OPTIONTYPE" ON APPUSER."OPTIONTYPE"."OptionTypeID" = APPUSER."OPTION"."OptionTypeID" WHERE "PRODUCT"."ProductID" = 1 
       
-SELECT LISTAGG("PRODUCTOPTION"."Value",';') WITHIN GROUP (ORDER BY "PRODUCTOPTION"."Value" DESC) FROM APPUSER."PRODUCTOPTION"  WHERE   "ProductID" = 1                
+SELECT LISTAGG("PRODUCTOPTION"."Value",';') WITHIN GROUP (ORDER BY  "OPTION"."OptionID" ASC), LISTAGG("OPTION"."OptionName", ';')  WITHIN GROUP (ORDER BY "OPTION"."OptionID" ASC) FROM APPUSER."PRODUCTOPTION"
+INNER JOIN APPUSER."OPTION" ON APPUSER."OPTION"."OptionID" = APPUSER."PRODUCTOPTION"."OptionID" WHERE   "ProductID" = 1 
+SELECT "PRODUCTOPTION"."Value" FROM APPUSER."PRODUCTOPTION" WHERE "ProductID" = 1 Order by "OptionID" DESC;
+
+SELECT PRODUCT."Price", BASKET."Amount" FROM BASKET INNER JOIN PRODUCT on BASKET."ProductID" = PRODUCT."ProductID" WHERE BASKET."CustomerID" = 29;
+
+
                       

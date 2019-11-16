@@ -44,5 +44,22 @@ namespace PhoneStore.UserControls
             View.Basket basket = new View.Basket();
             basket.ShowDialog();
         }
+
+        private void History_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            View.History history = new View.History();
+            history.ShowDialog();
+        }
+
+        private void Compare_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void Favorite_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            View.Favorite favorite = new View.Favorite();
+            favorite.ShowDialog();
+        }
     }
 }

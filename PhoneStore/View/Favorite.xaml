@@ -1,0 +1,87 @@
+﻿<Window x:Class="PhoneStore.View.Favorite"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PhoneStore.View"
+        xmlns:convert="clr-namespace:PhoneStore"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Favorite" WindowState="Maximized" Width="1550" Height="800" WindowStyle="None" >
+    <Window.Resources>
+        <convert:ImageConverter x:Key="Сonverter"/>
+    </Window.Resources>
+    <Grid Background="White">
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="145"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="150"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0">
+                <Label Content="Favorites" Foreground="{DynamicResource PrimaryHueDarkBrush}"  HorizontalAlignment="Center" 
+                       Margin="0 35 0 0" FontFamily="Xfinity"  FontSize="30" FontWeight="Bold"/>
+                <Separator VerticalAlignment="Top" Margin="90 0 100 30" Background="{DynamicResource PrimaryHueDarkBrush}"/>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Photo" FontFamily="Xfinity" FontWeight="Light" Foreground="Black" Margin="140 0 100 0"/>
+                    <Label Content="Name" FontFamily="Xfinity" FontWeight="Light" Foreground="Black" Margin="0 0 800 0"/>
+                    <Label Content="Price" FontFamily="Xfinity" FontWeight="Light" Foreground="Black" Margin="120 0 30 0"/>
+                </StackPanel>
+            </StackPanel>
+            <ScrollViewer Grid.Row="1">
+                <ItemsControl x:Name="ListViewFavorite" Width="Auto" MaxWidth="1550">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate >
+                            <Border BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="1" CornerRadius="10" Width="1339"  Margin="90 20 90 20">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image x:Name="Image" Source="{Binding Photo, Converter={StaticResource Сonverter}}" Width="100" Margin="5" Grid.Column="0" PreviewMouseDown="Image_PreviewMouseDown" Tag="{Binding}"/>
+                                    <Label Content="{Binding Name}" Foreground="Black" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="25" FontFamily="XFINITY Standard" Margin="5"/>
+                                    <StackPanel Grid.Column="3" Orientation="Horizontal">
+                                        <Label x:Name="Price" Content="{Binding Price}" Foreground="Black" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="25" FontFamily="XFINITY Standard" Margin="5"/>
+                                        <Label Content="$" Foreground="Black" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="25" FontFamily="XFINITY Standard"/>
+                                    </StackPanel>
+                                    <TextBlock Width="15" Height="15" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="4" Tag="{Binding}" Margin="5" Foreground="LightGray" x:Name="Delete" PreviewMouseDown="Delete_PreviewMouseDown">
+                                <materialDesign:PackIcon Kind="Close"/>
+                                    </TextBlock>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+            <StackPanel Grid.Row="2">
+                
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="200" HorizontalAlignment="Center" Margin="0 -50 0 0">
+                    <Button x:Name="BackButton" Width="200" Height="60" Click="BackButton_Click"
+                                materialDesign:ButtonAssist.CornerRadius="5"  Margin="10 0 10 0"
+                                Foreground="White" FontSize="25" FontFamily="XFINITY Standard">
+                        <StackPanel Orientation="Horizontal" Width="160" Height="50" Margin="0 0 0 0">
+                            <materialDesign:PackIcon Kind="ArrowLeftCircle" Width="50" Height="50" HorizontalAlignment="Left"/>
+                            <TextBlock Text="Back" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0 "/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+            <materialDesign:Snackbar IsActive="False"  x:Name="SnackBar" HorizontalAlignment="Stretch" 
+                                     VerticalContentAlignment="Stretch" Grid.Row="2">
+                <materialDesign:SnackbarMessage Content="Login successful" FontSize="25" Width="Auto" ActionContent="OK" 
+                                               x:Name="SnackBarMessage" ActionClick="SnackbarMessage_ActionClick"/>
+            </materialDesign:Snackbar>
+        </Grid>
+    </Grid>
+</Window>

@@ -35,24 +35,27 @@ namespace PhoneStore
         public static Snackbar Snackbar;
         public static SnackbarMessage SnackbarMessage;
 
-
+        public static TextBlock CountBasket;
+        OracleDbContext db = null;
+        int customer = Login.CustomerID;
         public MainWindow()
         {
+            
             InitializeComponent();
             ShowCatalogUC = ShowCatalog;
             PersonalAccoutUC = PersonalAccout;
 
-            Snackbar = LoginSnackBar;
+            Snackbar = SnackBar;
             SnackbarMessage = SnackBarMessage;
             ExitAccountBtn = ExitAccount;
-
-
+            CountBasket = CountInBasket;
+            
 
         }
 
         private void SnackbarMessage_ActionClick(object sender, RoutedEventArgs e)
         {
-            LoginSnackBar.IsActive = false;
+            SnackBar.IsActive = false;
         }
         private void Login_Click(object sender, RoutedEventArgs e)
         {
@@ -88,15 +91,31 @@ namespace PhoneStore
             Login.UserID = 0;
             Login.AddressID = 0;
             Login.CustomerID = 0;
+            CountBasket.Text = "0";
             App.CurrentUser = null;
             if (PersonalInfo.SaveBut != null)
             {
                 PersonalInfo.SaveBut.IsEnabled = false;
             }
+            if(View.Basket.DeleteAllBtn != null)
+            {
+                View.Basket.DeleteAllBtn.IsEnabled = false;
+            }
+            if (View.Basket.PayBtn != null)
+            {
+                View.Basket.PayBtn.IsEnabled = false;
+            }
+           
             ExitAccount.IsEnabled = false;
             SnackBarMessage.Content = "You exit account!";
-            LoginSnackBar.IsActive = true;
+            SnackBar.IsActive = true;
 
+        }
+
+        private void Basket_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            View.Basket basket = new View.Basket();
+            basket.ShowDialog();
         }
     }
 }

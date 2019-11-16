@@ -7,13 +7,13 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         xmlns:converter="clr-namespace:PhoneStore"
-        Title="ProductView" Height="450" Width="800" WindowState="Maximized" WindowStyle="None">
+        Title="ProductView" Height="900" Width="1550" WindowState="Maximized" WindowStyle="None">
     <Window.Resources>
         <converter:ImageConverter x:Key="Converter"/>
     </Window.Resources>
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <ItemsControl x:Name="Header" Grid.Row="0" Margin="20 20 0 0">
@@ -41,261 +41,354 @@
                                        VerticalAlignment="Center"/>
                         <TextBlock Text=")" FontSize="40" Foreground="Black" FontFamily="XFINITY Standard"
                                        VerticalAlignment="Center"/>
+
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        <Border BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="0.6" VerticalAlignment="Bottom" Grid.Row="0"/>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-    <Grid Background="White" x:Name="Grid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-
-        <ItemsControl x:Name="ViewProduct" Grid.Row="0" Margin="20">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
+            <Grid Background="White" x:Name="Grid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="300*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="370 40 0 0" >
+                    <materialDesign:RatingBar  x:Name="ProductRating" IsReadOnly="True" Max="10"/>
+                    <Label x:Name="TextRating" FontSize="16" FontWeight="Light" Foreground="Black" FontFamily="XFINITY Standard"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="0" Margin="350 100 0 0">
+                    <Button x:Name="MinusProduct" materialDesign:ButtonAssist.CornerRadius="25" Width="50" Height="50" Margin="20 0 20 0" Click="MinusProduct_Click">
+                        <materialDesign:PackIcon Kind="Minus" Height="25" Width="30" HorizontalContentAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
+                    </Button>
+                    <TextBox x:Name="CurrentAmount" Width="60" Height="50" Foreground="Black" FontSize="25" FontFamily="XFINITY Standard" Text="1" HorizontalContentAlignment="Center"></TextBox>
+                    <Button x:Name="PlusProduct"  materialDesign:ButtonAssist.CornerRadius="25" Width="50" Height="50" Margin="20 0 20 0" Click="PlusProduct_Click">
+                        <materialDesign:PackIcon Kind="Add" Height="25" Width="30" HorizontalContentAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
+                    </Button>
+                </StackPanel>
+                <ItemsControl x:Name="ViewProduct" Grid.Row="0" Margin="20 30 20 20">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="40 0 0 0">
-                        <Image Height="350" Width="300" Source="{Binding Photo, Converter={StaticResource Converter}}"/>
-                            <StackPanel Orientation="Vertical">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Price}" FontSize="40" Foreground="Black" FontFamily="XFINITY Standard" Margin="5"/>
-                                    <Label Content="$" FontSize="40" Foreground="Black" FontFamily="XFINITY Standard"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0 220 0 0">
-                                    <Button Width="200" Height="50" Margin="10" materialDesign:ButtonAssist.CornerRadius="10" x:Name="OneClick" Click="OneClick_Click">
+                                    <Image Height="350" Width="300" Source="{Binding Photo, Converter={StaticResource Converter}}"/>
+                                    <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Kind="Coin" Width="35" Height="35" Margin="5"
-                                                                     HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                            <TextBlock Text="Buy 1 Click" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                       FontSize="20" Foreground="White" FontFamily="XFINITY Standard"/>
+                                            <TextBlock Text="{Binding Price}" FontSize="40" Foreground="Black" FontFamily="XFINITY Standard" Margin="10 130 5 5"/>
+                                            <Label Content="$" FontSize="40" Margin="0 125 5 5" Foreground="Black" FontFamily="XFINITY Standard"/>
                                         </StackPanel>
-                                    </Button>
-                                    <Button Width="200" Height="50" Margin="10" materialDesign:ButtonAssist.CornerRadius="10" x:Name="AddCart" Click="AddCart_Click">
-                                        <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Kind="AddShoppingCart" Width="35" Height="35" Margin="5" 
+                                        <StackPanel Orientation="Horizontal" Margin="0 100 0 0">
+                                            <Button Width="200" Height="50" Margin="10" Tag="{Binding}" materialDesign:ButtonAssist.CornerRadius="10" x:Name="OneClick" Click="OneClick_Click">
+                                                <StackPanel Orientation="Horizontal" >
+                                                    <materialDesign:PackIcon Kind="Coin" Width="35" Height="35" Margin="5"
                                                                      HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                            <TextBlock Text="Add to Cart" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                    <TextBlock Text="Buy 1 Click" HorizontalAlignment="Center" VerticalAlignment="Center"
                                                        FontSize="20" Foreground="White" FontFamily="XFINITY Standard"/>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Width="200" Height="50" Margin="10" Tag="{Binding}" materialDesign:ButtonAssist.CornerRadius="10" x:Name="AddCart" Click="AddCart_Click">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <materialDesign:PackIcon Kind="AddShoppingCart" Width="35" Height="35" Margin="5"  
+                                                                     HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="Add to Cart" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                       FontSize="20" Foreground="White" FontFamily="XFINITY Standard"/>
+                                                </StackPanel>
+                                            </Button>
                                         </StackPanel>
-                                    </Button>
+                                    </StackPanel>
                                 </StackPanel>
                             </StackPanel>
-                    </StackPanel>
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        <materialDesign:Card Grid.Row="1">
-                    <StackPanel>
-            <Expander IsExpanded="True">
-                        <Expander.Header>
-                            <TextBlock Text="Main" Foreground="Black" FontWeight="Light" FontSize="24"/>
-                        </Expander.Header>
-                <StackPanel>
-                    <ItemsControl x:Name="ViewOptionMain">
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <StackPanel Grid.Row="1">
+                    <TextBlock Text="Characteristics" Foreground="{DynamicResource PrimaryHueDarkBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                               FontWeight="Normal" FontFamily="XFINITY Standard" FontSize="35" Margin="0 20 10 0"/>
+                    <Border BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="0.6" Margin="20 5 20 5"/>
+                    <materialDesign:Card  Margin="20 0 20 0">
+                        <StackPanel>
+                            <Expander IsExpanded="True">
+                                <Expander.Header>
+                                    <TextBlock Text="Main" Foreground="Black" FontWeight="Light" FontSize="24"/>
+                                </Expander.Header>
+                                <StackPanel>
+                                    <ItemsControl x:Name="ViewOptionMain">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical">
+                                                    <Grid Margin="20">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="250"/>
+                                                            <ColumnDefinition Width="1*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="30 0 0 0">
+                                                            <TextBlock  Text="{Binding OptionName}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                                HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
+                                                            <TextBlock Text=":" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                                            <TextBlock Text="{Binding Value}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light" Margin="0 0 5 0"/>
+                                                            <TextBlock Text="{Binding Unit}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light"/>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                    <Border BorderBrush="LightGray" BorderThickness="0.6" Margin="20 0 20 0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Expander>
+                            <Expander IsExpanded="True">
+                                <Expander.Header>
+                                    <TextBlock Text="Processor" Foreground="Black" FontWeight="Light" FontSize="24"/>
+                                </Expander.Header>
+                                <StackPanel>
+                                    <ItemsControl x:Name="ViewProcessor">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical">
+                                                    <Grid Margin="20">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="250"/>
+                                                            <ColumnDefinition Width="1*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="30 0 0 0">
+                                                            <TextBlock  Text="{Binding OptionName}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                                HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
+                                                            <TextBlock Text=":" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                                            <TextBlock Text="{Binding Value}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light" Margin="0 0 5 0"/>
+                                                            <TextBlock Text="{Binding Unit}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light"/>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                    <Border BorderBrush="LightGray" BorderThickness="0.6" Margin="20 0 20 0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Expander>
+                            <Expander IsExpanded="True">
+                                <Expander.Header>
+                                    <TextBlock Text="Design" Foreground="Black" FontWeight="Light" FontSize="24"/>
+                                </Expander.Header>
+                                <StackPanel>
+                                    <ItemsControl x:Name="ViewDesign">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical">
+                                                    <Grid Margin="20">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="250"/>
+                                                            <ColumnDefinition Width="1*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="30 0 0 0">
+                                                            <TextBlock  Text="{Binding OptionName}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                                HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
+                                                            <TextBlock Text=":" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                                            <TextBlock Text="{Binding Value}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light" Margin="0 0 5 0"/>
+                                                            <TextBlock Text="{Binding Unit}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light"/>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                    <Border BorderBrush="LightGray" BorderThickness="0.6" Margin="20 0 20 0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Expander>
+                            <Expander IsExpanded="True">
+                                <Expander.Header>
+                                    <TextBlock Text="Size and weight" Foreground="Black" FontWeight="Light" FontSize="24"/>
+                                </Expander.Header>
+                                <StackPanel>
+                                    <ItemsControl x:Name="ViewSize">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical">
+                                                    <Grid Margin="20">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="250"/>
+                                                            <ColumnDefinition Width="1*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="30 0 0 0">
+                                                            <TextBlock  Text="{Binding OptionName}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                                HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
+                                                            <TextBlock Text=":" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                                            <TextBlock Text="{Binding Value}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light" Margin="0 0 5 0"/>
+                                                            <TextBlock Text="{Binding Unit}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light"/>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                    <Border BorderBrush="LightGray" BorderThickness="0.6" Margin="20 0 20 0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Expander>
+                            <Expander IsExpanded="True">
+                                <Expander.Header>
+                                    <TextBlock Text="Camera" Foreground="Black" FontWeight="Light" FontSize="24"/>
+                                </Expander.Header>
+                                <StackPanel>
+                                    <ItemsControl x:Name="ViewCamera">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical">
+                                                    <Grid Margin="20">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="250"/>
+                                                            <ColumnDefinition Width="1*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="30 0 0 0">
+                                                            <TextBlock  Text="{Binding OptionName}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                                HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
+                                                            <TextBlock Text=":" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                                            <TextBlock Text="{Binding Value}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light" Margin="0 0 5 0"/>
+                                                            <TextBlock Text="{Binding Unit}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light"/>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                    <Border BorderBrush="LightGray" BorderThickness="0.6" Margin="20 0 20 0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Expander>
+                            <Expander IsExpanded="True">
+                                <Expander.Header>
+                                    <TextBlock Text="Screen" Foreground="Black" FontWeight="Light" FontSize="24"/>
+                                </Expander.Header>
+                                <StackPanel>
+                                    <ItemsControl x:Name="ViewScreen">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical">
+                                                    <Grid Margin="20">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="250"/>
+                                                            <ColumnDefinition Width="1*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="30 0 0 0">
+                                                            <TextBlock  Text="{Binding OptionName}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                                HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
+                                                            <TextBlock Text=":" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                                            <TextBlock Text="{Binding Value}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light" Margin="0 0 5 0"/>
+                                                            <TextBlock Text="{Binding Unit}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light"/>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                    <Border BorderBrush="LightGray" BorderThickness="0.6" Margin="20 0 20 0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Expander>
+                        </StackPanel>
+                    </materialDesign:Card>
+                </StackPanel>
+                <StackPanel  Orientation="Vertical" Grid.Row="2">
+                    <TextBlock Text="Review" Foreground="{DynamicResource PrimaryHueDarkBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                               FontWeight="Normal" FontFamily="XFINITY Standard" FontSize="35" Margin="0 20 10 0"/>
+                    <Border BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="0.6" Margin="20 5 20 5"/>
+                    <!--<ComboBox Margin="15 0 15 0" Width="130" Height="40" Padding="5" materialDesign:HintAssist.Hint="Sort"
+                                                  materialDesign:HintAssist.HintOpacity="0.3" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" 
+                                                  FontSize="16" FontFamily="XFINITY Standard" FontWeight="Normal">
+                        <ComboBoxItem Content="New forst"/>
+                        <ComboBoxItem Content="Old fist"/>
+                    </ComboBox>-->
+                    <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" Foreground="White" Margin="20">
+                        <materialDesign:PopupBox.ToggleContent>
+                            <StackPanel Orientation="Horizontal" Width="150">
+                                <TextBlock x:Name="PopupBoxHeader" Text="Old first" Foreground="Black" FontSize="20" FontWeight="Light" Margin="0 0 30 0"/>
+                                <materialDesign:PackIcon Kind="KeyboardArrowLeft" Foreground="{DynamicResource PrimaryHueDarkBrush}" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="25">
+                                    <materialDesign:PackIcon.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform Angle="-90"/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </materialDesign:PackIcon.RenderTransform>
+                                </materialDesign:PackIcon>
+                            </StackPanel>
+                        </materialDesign:PopupBox.ToggleContent>
+                        <StackPanel Width="100" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                            <Button x:Name="New" Content="New" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" 
+                                    FontFamily="XFINITY Standard" Click="New_Click"/>
+                            <Button x:Name="Old" Content="Old" Height="30" VerticalContentAlignment="Center" 
+                                    HorizontalContentAlignment="Left" FontFamily="XFINITY Standard"  Click="Old_Click"/>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+                    <ItemsControl x:Name="CommentView" Margin="20 10 0 0">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                        <StackPanel Orientation="Vertical">
-                                            <Grid Margin="20">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="250"/>
-                                                    <ColumnDefinition Width="1*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="30 0 0 0">
-                                                    <TextBlock  Text="{Binding OptionName}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                                HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
-                                                    <TextBlock Text=":" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
-                                                </StackPanel>
-                                                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <TextBlock Text="{Binding Value}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light" Margin="0 0 5 0"/>
-                                                        <TextBlock Text="{Binding Unit}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light"/>
-                                                    </StackPanel>
-                                                </Grid>
-                                            <Border BorderBrush="LightGray" BorderThickness="0.6" Margin="20 0 20 0"/>
+                                <StackPanel>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="100"/>
+                                            <RowDefinition Height="1*"/>
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10 5 0 0">
+                                            <StackPanel>
+                                                <Border Background="{DynamicResource PrimaryHueDarkBrush}" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="1" CornerRadius="45" Width="90" Height="90">
+                                                    <Image Source="/PhoneStore;component/Resources/AccountImage2.png" Width="90" Height="90" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 5 0 0"/>
+                                                </Border>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Vertical" Margin="10 0 0 0" VerticalAlignment="Top" HorizontalAlignment="Center">
+                                                <materialDesign:RatingBar Max="10" Value="{Binding Rating}" IsReadOnly="True"/>
+                                                <TextBlock FontSize="25" Foreground="Black" Text="{Binding Username}" FontWeight="Light" FontFamily="XFINITY Standard"/>
+                                                <TextBlock FontSize="16" Foreground="LightGray" Text="{Binding Date}" FontWeight="Light" FontFamily="XFINITY Standard"/>
+                                            </StackPanel>
                                         </StackPanel>
-                                    </DataTemplate>
+                                        <StackPanel Grid.Row="1" Margin="25 5 25 0" Orientation="Vertical">
+                                            <TextBlock FontSize="18" Foreground="Black" Text="{Binding Description}" FontWeight="Normal" FontFamily="XFINITY Standard" TextWrapping="Wrap"/>
+                                            <Border BorderBrush="LightGray" BorderThickness="0.6" Margin="0 5 0 5"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </StackPanel>
+                            </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                </StackPanel>
-            </Expander>
-                        <Expander IsExpanded="True">
-                        <Expander.Header>
-                            <TextBlock Text="Processor" Foreground="Black" FontWeight="Light" FontSize="24"/>
-                        </Expander.Header>
-                        <StackPanel>
-                            <ItemsControl x:Name="ViewProcessor">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Vertical">
-                                            <Grid Margin="20">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="250"/>
-                                                    <ColumnDefinition Width="1*"/>
-                                                </Grid.ColumnDefinitions>
-                                                    <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="30 0 0 0">
-                                                    <TextBlock  Text="{Binding OptionName}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                                HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
-                                                    <TextBlock Text=":" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
-                                                </StackPanel>
-                                                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <TextBlock Text="{Binding Value}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light" Margin="0 0 5 0"/>
-                                                        <TextBlock Text="{Binding Unit}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light"/>
-                                                    </StackPanel>
-                                                </Grid>
-                                            <Border BorderBrush="LightGray" BorderThickness="0.6" Margin="20 0 20 0"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </StackPanel>
-                    </Expander>
-                        <Expander IsExpanded="True">
-                            <Expander.Header>
-                                <TextBlock Text="Design" Foreground="Black" FontWeight="Light" FontSize="24"/>
-                            </Expander.Header>
-                            <StackPanel>
-                                <ItemsControl x:Name="ViewDesign">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Vertical">
-                                                <Grid Margin="20">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="250"/>
-                                                        <ColumnDefinition Width="1*"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="30 0 0 0">
-                                                        <TextBlock  Text="{Binding OptionName}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                                HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
-                                                        <TextBlock Text=":" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
-                                                    </StackPanel>
-                                                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <TextBlock Text="{Binding Value}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light" Margin="0 0 5 0"/>
-                                                        <TextBlock Text="{Binding Unit}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light"/>
-                                                    </StackPanel>
-                                                </Grid>
-                                                <Border BorderBrush="LightGray" BorderThickness="0.6" Margin="20 0 20 0"/>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
-                        </Expander>
-                        <Expander IsExpanded="True">
-                            <Expander.Header>
-                                <TextBlock Text="Size and weight" Foreground="Black" FontWeight="Light" FontSize="24"/>
-                            </Expander.Header>
-                            <StackPanel>
-                                <ItemsControl x:Name="ViewSize">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Vertical">
-                                                <Grid Margin="20">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="250"/>
-                                                        <ColumnDefinition Width="1*"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="30 0 0 0">
-                                                        <TextBlock  Text="{Binding OptionName}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                                HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
-                                                        <TextBlock Text=":" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
-                                                    </StackPanel>
-                                                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <TextBlock Text="{Binding Value}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light" Margin="0 0 5 0"/>
-                                                        <TextBlock Text="{Binding Unit}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light"/>
-                                                    </StackPanel>
-                                                </Grid>
-                                                <Border BorderBrush="LightGray" BorderThickness="0.6" Margin="20 0 20 0"/>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
-                        </Expander>
-                        <Expander IsExpanded="True">
-                            <Expander.Header>
-                                <TextBlock Text="Camera" Foreground="Black" FontWeight="Light" FontSize="24"/>
-                            </Expander.Header>
-                            <StackPanel>
-                                <ItemsControl x:Name="ViewCamera">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Vertical">
-                                                <Grid Margin="20">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="250"/>
-                                                        <ColumnDefinition Width="1*"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="30 0 0 0">
-                                                        <TextBlock  Text="{Binding OptionName}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                                HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
-                                                        <TextBlock Text=":" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
-                                                    </StackPanel>
-                                                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <TextBlock Text="{Binding Value}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light" Margin="0 0 5 0"/>
-                                                        <TextBlock Text="{Binding Unit}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light"/>
-                                                    </StackPanel>
-                                                </Grid>
-                                                <Border BorderBrush="LightGray" BorderThickness="0.6" Margin="20 0 20 0"/>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
-                        </Expander>
-                        <Expander IsExpanded="True">
-                            <Expander.Header>
-                                <TextBlock Text="Screen" Foreground="Black" FontWeight="Light" FontSize="24"/>
-                            </Expander.Header>
-                            <StackPanel>
-                                <ItemsControl x:Name="ViewScreen">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Vertical">
-                                                <Grid Margin="20">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="250"/>
-                                                        <ColumnDefinition Width="1*"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="30 0 0 0">
-                                                        <TextBlock  Text="{Binding OptionName}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                                HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
-                                                        <TextBlock Text=":" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal"/>
-                                                    </StackPanel>
-                                                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <TextBlock Text="{Binding Value}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light" Margin="0 0 5 0"/>
-                                                        <TextBlock Text="{Binding Unit}" FontSize="18" Foreground="Black" FontFamily="XFINITY Standard"
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Light"/>
-                                                    </StackPanel>
-                                                </Grid>
-                                                <Border BorderBrush="LightGray" BorderThickness="0.6" Margin="20 0 20 0"/>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
-                        </Expander>
+                    <StackPanel Orientation="Horizontal" Margin="20 10 20 30">
+                        <Button Content="ADD REVIEW!" materialDesign:ButtonAssist.CornerRadius="6" Margin="0 0 20 0" FontSize="20" x:Name="AddRewiew" Click="AddRewiew_Click"/>
+                        <Label Content="Your review can significantly affect the choice of goods or services!" FontWeight="Normal" FontFamily="XFINITY Standard" FontSize="20"/>
                     </StackPanel>
-                </materialDesign:Card>
-        </Grid>
+                </StackPanel>
+            </Grid>
         </ScrollViewer>
+        <materialDesign:Snackbar IsActive="False"  x:Name="SnackBar" HorizontalAlignment="Stretch" Grid.Row="1"
+                                     VerticalContentAlignment="Stretch">
+            <materialDesign:SnackbarMessage  FontSize="25" Width="Auto" ActionContent="OK" 
+                                               x:Name="SnackBarMessage" ActionClick="SnackbarMessage_ActionClick"/>
+        </materialDesign:Snackbar>
     </Grid>
 </Window>

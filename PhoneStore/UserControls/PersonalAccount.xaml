@@ -9,7 +9,7 @@
              d:DesignHeight="900" d:DesignWidth="1500">
     <Grid>
         <StackPanel x:Name="PersonalAccountSP" Orientation="Vertical" Visibility="Visible">
-            <StackPanel Height="Auto" Margin="0 40 0 0">
+            <StackPanel Height="Auto" Margin="0 20 0 0">
                 <Label Content="Personal Account" Foreground="{DynamicResource PrimaryHueDarkBrush}"  HorizontalAlignment="Center" 
                        Margin="0 35 0 0" FontFamily="Xfinity"  FontSize="30" FontWeight="Bold"/>
                 <Separator VerticalAlignment="Top" Margin="90 0 90 30" Background="{DynamicResource PrimaryHueDarkBrush}"/>
@@ -27,7 +27,7 @@
                         <TextBlock Text="Personal Info" Style="{DynamicResource TextBlockPerosnalAccount}" />
                     </StackPanel>
                 </Border>
-                <Border Style="{DynamicResource BorderPersonalAccountOutside}">
+                <Border Style="{DynamicResource BorderPersonalAccountOutside}" x:Name="History" PreviewMouseDown="History_PreviewMouseDown">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius ="0"  Color="Gray" Opacity="0.0"></DropShadowEffect>
                     </Border.Effect>
@@ -49,7 +49,7 @@
                         <TextBlock Text="Basket" Style="{DynamicResource TextBlockPerosnalAccount}"/>
                     </StackPanel>
                 </Border>
-                <Border  Style="{DynamicResource BorderPersonalAccountOutside}">
+                <Border  Style="{DynamicResource BorderPersonalAccountOutside}" PreviewMouseDown="Compare_PreviewMouseDown" x:Name="Compare">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius ="0"  Color="Gray" Opacity="0.0"></DropShadowEffect>
                     </Border.Effect>
@@ -57,10 +57,10 @@
                         <materialDesign:PackIcon Kind="ChartBar" Foreground="{DynamicResource PrimaryHueDarkBrush}" Width="80" Height="80" 
                                                  Margin="5" FontFamily="Xfinity" VerticalAlignment="Center" HorizontalAlignment="Center" 
                                                  VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                        <TextBlock Text="Basket" Style="{DynamicResource TextBlockPerosnalAccount}"/>
+                        <TextBlock Text="Compare" Style="{DynamicResource TextBlockPerosnalAccount}"/>
                     </StackPanel>
                 </Border>
-                <Border  Style="{DynamicResource BorderPersonalAccountOutside}">
+                <Border  Style="{DynamicResource BorderPersonalAccountOutside}" x:Name="Favorite" PreviewMouseDown="Favorite_PreviewMouseDown">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius ="0"  Color="Gray" Opacity="0.0"></DropShadowEffect>
                     </Border.Effect>

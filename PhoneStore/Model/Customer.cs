@@ -40,10 +40,16 @@ namespace PhoneStore.Model
         public virtual Address Address { get; set; }
 
         public virtual ICollection<Basket> Baskets { get; set; }
+        public virtual ICollection<OrderHistory> OrderHistories { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
+        public virtual ICollection<Favorite> Favorites { get; set; }
 
         public Customer()
         {
             Baskets = new List<Basket>();
+            OrderHistories = new List<OrderHistory>();
+            Reviews = new List<Review>();
+            Favorites = new List<Favorite>();
         }
 
     }

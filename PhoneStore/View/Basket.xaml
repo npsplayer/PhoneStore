@@ -12,59 +12,73 @@
         <convert:ImageConverter x:Key="Сonverter"/>
     </Window.Resources>
     <Grid Background="White">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+        
+        <Grid>
+            
+            <Grid.RowDefinitions>
+            <RowDefinition Height="145"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
-                <Label Content="Basket" Foreground="{DynamicResource PrimaryHueDarkBrush}"  HorizontalAlignment="Center" 
+            
+                <StackPanel Grid.Row="0">
+                    <Label Content="Basket" Foreground="{DynamicResource PrimaryHueDarkBrush}"  HorizontalAlignment="Center" 
                        Margin="0 35 0 0" FontFamily="Xfinity"  FontSize="30" FontWeight="Bold"/>
-                <Separator VerticalAlignment="Top" Margin="90 0 90 30" Background="{DynamicResource PrimaryHueDarkBrush}"/>
-            </StackPanel>
-            <ItemsControl x:Name="ListViewBasket" Width="Auto" MaxWidth="1550" Grid.Row="1">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate > 
-                    <Border BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="1" CornerRadius="10" Width="1355"  Margin="90 20 90 20">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="50"/>
-                            </Grid.ColumnDefinitions>
-                            <Image Source="{Binding Product.Photo, Converter={StaticResource Сonverter}}" Width="100" Margin="5" Grid.Column="0"/>
-                            <Label Content="{Binding Product.Name}" Foreground="Black" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="25" FontFamily="XFINITY Standard" Margin="5"/>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2">
-                                <Button x:Name="MinusProduct" materialDesign:ButtonAssist.CornerRadius="25" Width="50" Height="50" Margin="10 0 10 0" Click="MinusProduct_Click"> 
-                                    <materialDesign:PackIcon Kind="Minus" Height="25" Width="30" HorizontalContentAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
-                                </Button>
-                                <TextBox x:Name="CurrentAmount" Width="60" Height="50" Foreground="Black" FontSize="25" FontFamily="XFINITY Standard" Text="{Binding Amount}" HorizontalContentAlignment="Center"></TextBox>
-                                <Button x:Name="PlusProduct" Tag="{Binding}" materialDesign:ButtonAssist.CornerRadius="25" Width="50" Height="50" Margin="10 0 10 0" Click="PlusProduct_Click">
-                                    <materialDesign:PackIcon Kind="Add" Height="25" Width="30" HorizontalContentAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
-                                </Button>
-                            </StackPanel>
-                            <StackPanel Grid.Column="3" Orientation="Horizontal">
-                            <Label Content="{Binding Product.Price}" Foreground="Black" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="25" FontFamily="XFINITY Standard" Margin="5"/>
-                                <Label Content="$" Foreground="Black" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="25" FontFamily="XFINITY Standard"/>
-                            </StackPanel>
-                            <TextBlock Width="15" Height="15" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="4" Margin="5" Foreground="LightGray">
+                    <Separator VerticalAlignment="Top" Margin="90 0 100 30" Background="{DynamicResource PrimaryHueDarkBrush}"/>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Photo" FontFamily="Xfinity" FontWeight="Light" Foreground="Black" Margin="140 0 100 0"/>
+                    <Label Content="Name" FontFamily="Xfinity" FontWeight="Light" Foreground="Black" Margin="0 0 800 0"/>
+                    <Label Content="Count" FontFamily="Xfinity" FontWeight="Light" Foreground="Black" Margin="50 0 10 0"/>
+                    <Label Content="Price" FontFamily="Xfinity" FontWeight="Light" Foreground="Black" Margin="20 0 30 0"/>
+                </StackPanel>
+                </StackPanel>
+            <ScrollViewer Grid.Row="1">
+                <ItemsControl x:Name="ListViewBasket" Width="Auto" MaxWidth="1550">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate >
+                            <Border BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="1" CornerRadius="10" Width="1339"  Margin="90 20 90 20">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image x:Name="Image" Source="{Binding Product.Photo, Converter={StaticResource Сonverter}}" Width="100" Margin="5" Grid.Column="0" PreviewMouseDown="Image_PreviewMouseDown" Tag="{Binding}"/>
+                                    <Label Content="{Binding Product.Name}" Foreground="Black" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="25" FontFamily="XFINITY Standard" Margin="5"/>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2">
+                                        <Label x:Name="CurrentAmount" Width="60" Height="50" Foreground="Black" FontSize="25" FontFamily="XFINITY Standard" Content="{Binding Amount}" Margin="0 7 0 0" HorizontalContentAlignment="Center"></Label>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="3" Orientation="Horizontal">
+                                        <Label x:Name="Price" Content="{Binding Price}" Foreground="Black" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="25" FontFamily="XFINITY Standard" Margin="5"/>
+                                        <Label Content="$" Foreground="Black" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="25" FontFamily="XFINITY Standard"/>
+                                    </StackPanel>
+                                    <TextBlock Width="15" Height="15" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="4" Tag="{Binding}" Margin="5" Foreground="LightGray" x:Name="Delete" PreviewMouseDown="Delete_PreviewMouseDown">
                                 <materialDesign:PackIcon Kind="Close"/>
-                            </TextBlock>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-                </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        <StackPanel Grid.Row="2">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="200" HorizontalAlignment="Center">
-                <Button x:Name="PayButton" Width="200" Height="60" Margin="10 0 30 0"  
+                                    </TextBlock>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+            <StackPanel Grid.Row="2">
+                <StackPanel Orientation="Vertical">
+                    <Separator VerticalAlignment="Top" Margin="90 0 100 30" Background="{DynamicResource PrimaryHueDarkBrush}"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 200 0">
+                        <Label Content="Total price: " FontFamily="Xfinity" FontWeight="Light" Foreground="Black" FontSize="25"/>
+                        <TextBlock x:Name="TotalPrice" FontFamily="Xfinity" FontWeight="Light" Foreground="Black" FontSize="25" Text="0" Margin="5 0 5 0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label Content="$" FontSize="25" FontFamily="Xfinity" FontWeight="Light" Foreground="Black"/>
+                    </StackPanel>
+                </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="200" HorizontalAlignment="Center" Margin="0 -50 0 0">
+                <Button x:Name="PayButton" Width="200" Height="60" Margin="10 0 30 0"   Click="PayButton_Click"
                                 materialDesign:ButtonAssist.CornerRadius="5"  
                                 Foreground="White" FontSize="25" FontFamily="XFINITY Sstandard">
                     <StackPanel Orientation="Horizontal" Width="160" Height="50" Margin="0 0 0 0">
@@ -72,8 +86,16 @@
                         <TextBlock Text="Pay" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0 "/>
                     </StackPanel>
                 </Button>
+                <Button x:Name="DeleteAllButton" Width="200" Height="60" Click="DeleteAllButton_Click"
+                                materialDesign:ButtonAssist.CornerRadius="5"  Margin="10 0 30 0"
+                                Foreground="White" FontSize="25" FontFamily="XFINITY Standard">
+                    <StackPanel Orientation="Horizontal" Width="160" Height="50" Margin="0 0 0 0">
+                        <materialDesign:PackIcon Kind="DeleteCircle" Width="50" Height="50" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Clear" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10 0 0 0 "/>
+                    </StackPanel>
+                </Button>
                 <Button x:Name="BackButton" Width="200" Height="60" Click="BackButton_Click"
-                                materialDesign:ButtonAssist.CornerRadius="5"  
+                                materialDesign:ButtonAssist.CornerRadius="5"  Margin="10 0 10 0"
                                 Foreground="White" FontSize="25" FontFamily="XFINITY Standard">
                     <StackPanel Orientation="Horizontal" Width="160" Height="50" Margin="0 0 0 0">
                         <materialDesign:PackIcon Kind="ArrowLeftCircle" Width="50" Height="50" HorizontalAlignment="Left"/>
@@ -82,5 +104,11 @@
                 </Button>
             </StackPanel>
         </StackPanel>
+        <materialDesign:Snackbar IsActive="False"  x:Name="SnackBar" HorizontalAlignment="Stretch" 
+                                     VerticalContentAlignment="Stretch" Grid.Row="2">
+            <materialDesign:SnackbarMessage Content="Login successful" FontSize="25" Width="Auto" ActionContent="OK" 
+                                               x:Name="SnackBarMessage" ActionClick="SnackbarMessage_ActionClick"/>
+        </materialDesign:Snackbar>
+    </Grid>
     </Grid>
 </Window>

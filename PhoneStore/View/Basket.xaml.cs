@@ -1,7 +1,9 @@
-﻿using PhoneStore.Model;
+﻿using Oracle.ManagedDataAccess.Client;
+using PhoneStore.Model;
 using PhoneStore.UserControls;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -24,76 +26,118 @@ namespace PhoneStore.View
     {
         OracleDbContext db = null;
         int value = 0;
-        ShowCatalog catalogView;
         public static int productID;
         public int customer = Login.CustomerID;
+        public static Button PayBtn;
+        public static Button DeleteAllBtn;
         public Basket()
         {
             InitializeComponent();
             db = new OracleDbContext();
+            ShowBasket();
+            PayBtn = PayButton;
+            DeleteAllBtn = DeleteAllButton;
+        }
+        public void ShowBasket()
+        {
             db.Products.Load();
             db.Baskets.Load();
             var select = db.Baskets.Where(bask => bask.CustomerID == customer);
             ListViewBasket.ItemsSource = select.ToList();
-        }
-        public Basket (UserControl userControl)
-        {
-            userControl = catalogView;
-            InitializeComponent();
-            db = new OracleDbContext();
-            
-
+            try
+            {
+                var totalprice_out = new OracleParameter("totalprice_out", OracleDbType.Int32, ParameterDirection.Output);
+                var sql = "BEGIN TOTALPRICEBASKET(" + customer + ", :totalprice_out); END;";
+                var total = db.Database.ExecuteSqlCommand(sql, totalprice_out);
+                
+              
+                TotalPrice.Text = totalprice_out.Value.ToString();
+                if (TotalPrice.Text == "null")
+                {
+                    TotalPrice.Text = "0";
+                }
+            }
+            catch
+            {
+                SnackBar.IsActive = true;
+                SnackBarMessage.Content = "Opppps....Try again?";
+            }
         }
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-        public void ShowBasket()
+       
+
+        
+        private void Delete_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Model.Basket basket = new Model.Basket()
-            {
-                ProductID = productID,
-                CustomerID = Login.CustomerID,
-                Amount = 1
-            };
-            db.Baskets.Add(basket);
+            //PROCEDURE
+            var basket = (Model.Basket)((TextBlock)sender).Tag;
+            int? basketid = basket.BasketID;
+            var delete = db.Baskets.Where(bs => bs.BasketID == basketid && bs.CustomerID == customer).FirstOrDefault();
+            db.Baskets.Remove(delete);
             db.SaveChanges();
-        }
-        private void PlusProduct_Click(object sender, RoutedEventArgs e)
-        {
-            
-            //value++;
-            //CurrentAmount.Text = Convert.ToString(value);
-        }
-
-        private void MinusProduct_Click(object sender, RoutedEventArgs e)
-        {
-            //CurrentAmount = FindVisualChildByName<TextBox>(ListViewBasket, "CurrentAmount");
-            //value--;
-            //CurrentAmount.Text = Convert.ToString(value);
+            var updateorderhistory = db.OrderHistories.Where(oh => oh.CustomerID == customer && oh.KeyFindProduct == basketid).FirstOrDefault();
+            updateorderhistory.Status = "Delete from basket";
+            db.SaveChanges();
+            ShowBasket();
+            SnackBar.IsActive = true;
+            SnackBarMessage.Content = "You delete product from cart!";
+            var select = db.Baskets.Where(bask => bask.CustomerID == Login.CustomerID);
+            MainWindow.CountBasket.Text = Convert.ToString(select.LongCount());
         }
 
-        public static T FindVisualChildByName<T>(DependencyObject parent, string name) where T : DependencyObject
+
+        private void DeleteAllButton_Click(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            //PROCEDURE
+            var deleteall = db.Baskets.Where(bs => bs.CustomerID == customer).ToList();
+            foreach(var row in deleteall)
             {
-                var child = VisualTreeHelper.GetChild(parent, i);
-                string controlName = child.GetValue(Control.NameProperty) as string;
-                if (controlName == name)
-                {
-                    return child as T;
-                }
-                else
-                {
-                    T result = FindVisualChildByName<T>(child, name);
-                    if (result != null)
-                        return result;
-                }
+                db.Baskets.Remove(row);
+                var update = db.OrderHistories.Where(oh => oh.CustomerID == customer && oh.KeyFindProduct == row.BasketID).FirstOrDefault();
+                update.Status = "Delete from basket";
             }
-            return null;
+            
+            db.SaveChanges();
+            ShowBasket();
+            var select = db.Baskets.Where(bask => bask.CustomerID == Login.CustomerID);
+            MainWindow.CountBasket.Text = Convert.ToString(select.LongCount());
         }
- 
- 
 
+        private void SnackbarMessage_ActionClick(object sender, RoutedEventArgs e)
+        {
+            SnackBar.IsActive = false;
+        }
+
+        private void PayButton_Click(object sender, RoutedEventArgs e)
+        {
+            //PROCEDURE
+            var update = db.OrderHistories.Where(oh => oh.CustomerID == customer).ToList();
+            foreach(var row in update)
+            {
+                row.Status = "Paid";
+            }
+            db.SaveChanges();
+            var deleteall = db.Baskets.Where(bs => bs.CustomerID == customer).ToList();
+            foreach (var row in deleteall)
+            {
+                db.Baskets.Remove(row);
+            }
+            db.SaveChanges();
+            ShowBasket();
+            var select = db.Baskets.Where(bask => bask.CustomerID == Login.CustomerID);
+            MainWindow.CountBasket.Text = Convert.ToString(select.LongCount());
+        }
+
+        private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var product = (Model.Basket)((Image)sender).Tag;
+            int? id = product.ProductID;
+            ShowCatalog.productid = (int)id;
+            ProductView productView = new ProductView();
+            productView.ShowDialog();
+        }
     }
 }

@@ -24,6 +24,8 @@ namespace PhoneStore.Model
         public virtual DbSet<Option> Options { get; set; }
         public virtual DbSet<OptionType> OptionTypes { get; set; }
         public virtual DbSet<Basket> Baskets { get; set; }
-        public virtual DbSet<Phone> Phones { get; set; }
+        public virtual DbSet<OrderHistory> OrderHistories { get; set; }
+        public virtual DbSet<Review> Reviews { get; set; }
+        public virtual DbSet<Favorite> Favorites { get; set; }
     }
 }

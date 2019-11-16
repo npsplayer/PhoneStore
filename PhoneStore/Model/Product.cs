@@ -19,18 +19,23 @@ namespace PhoneStore.Model
         [StringLength(50)]
         public string Manufacturer { get; set; }
 
-        [StringLength(50)]
-        public string Price { get; set; }
+        
+        public double Price { get; set; }
 
-        public byte[] Photo { get; set; } // добавить public virtual Photo Photos { get; set; }
+        public byte[] Photo { get; set; }
 
         public virtual ICollection<ProductOption> ProductOptions { get; set; }
         public virtual ICollection<Basket> Baskets { get; set; }
-
+        public virtual ICollection<OrderHistory> OrderHistories { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
+        public virtual ICollection<Favorite> Favorites { get; set; }
         public Product()
         {
             ProductOptions = new List<ProductOption>();
             Baskets = new List<Basket>();
+            OrderHistories = new List<OrderHistory>();
+            Reviews = new List<Review>();
+            Favorites = new List<Favorite>();
         }
 
     }

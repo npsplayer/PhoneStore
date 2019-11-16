@@ -162,14 +162,57 @@
     <Compile Include="Migrations\201911151739502_UpdateProductOptionAddUnit.Designer.cs">
       <DependentUpon>201911151739502_UpdateProductOptionAddUnit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911152107255_AddTableOrderHistory.cs" />
+    <Compile Include="Migrations\201911152107255_AddTableOrderHistory.Designer.cs">
+      <DependentUpon>201911152107255_AddTableOrderHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911152122410_UpdateOrderHistory.cs" />
+    <Compile Include="Migrations\201911152122410_UpdateOrderHistory.Designer.cs">
+      <DependentUpon>201911152122410_UpdateOrderHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911152338390_UpdateOrderHistory2.cs" />
+    <Compile Include="Migrations\201911152338390_UpdateOrderHistory2.Designer.cs">
+      <DependentUpon>201911152338390_UpdateOrderHistory2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911152341008_UpdateOrderHistory21.cs" />
+    <Compile Include="Migrations\201911152341008_UpdateOrderHistory21.Designer.cs">
+      <DependentUpon>201911152341008_UpdateOrderHistory21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911152352332_UpdateBasket.cs" />
+    <Compile Include="Migrations\201911152352332_UpdateBasket.Designer.cs">
+      <DependentUpon>201911152352332_UpdateBasket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911152353239_UpdateBasket2.cs" />
+    <Compile Include="Migrations\201911152353239_UpdateBasket2.Designer.cs">
+      <DependentUpon>201911152353239_UpdateBasket2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911160005128_Update.cs" />
+    <Compile Include="Migrations\201911160005128_Update.Designer.cs">
+      <DependentUpon>201911160005128_Update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911160141184_AddReview.cs" />
+    <Compile Include="Migrations\201911160141184_AddReview.Designer.cs">
+      <DependentUpon>201911160141184_AddReview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911160830187_AddReviewUpt.cs" />
+    <Compile Include="Migrations\201911160830187_AddReviewUpt.Designer.cs">
+      <DependentUpon>201911160830187_AddReviewUpt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911161240225_AddFavorite.cs" />
+    <Compile Include="Migrations\201911161240225_AddFavorite.Designer.cs">
+      <DependentUpon>201911161240225_AddFavorite.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\Basket.cs" />
     <Compile Include="Model\Customer.cs" />
+    <Compile Include="Model\Favorite.cs" />
     <Compile Include="Model\Option.cs" />
     <Compile Include="Model\OptionType.cs" />
+    <Compile Include="Model\OrderHistory.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Model\ProductOption.cs" />
+    <Compile Include="Model\Review.cs" />
     <Compile Include="UserControls\Filter.xaml.cs">
       <DependentUpon>Filter.xaml</DependentUpon>
     </Compile>
@@ -180,8 +223,17 @@
       <DependentUpon>ShowCatalog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Validation.cs" />
+    <Compile Include="View\AddRewiew.xaml.cs">
+      <DependentUpon>AddRewiew.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Basket.xaml.cs">
       <DependentUpon>Basket.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Favorite.xaml.cs">
+      <DependentUpon>Favorite.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\History.xaml.cs">
+      <DependentUpon>History.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -235,7 +287,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\AddRewiew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Basket.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Favorite.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\History.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -258,7 +322,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\OracleDbContext.cs" />
-    <Compile Include="Model\Phone.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -327,6 +390,36 @@
     <EmbeddedResource Include="Migrations\201911151739502_UpdateProductOptionAddUnit.resx">
       <DependentUpon>201911151739502_UpdateProductOptionAddUnit.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911152107255_AddTableOrderHistory.resx">
+      <DependentUpon>201911152107255_AddTableOrderHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911152122410_UpdateOrderHistory.resx">
+      <DependentUpon>201911152122410_UpdateOrderHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911152338390_UpdateOrderHistory2.resx">
+      <DependentUpon>201911152338390_UpdateOrderHistory2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911152341008_UpdateOrderHistory21.resx">
+      <DependentUpon>201911152341008_UpdateOrderHistory21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911152352332_UpdateBasket.resx">
+      <DependentUpon>201911152352332_UpdateBasket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911152353239_UpdateBasket2.resx">
+      <DependentUpon>201911152353239_UpdateBasket2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911160005128_Update.resx">
+      <DependentUpon>201911160005128_Update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911160141184_AddReview.resx">
+      <DependentUpon>201911160141184_AddReview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911160830187_AddReviewUpt.resx">
+      <DependentUpon>201911160830187_AddReviewUpt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911161240225_AddFavorite.resx">
+      <DependentUpon>201911161240225_AddFavorite.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -365,6 +458,12 @@
   <ItemGroup>
     <None Include="SQLFile\Procedure..ssql" />
     <None Include="SQLFile\Script.ssql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AccountImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AccountImage2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

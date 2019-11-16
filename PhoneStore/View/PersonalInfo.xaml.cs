@@ -111,8 +111,8 @@ namespace PhoneStore.View
                                                Password, ErrorPassword, IconPassword
                                                ))
             {
-                //try
-                //{
+                try
+                {
                     var USERNAME = new OracleParameter("USERNAME", OracleDbType.NVarchar2, Username.Text, ParameterDirection.InputOutput);
                     var PASSWORD = new OracleParameter("PASSWORD", OracleDbType.NVarchar2, Password.Password, ParameterDirection.InputOutput);
                     var CITY = new OracleParameter("CITY", OracleDbType.NVarchar2, City.Text, ParameterDirection.InputOutput);
@@ -128,12 +128,12 @@ namespace PhoneStore.View
                     var sql = "BEGIN PERSONAINFOUPDATE(" + userid + ", :USERNAME, :PASSWORD," + addressid + ",:CITY, :STREET, :HOMENUMBER, :ROOM, :FIRSTNAME, :SECONDNAME, :PATRONYMIC, :DATEOFBIRTH, :EMAIL, :PHONENUMBER); END;";
                     var update = db.Database.ExecuteSqlCommand(sql, USERNAME, PASSWORD, CITY, STREET, HOMENUMBER, ROOM, FIRSTNAME, SECONDNAME, PATRONYMIC, DATEOFBIRTH, EMAIL, PHONENUMBER);
                     PersonalInfoSnackBar.IsActive = true;
-                //}
-                //catch
-                //{
-                //    PersonalInfoSnackBar.IsActive = true;
-                //    SnackBarMessage.Content = "Ooopss... Try again?";
-                //}
+                }
+                catch
+                {
+                    PersonalInfoSnackBar.IsActive = true;
+                    SnackBarMessage.Content = "Ooopss... Try again?";
+                }
                 
             }
         }

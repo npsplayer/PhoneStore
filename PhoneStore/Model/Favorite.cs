@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace PhoneStore.Model
 {
-    [Table("BASKET")]
-    public class Basket
+    [Table("FAVORITE")]
+    public class Favorite
     {
-        public int BasketID { get; set; }
+        public int FavoriteID { get; set; }
 
         public int? ProductID { get; set; }
         public virtual Product Product { get; set; }
@@ -18,8 +18,5 @@ namespace PhoneStore.Model
         public int? CustomerID { get; set; }
         public virtual Customer Customer { get; set; }
 
-        public int Amount { get; set; }
-
-        public double Price { get; set; }
     }
 }
