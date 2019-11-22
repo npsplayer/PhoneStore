@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhoneStore.UserControls"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:converter="clr-namespace:PhoneStore"
         mc:Ignorable="d" x:Name="Window"
         Title="MainWindow" WindowState="Maximized" WindowStyle="None"  Height="800" Width="1550">
+    <Window.Resources>
+        <converter:ImageConverter x:Key="Converter"/>
+    </Window.Resources>
     <Grid Background="White">
         <Grid>
             <Grid.RowDefinitions>
@@ -21,23 +25,83 @@
                                 FontFamily="XFINITY Standard" FontWeight="Bold" Foreground="White" PreviewMouseDown="LogoName_PreviewMouseDown"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBox materialDesign:HintAssist.Hint="Search..." 
-                         materialDesign:TextFieldAssist.UnderlineBrush="White"
-                         Foreground="White" Width="800" FontSize="16" FontFamily="XFINITY Standard" Margin="50 0 0 0"/>
-                    <materialDesign:PackIcon Kind="Magnify" Foreground="White" Width="25" Height="25" VerticalAlignment="Center" Margin="5" FontFamily="Xfinity"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 7 200 0">
-                    <materialDesign:PopupBox PlacementMode="BottomAndAlignLeftEdges" Foreground="White">
+
+                    <materialDesign:PopupBox Width="400" IsPopupOpen="False" x:Name="popupSearch">
                         <materialDesign:PopupBox.ToggleContent>
-                            <TextBlock Text="Catalog" Foreground="White" FontSize="20" FontFamily="XFINITY Standard"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Width="350" x:Name="Search" TextChanged="Search_TextChanged" Foreground="White" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" 
+                                         PreviewMouseUp="Search_PreviewMouseDown" materialDesign:TextFieldAssist.UnderlineBrush="White"
+                                         materialDesign:HintAssist.Hint="Search..." FontSize="18"/>
+
+                                <materialDesign:PackIcon Kind="Magnify" Foreground="White" Width="25" Height="25" VerticalAlignment="Center" 
+                                             Margin="0 0 5 0" FontFamily="Xfinity" PreviewMouseDown="LogoName_PreviewMouseDown"/>
+                            </StackPanel>
                         </materialDesign:PopupBox.ToggleContent>
-                        <StackPanel Width="100" VerticalAlignment="Center" HorizontalAlignment="Left" >
-                            <Button Content="Phone" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="XFINITY Standard"/>
-                            <Button Content="Tablet" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="XFINITY Standard"/>
+                        <StackPanel>
+                            <ScrollViewer Width="404" Height="150">
+                            <ItemsControl x:Name="SearchResult">
+                                <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    
+                                        <Grid x:Name="GridResult" Tag="{Binding}" PreviewMouseDown="GridResult_PreviewMouseDown">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="50"/>
+                                                <ColumnDefinition Width="1*"/>
+                                                <ColumnDefinition Width="100"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Width="50" Height="50" HorizontalAlignment="Center" x:Name="Image"  VerticalAlignment="Center" Source="{Binding Photo, Converter={StaticResource Converter}}" Grid.Column="0" Margin="5 0 5 0"/>
+                                            <TextBlock Text="{Binding Name}" FontFamily="XFINITY Standard" FontSize="20" Margin="5 0 5 0"  VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1"/>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5 0 5 0">
+                                                <TextBlock Text="{Binding Price}" FontFamily="XFINITY Standard" FontSize="20"/>
+                                                <TextBlock Text="$" FontFamily="XFINITY Standard" FontSize="20"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            </ScrollViewer>
                         </StackPanel>
                     </materialDesign:PopupBox>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Width="150">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Width="Auto">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PopupBox>
+                            <materialDesign:PopupBox.ToggleContent>
+                                <materialDesign:PackIcon Kind="ColorLens" Foreground="White" Width="25" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"/>
+                            </materialDesign:PopupBox.ToggleContent>
+                            <StackPanel>
+                                <Button x:Name="Red" Click="Red_Click" >
+                                    <materialDesign:PackIcon Kind="CheckboxBlankCircle" Foreground="#ef5350" Width="25" Height="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                                                             VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Button>
+                                <Button x:Name="Purple" Click="Purple_Click">
+                                    <materialDesign:PackIcon Kind="CheckboxBlankCircle" Foreground="#ab47bc" Width="25" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Button>
+                                <Button x:Name="DeepPurple" Click="DeepPurple_Click">
+                                    <materialDesign:PackIcon Kind="CheckboxBlankCircle" Foreground="#7e57c2" Width="25" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Button>
+                                <Button x:Name="Indigo" Click="Indigo_Click">
+                                    <materialDesign:PackIcon Kind="CheckboxBlankCircle" Foreground="#5c6bc0" Width="25" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                </Button>
+                                <Button x:Name="Blue" Click="Blue_Click">
+                                    <materialDesign:PackIcon Kind="CheckboxBlankCircle" Foreground="#42a5f5" Width="25" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Button>
+                                <Button x:Name="Teal" Click="Teal_Click">
+                                    <materialDesign:PackIcon Kind="CheckboxBlankCircle" Foreground="#26a69a" Width="25" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Button>
+                                <Button x:Name="Green" Click="Green_Click">
+                                    <materialDesign:PackIcon Kind="CheckboxBlankCircle" Foreground="#66bb6a" Width="25" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Button>
+                                <Button x:Name="Black" Click="Black_Click">
+                                    <materialDesign:PackIcon Kind="CheckboxBlankCircle" Foreground="Black" Width="25" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Button>
+
+                                
+                               
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+                    </StackPanel>
                     <StackPanel Orientation="Horizontal" PreviewMouseDown="Basket_PreviewMouseDown" x:Name="Basket">
                         <materialDesign:PackIcon Kind="CartOutline" Foreground="White" Width="25" Height="25" VerticalAlignment="Center" Margin="5 5 0 5" FontFamily="Xfinity"/>
                         <Border CornerRadius="10" VerticalAlignment="Center" Margin="-6 0 0 15" HorizontalAlignment="Right" Width="20" Height="20" Background="White" >

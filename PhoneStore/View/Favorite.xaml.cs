@@ -39,22 +39,21 @@ namespace PhoneStore.View
             var select = from favorite in db.Favorites
                          join customer in db.Customers on favorite.CustomerID equals customer.CustomerID
                          join product in db.Products on favorite.ProductID equals product.ProductID
-                         select new { product.Photo, product.Name, product.Price };
-            ListViewFavorite.ItemsSource = select.ToList();
+                         select new { favorite, product };
+            var selectnew = db.Favorites.Where(f => f.CustomerID == Login.CustomerID);
+            ListViewFavorite.ItemsSource = selectnew.ToList();
         }
         private void Delete_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            //Model.Favorite favorite = (Model.Favorite)((TextBlock)sender).Tag;
-            //int? favoriteid = favorite.FavoriteID;
-            //var delete = db.Favorites.Where(bs => bs.FavoriteID == favoriteid && bs.CustomerID == Login.CustomerID).FirstOrDefault();
-            //db.Favorites.Remove(delete);
-            //db.SaveChanges();
-            //ShowFavorite();
-            //SnackBar.IsActive = true;
-            //SnackBarMessage.Content = "You delete product from cart!";
-            var basket = (Model.Basket)((TextBlock)sender).Tag;
-            var far = (Model.Favorite)((TextBlock)sender).Tag;
-            var a = far.ProductID;
+            var favorite = (Model.Favorite)((TextBlock)sender).Tag;
+            int? favoriteid = favorite.FavoriteID;
+            var delete = db.Favorites.Where(bs => bs.FavoriteID == favoriteid && bs.CustomerID == Login.CustomerID).FirstOrDefault();
+            db.Favorites.Remove(delete);
+            db.SaveChanges();
+            ShowFavorite();
+            SnackBar.IsActive = true;
+            SnackBarMessage.Content = "You delete product from cart!";
+            
         }
 
         private void Image_PreviewMouseDown(object sender, MouseButtonEventArgs e)

@@ -67,19 +67,19 @@
             <StackPanel Grid.Row="2">
 
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="200" HorizontalAlignment="Center" Margin="0 0 0 0">
-                    <Button x:Name="SortDateAsc" Height="60" Width="70" materialDesign:ButtonAssist.CornerRadius="5" Margin="10 0 10 0"
+                    <Button x:Name="SortDateAsc" Height="60" Width="70" Foreground="White" materialDesign:ButtonAssist.CornerRadius="5" Margin="10 0 10 0"
                             Click="SortDateAsc_Click">
                         <materialDesign:PackIcon Kind="CalendarImport" Height="50" Width="50" HorizontalAlignment="Center"/>
                     </Button>
-                    <Button x:Name="SortDateDesc" Height="60" Width="70" materialDesign:ButtonAssist.CornerRadius="5" Margin="10 0 10 0"
+                    <Button x:Name="SortDateDesc" Height="60" Width="70" Foreground="White" materialDesign:ButtonAssist.CornerRadius="5" Margin="10 0 10 0"
                             Click="SortDateDesc_Click">
                         <materialDesign:PackIcon Kind="CalendarExport" Height="50" Width="50" HorizontalAlignment="Center"/>
                     </Button>
-                    <Button x:Name="SortPriceAsc" Height="60" Width="70" materialDesign:ButtonAssist.CornerRadius="5" Margin="10 0 10 0"
+                    <Button x:Name="SortPriceAsc" Height="60" Width="70" Foreground="White" materialDesign:ButtonAssist.CornerRadius="5" Margin="10 0 10 0"
                             Click="SortPriceAsc_Click">
                         <materialDesign:PackIcon Kind="SortAscending" Height="50" Width="50" HorizontalAlignment="Center"/>
                     </Button>
-                    <Button x:Name="SortPriceDesc" Height="60" Width="70" materialDesign:ButtonAssist.CornerRadius="5" Margin="10 0 10 0"
+                    <Button x:Name="SortPriceDesc" Foreground="White" Height="60" Width="70" materialDesign:ButtonAssist.CornerRadius="5" Margin="10 0 10 0"
                             Click="SortPriceDesc_Click">
                         <materialDesign:PackIcon Kind="SortDescending" Height="50" Width="50" HorizontalAlignment="Center"/>
                     </Button>

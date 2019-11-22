@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhoneStore.View"
+        xmlns:us="clr-namespace:PhoneStore.UserControls"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="PersonalInfo" WindowState="Maximized" Width="1550" Height="800" WindowStyle="None" x:Name="PersonalInfos">
@@ -113,7 +114,7 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel>
-                <StackPanel Orientation="Vertical" Width="Auto" Margin="90 0 90 50" Height="85" Background="#efefef">
+                <StackPanel Orientation="Vertical" Width="Auto" Margin="90 0 90 50" Height="95" Background="#efefef">
                     <Label Content= "Confidential Info" FontFamily="Xfinity"  FontSize="25" Width="Auto" FontWeight="Bold"/>
                     <StackPanel Orientation="Horizontal" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Stretch"
                                 Margin="100 0 0 0">
@@ -132,12 +133,18 @@
                                        Visibility="Hidden" Margin="0 0 5 0">
                                 <materialDesign:PackIcon x:Name="IconPassword" Kind="AlertCircleOutline" Width="30" Height="30"  />
                             </TextBlock>
+                            <Button x:Name="Photo" FontFamily="Xfinity"  Width="250" FontSize="22" Foreground="White" materialDesign:ButtonAssist.CornerRadius="10" Height="50" Margin="10 -10 0 0" Click="Photo_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="InsertPhoto" Width="40" Height="40"/>
+                                    <TextBlock Text="Profile photo" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
             <StackPanel>
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="200" HorizontalAlignment="Center" Margin="0 0 0 30">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Height="200" HorizontalAlignment="Center" Margin="0 -20 0 0">
                     <Button x:Name="SaveButton" Width="200" Height="60" Margin="10 0 30 0" IsEnabled="False"
                                 materialDesign:ButtonAssist.CornerRadius="5"  
                                 Foreground="White" FontSize="25" FontFamily="XFINITY Sstandard" Click="SaveButton_Click">
@@ -157,10 +164,12 @@
                 </StackPanel>
             </StackPanel>
         </StackPanel>
+        <us:CustomerPhoto Visibility="Hidden" x:Name="PhotoView"/>
         <materialDesign:Snackbar IsActive="False"  x:Name="PersonalInfoSnackBar" HorizontalAlignment="Stretch" 
                                      VerticalContentAlignment="Stretch">
             <materialDesign:SnackbarMessage Content="Data changed successfully!" FontSize="25" Width="Auto" ActionContent="OK" 
                                                x:Name="SnackBarMessage" ActionClick="SnackbarMessage_ActionClick"/>
         </materialDesign:Snackbar>
+        
     </Grid>
 </Window>

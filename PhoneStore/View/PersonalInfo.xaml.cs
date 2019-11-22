@@ -25,6 +25,7 @@ namespace PhoneStore.View
     {
         OracleDbContext db = null;
         public static Button SaveBut;
+        public static UserControl PhotoV;
         int userid = Login.UserID;
         int addressid = Login.AddressID;
         public static int customerID;
@@ -32,6 +33,7 @@ namespace PhoneStore.View
         {
             InitializeComponent();
             CheckNull();
+            PhotoV = PhotoView;
             ShowPersonalInfo();
             SaveBut = SaveButton;
         }
@@ -152,6 +154,11 @@ namespace PhoneStore.View
         private void SnackbarMessage_ActionClick(object sender, RoutedEventArgs e)
         {
             PersonalInfoSnackBar.IsActive = false;
+        }
+
+        private void Photo_Click(object sender, RoutedEventArgs e)
+        {
+            PhotoView.Visibility = Visibility.Visible;
         }
     }
 }

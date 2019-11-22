@@ -29,6 +29,7 @@ namespace PhoneStore.Model
         public virtual ICollection<OrderHistory> OrderHistories { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
         public virtual ICollection<Favorite> Favorites { get; set; }
+        public virtual ICollection<ProductComparison> ProductComparisons { get; set; }
         public Product()
         {
             ProductOptions = new List<ProductOption>();
@@ -36,6 +37,7 @@ namespace PhoneStore.Model
             OrderHistories = new List<OrderHistory>();
             Reviews = new List<Review>();
             Favorites = new List<Favorite>();
+            ProductComparisons = new List<ProductComparison>();
         }
 
     }

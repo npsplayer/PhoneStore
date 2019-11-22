@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PhoneStore.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,8 +29,16 @@ namespace PhoneStore.UserControls
 
         private void PersonalInfo_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            View.PersonalInfo personalInfo = new View.PersonalInfo();
-            personalInfo.ShowDialog();
+            if (Login.CustomerID == 0)
+            {
+                MainWindow.Snackbar.IsActive = true;
+                MainWindow.SnackbarMessage.Content = "In order to view personal data, you must register or login to your account!";
+            }
+            else
+            {
+                View.PersonalInfo personalInfo = new View.PersonalInfo();
+                personalInfo.ShowDialog();
+            }
         }
 
 
@@ -53,7 +62,8 @@ namespace PhoneStore.UserControls
 
         private void Compare_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            View.ProductCoparisonView productCoparison = new View.ProductCoparisonView();
+            productCoparison.ShowDialog();
         }
 
         private void Favorite_PreviewMouseDown(object sender, MouseButtonEventArgs e)

@@ -259,7 +259,7 @@
                                                             <Button x:Name="Favorite" Click="Favorite_Click" Tag="{Binding}">
                                                                 <materialDesign:PackIcon Kind="Heart" Foreground="{DynamicResource PrimaryHueDarkBrush}"/>
                                                             </Button>
-                                                            <Button Tag="{Binding}">
+                                                            <Button Tag="{Binding}" x:Name="Compare" Click="Compare_Click">
                                                                 <materialDesign:PackIcon Kind="ChartBar" Foreground="{DynamicResource PrimaryHueDarkBrush}"/>
                                                             </Button>
                                                         </StackPanel>

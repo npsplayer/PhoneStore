@@ -34,6 +34,7 @@ namespace PhoneStore.Model
         [StringLength(50)]
         public string PhoneNumber { get; set; }
 
+        public byte[] Photo { get; set; }
         
         public int? AddressID { get; set; }
 
@@ -43,6 +44,7 @@ namespace PhoneStore.Model
         public virtual ICollection<OrderHistory> OrderHistories { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
         public virtual ICollection<Favorite> Favorites { get; set; }
+        public virtual ICollection<ProductComparison> ProductComparisons { get; set; }
 
         public Customer()
         {
@@ -50,6 +52,7 @@ namespace PhoneStore.Model
             OrderHistories = new List<OrderHistory>();
             Reviews = new List<Review>();
             Favorites = new List<Favorite>();
+            ProductComparisons = new List<ProductComparison>();
         }
 
     }

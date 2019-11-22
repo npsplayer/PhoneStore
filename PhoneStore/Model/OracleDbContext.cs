@@ -27,5 +27,6 @@ namespace PhoneStore.Model
         public virtual DbSet<OrderHistory> OrderHistories { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<Favorite> Favorites { get; set; }
+        public virtual DbSet<ProductComparison> ProductComparisons { get; set; }
     }
 }

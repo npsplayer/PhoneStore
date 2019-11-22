@@ -29,6 +29,7 @@ namespace PhoneStore.UserControls
         OracleDbContext db = null;
         public static int productid;
         public static double pricepoduct;
+        
         public ShowCatalog()
         {
             InitializeComponent();
@@ -128,6 +129,45 @@ namespace PhoneStore.UserControls
                     MainWindow.Snackbar.IsActive = true;
                     MainWindow.SnackbarMessage.Content = "Add to favorite!";
                 }
+            }
+            else if (Login.CustomerID == 0)
+            {
+                MainWindow.Snackbar.IsActive = true;
+                MainWindow.SnackbarMessage.Content = "To add to favorites you need to register or log in to your account!";
+            }
+        }
+
+        private void Compare_Click(object sender, RoutedEventArgs e)
+        {
+            var product = (Product)((Button)sender).Tag;
+            productid = product.ProductID;
+            if (Login.CustomerID != 0)
+            {
+                if (db.ProductComparisons.LongCount() < 5)
+                {
+                    var checkcompare = db.ProductComparisons.Where(pc => pc.ProductID == productid && pc.CustomerID == Login.CustomerID);
+                    if (checkcompare.Count() != 0)
+                    {
+                        MainWindow.Snackbar.IsActive = true;
+                        MainWindow.SnackbarMessage.Content = "The product has already been added to the comparison!";
+                    }
+                    else
+                    {
+                        Model.ProductComparison productComparison = new ProductComparison()
+                        {
+                            ProductID = product.ProductID,
+                            CustomerID = Login.CustomerID
+                        };
+                        db.ProductComparisons.Add(productComparison);
+                        db.SaveChanges();
+                    }
+                }
+                else
+                {
+                    MainWindow.Snackbar.IsActive = true;
+                    MainWindow.SnackbarMessage.Content = "In comparison of goods there can be no more than 5 products!";
+                }
+            
             }
             else if (Login.CustomerID == 0)
             {

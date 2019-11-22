@@ -202,6 +202,14 @@
     <Compile Include="Migrations\201911161240225_AddFavorite.Designer.cs">
       <DependentUpon>201911161240225_AddFavorite.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911181049021_AddCompare.cs" />
+    <Compile Include="Migrations\201911181049021_AddCompare.Designer.cs">
+      <DependentUpon>201911181049021_AddCompare.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911221621559_UpdateCustomerPhoto.cs" />
+    <Compile Include="Migrations\201911221621559_UpdateCustomerPhoto.Designer.cs">
+      <DependentUpon>201911221621559_UpdateCustomerPhoto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\Basket.cs" />
@@ -211,8 +219,12 @@
     <Compile Include="Model\OptionType.cs" />
     <Compile Include="Model\OrderHistory.cs" />
     <Compile Include="Model\Product.cs" />
+    <Compile Include="Model\ProductComparison.cs" />
     <Compile Include="Model\ProductOption.cs" />
     <Compile Include="Model\Review.cs" />
+    <Compile Include="UserControls\CustomerPhoto.xaml.cs">
+      <DependentUpon>CustomerPhoto.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Filter.xaml.cs">
       <DependentUpon>Filter.xaml</DependentUpon>
     </Compile>
@@ -240,6 +252,9 @@
     </Compile>
     <Compile Include="View\PersonalInfo.xaml.cs">
       <DependentUpon>PersonalInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProductCoparisonView.xaml.cs">
+      <DependentUpon>ProductCoparisonView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ProductView.xaml.cs">
       <DependentUpon>ProductView.xaml</DependentUpon>
@@ -272,6 +287,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Styles\TextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\CustomerPhoto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -308,6 +327,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PersonalInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProductCoparisonView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -419,6 +442,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911161240225_AddFavorite.resx">
       <DependentUpon>201911161240225_AddFavorite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911181049021_AddCompare.resx">
+      <DependentUpon>201911181049021_AddCompare.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911221621559_UpdateCustomerPhoto.resx">
+      <DependentUpon>201911221621559_UpdateCustomerPhoto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

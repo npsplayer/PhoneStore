@@ -44,10 +44,10 @@
                                         <ColumnDefinition Width="100"/>
                                         <ColumnDefinition Width="100"/>
                                     </Grid.ColumnDefinitions>
-                                    <Image x:Name="Image" Source="{Binding Photo, Converter={StaticResource Сonverter}}" Width="100" Margin="5" Grid.Column="0" PreviewMouseDown="Image_PreviewMouseDown" Tag="{Binding}"/>
-                                    <Label Content="{Binding Name}" Foreground="Black" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="25" FontFamily="XFINITY Standard" Margin="5"/>
+                                    <Image x:Name="Image" Source="{Binding Product.Photo, Converter={StaticResource Сonverter}}" Width="100" Margin="5" Grid.Column="0" PreviewMouseDown="Image_PreviewMouseDown" Tag="{Binding}"/>
+                                    <Label Content="{Binding Product.Name}" Foreground="Black" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="25" FontFamily="XFINITY Standard" Margin="5"/>
                                     <StackPanel Grid.Column="3" Orientation="Horizontal">
-                                        <Label x:Name="Price" Content="{Binding Price}" Foreground="Black" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="25" FontFamily="XFINITY Standard" Margin="5"/>
+                                        <Label x:Name="Price" Content="{Binding Product.Price}" Foreground="Black" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="25" FontFamily="XFINITY Standard" Margin="5"/>
                                         <Label Content="$" Foreground="Black" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="25" FontFamily="XFINITY Standard"/>
                                     </StackPanel>
                                     <TextBlock Width="15" Height="15" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="4" Tag="{Binding}" Margin="5" Foreground="LightGray" x:Name="Delete" PreviewMouseDown="Delete_PreviewMouseDown">
