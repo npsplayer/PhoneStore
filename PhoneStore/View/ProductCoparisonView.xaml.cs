@@ -316,5 +316,6 @@ namespace PhoneStore.View
         {
             SnackBar.IsActive = false;
         }
+
     }
 }

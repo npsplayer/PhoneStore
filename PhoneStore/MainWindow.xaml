@@ -65,7 +65,12 @@
                     </materialDesign:PopupBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Width="Auto">
+                    <StackPanel Visibility="Hidden" Orientation="Horizontal" PreviewMouseDown="Admin_PreviewMouseDown" Margin="5 5 0 5" x:Name="Admin">
+                        <materialDesign:PackIcon Kind="SecurityAccount" Foreground="White" Width="25" Height="25" VerticalAlignment="Center" Margin="5 5 0 5" FontFamily="Xfinity"/>
+
+                    </StackPanel>
                     <StackPanel Orientation="Horizontal">
+                        
                         <materialDesign:PopupBox>
                             <materialDesign:PopupBox.ToggleContent>
                                 <materialDesign:PackIcon Kind="ColorLens" Foreground="White" Width="25" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"/>

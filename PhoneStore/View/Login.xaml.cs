@@ -37,19 +37,30 @@ namespace PhoneStore.View
         {
             try
             {
+
                 db = new OracleDbContext();
+                
                 var USERNAME = new OracleParameter("Username", OracleDbType.NVarchar2, Username.Text, ParameterDirection.Input);
                 var PASSWORD = new OracleParameter("Password", OracleDbType.NVarchar2, Password.Password, ParameterDirection.Input);
+                var ROLE_OUT = new OracleParameter("Role_OUT", OracleDbType.NVarchar2, ParameterDirection.Output); ROLE_OUT.Size = 50;
                 var USERID_OUT = new OracleParameter("UserID_OUT", OracleDbType.Int32, ParameterDirection.Output);
                 var ADDRESSID_OUT = new OracleParameter("AddressID_OUT", OracleDbType.Decimal, ParameterDirection.Output);
                 var CUSTOMERID_OUT = new OracleParameter("CustomerID_OUT", OracleDbType.Decimal, ParameterDirection.Output);
-                var sql = "BEGIN LOGIN(:Username, :Password, :UserID_OUT, :AddressID_OUT, :CustomerID_OUT); END;";           
+                var sql = "BEGIN LOGIN(:Username, :Password, :UserID_OUT, :AddressID_OUT, :CustomerID_OUT, :Role_OUT); END;";           
                 if (Validation.ValidateRegisterAndLogin(Username, ErrorUsername, IconUsername,
                                                         Password, ErrorPassword, IconPassword,
                                                         null, null, null))
                 {
-                    var checkuser = db.Database.ExecuteSqlCommand(sql, USERNAME, PASSWORD, USERID_OUT, ADDRESSID_OUT, CUSTOMERID_OUT);
                     
+                    var checkUser = db.Database.ExecuteSqlCommand(sql, USERNAME, PASSWORD, USERID_OUT, ADDRESSID_OUT, CUSTOMERID_OUT, ROLE_OUT);
+                    if(ROLE_OUT.Value.ToString() == "Admin")
+                    {
+                        MainWindow.AdminStackPanel.Visibility = Visibility.Visible;
+                    }
+                    if(ROLE_OUT.Value.ToString() == "User")
+                    {
+                        MainWindow.AdminStackPanel.Visibility = Visibility.Hidden;
+                    }
                         UserID = Convert.ToInt32(USERID_OUT.Value.ToString());
                         AddressID = Convert.ToInt32(ADDRESSID_OUT.Value.ToString());
                         CustomerID = Convert.ToInt32(CUSTOMERID_OUT.Value.ToString());
@@ -67,6 +78,7 @@ namespace PhoneStore.View
                         MainWindow.CountBasket.Text = Convert.ToString(select.LongCount());
                         MainWindow.SnackbarMessage.Content = "Welcome, " + USERNAME.Value + "!";
                         this.Close();
+                    
                 }
             } catch 
             {

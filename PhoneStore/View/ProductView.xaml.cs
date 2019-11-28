@@ -248,5 +248,10 @@ namespace PhoneStore.View
             CommentView.ItemsSource = comment.ToList().OrderBy(ob => ob.Date);
             PopupBoxHeader.Text = "Old first";
         }
+
+        private void CurrentAmount_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!Char.IsDigit(e.Text, 0)) e.Handled = true;
+        }
     }
 }

@@ -210,6 +210,14 @@
     <Compile Include="Migrations\201911221621559_UpdateCustomerPhoto.Designer.cs">
       <DependentUpon>201911221621559_UpdateCustomerPhoto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911260748375_UpdateUser.cs" />
+    <Compile Include="Migrations\201911260748375_UpdateUser.Designer.cs">
+      <DependentUpon>201911260748375_UpdateUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911281734501_RevokePrice.cs" />
+    <Compile Include="Migrations\201911281734501_RevokePrice.Designer.cs">
+      <DependentUpon>201911281734501_RevokePrice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\Basket.cs" />
@@ -237,6 +245,9 @@
     <Compile Include="Validation.cs" />
     <Compile Include="View\AddRewiew.xaml.cs">
       <DependentUpon>AddRewiew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminPanel.xaml.cs">
+      <DependentUpon>AdminPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Basket.xaml.cs">
       <DependentUpon>Basket.xaml</DependentUpon>
@@ -307,6 +318,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AddRewiew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -448,6 +463,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911221621559_UpdateCustomerPhoto.resx">
       <DependentUpon>201911221621559_UpdateCustomerPhoto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911260748375_UpdateUser.resx">
+      <DependentUpon>201911260748375_UpdateUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911281734501_RevokePrice.resx">
+      <DependentUpon>201911281734501_RevokePrice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -39,19 +39,19 @@ namespace PhoneStore.View
                 {
                     var USERNAME = new OracleParameter("Username", OracleDbType.NVarchar2, Username.Text, ParameterDirection.Input);
                     var PASSWORD = new OracleParameter("Password", OracleDbType.NVarchar2, Password.Password, ParameterDirection.Input);
-                    var CITY = new OracleParameter("City", OracleDbType.NVarchar2, null, ParameterDirection.Input);
-                    var STREET = new OracleParameter("Street", OracleDbType.NVarchar2, null, ParameterDirection.Input);
-                    var HOUSENUMBER = new OracleParameter("HouseNumber", OracleDbType.NVarchar2, null, ParameterDirection.Input);
-                    var ROOM = new OracleParameter("Room", OracleDbType.NVarchar2, null, ParameterDirection.Input);
-                    var FIRSTNAME = new OracleParameter("Firstname", OracleDbType.NVarchar2, null, ParameterDirection.Input);
-                    var SECONDNAME = new OracleParameter("Secondname", OracleDbType.NVarchar2, null, ParameterDirection.Input);
-                    var PATRONYMIC = new OracleParameter("Patronymic", OracleDbType.NVarchar2, null, ParameterDirection.Input);
-                    var DATEOFBIRTH = new OracleParameter("DateOfBirth", OracleDbType.Date, DateTime.Now, ParameterDirection.Input);
-                    var EMAIL = new OracleParameter("Email", OracleDbType.NVarchar2, null, ParameterDirection.Input);
-                    var PHONENUMBER = new OracleParameter("PhoneNumber", OracleDbType.NVarchar2, null, ParameterDirection.Input);
-
-                    var sql = "BEGIN REGISTER(:Username, :Password); END;";
-                    db.Database.ExecuteSqlCommand(sql, USERNAME, PASSWORD);
+                    var sqluser = "BEGIN REGISTERUSER(:Username, :Password); END;";
+                    var sqladmin = "BEGIN REGISTEADMIN(:Username, :Password); END;";
+                    var check = db.Users.Where(u => u.Role == "Admin");
+                    var a = check.LongCount();
+                    if(check.LongCount() == 0)
+                    {
+                        db.Database.ExecuteSqlCommand(sqladmin, USERNAME, PASSWORD);
+                    }
+                    else if(check.LongCount() > 1)
+                    {
+                        db.Database.ExecuteSqlCommand(sqluser, USERNAME, PASSWORD);
+                    }
+                    
                     MainWindow.Snackbar.IsActive = true;
                     MainWindow.SnackbarMessage.Content = "Registration successful!";
                     this.Close();

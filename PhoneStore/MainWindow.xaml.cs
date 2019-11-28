@@ -37,6 +37,7 @@ namespace PhoneStore
         public static SnackbarMessage SnackbarMessage;
 
         public static TextBlock CountBasket;
+        public static StackPanel AdminStackPanel;
         OracleDbContext db = null;
         int customer = Login.CustomerID;
         public MainWindow()
@@ -50,7 +51,8 @@ namespace PhoneStore
             SnackbarMessage = SnackBarMessage;
             ExitAccountBtn = ExitAccount;
             CountBasket = CountInBasket;
-            
+
+            AdminStackPanel = Admin;
 
         }
        
@@ -107,7 +109,7 @@ namespace PhoneStore
             {
                 View.Basket.PayBtn.IsEnabled = false;
             }
-           
+            MainWindow.AdminStackPanel.Visibility = Visibility.Hidden;
             ExitAccount.IsEnabled = false;
             SnackBarMessage.Content = "You exit account!";
             SnackBar.IsActive = true;
@@ -231,6 +233,12 @@ namespace PhoneStore
             IBaseTheme baseTheme = Theme.Light;
             ITheme theme = Theme.Create(baseTheme, primaryColor, secondaryColor);
             paletteHelper.SetTheme(theme);
+        }
+
+        private void Admin_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            AdminPanel admin = new AdminPanel();
+            admin.ShowDialog();
         }
     }
 }

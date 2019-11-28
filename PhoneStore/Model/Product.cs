@@ -20,7 +20,7 @@ namespace PhoneStore.Model
         public string Manufacturer { get; set; }
 
         
-        public double Price { get; set; }
+        public int Price { get; set; }
 
         public byte[] Photo { get; set; }
 
