@@ -43,6 +43,7 @@ namespace PhoneStore.UserControls
             db.Products.Load();
             db.ProductOptions.Load();
             ListViewCatalog.ItemsSource = db.Products.Local;
+            Brand.ItemsSource = db.Products.Local;
         }
         
 
@@ -174,6 +175,83 @@ namespace PhoneStore.UserControls
                 MainWindow.Snackbar.IsActive = true;
                 MainWindow.SnackbarMessage.Content = "To add to favorites you need to register or log in to your account!";
             }
+        }
+
+        private void ClearFilter_Click(object sender, RoutedEventArgs e)
+        {
+            ListViewCatalog.ItemsSource = db.Products.Local;
+            ToPrice.Text = String.Empty;
+            FromPrice.Text = String.Empty;
+            Brand.Text = String.Empty;
+        }
+
+        private void ApplyFilter_Click(object sender, RoutedEventArgs e)
+        {
+            int toprice = 1000000;
+            int fromprice = 0;
+            if (ToPrice.Text != String.Empty)
+            {
+                toprice = Convert.ToInt32(ToPrice.Text);
+            }
+            if (FromPrice.Text != String.Empty)
+            {
+                fromprice = Convert.ToInt32(FromPrice.Text);
+            }
+            
+            var select = from product in db.Products where product.Manufacturer == Brand.Text select product;
+            var select1 = from product in db.Products where product.Price > fromprice select product;
+            var select2 = from product in db.Products where product.Price < toprice select product;
+            var select3 = from product in db.Products where product.Price < toprice && product.Price > fromprice select product;
+            var select4 = from product in db.Products where product.Manufacturer == Brand.Text && product.Price > fromprice select product;
+            var select5 = from product in db.Products where product.Manufacturer == Brand.Text && product.Price < toprice select product;
+            var select6 = from product in db.Products where product.Manufacturer == Brand.Text && product.Price < toprice && product.Price > fromprice select product;
+
+            if(Brand.Text == String.Empty && ToPrice.Text == String.Empty && FromPrice.Text == String.Empty)
+            ListViewCatalog.ItemsSource = db.Products.Local;
+            else if(Brand.Text != String.Empty && ToPrice.Text == String.Empty && FromPrice.Text == String.Empty)
+            {
+                ListViewCatalog.ItemsSource = select.ToList();
+            }
+            else if(Brand.Text == String.Empty && ToPrice.Text == String.Empty && FromPrice.Text != String.Empty)
+            {
+                ListViewCatalog.ItemsSource = select1.ToList();
+            }
+            else if (Brand.Text == String.Empty && ToPrice.Text != String.Empty && FromPrice.Text == String.Empty)
+            {
+                ListViewCatalog.ItemsSource = select2.ToList();
+            }
+            else if (Brand.Text == String.Empty && ToPrice.Text != String.Empty && FromPrice.Text != String.Empty)
+            {
+                ListViewCatalog.ItemsSource = select3.ToList();
+            }
+            else if (Brand.Text != String.Empty && ToPrice.Text == String.Empty && FromPrice.Text != String.Empty)
+            {
+                ListViewCatalog.ItemsSource = select4.ToList();
+            }
+            else if (Brand.Text != String.Empty && ToPrice.Text != String.Empty && FromPrice.Text == String.Empty)
+            {
+                ListViewCatalog.ItemsSource = select5.ToList();
+            }
+            else if (Brand.Text != String.Empty && ToPrice.Text != String.Empty && FromPrice.Text != String.Empty)
+            {
+                ListViewCatalog.ItemsSource = select6.ToList();
+            }
+        }
+
+        
+        private void New_Click(object sender, RoutedEventArgs e)
+        {
+            var newproduct = db.Products.OrderByDescending(ob => ob.ProductID);
+            ListViewCatalog.ItemsSource = newproduct.ToList();
+            PopupBoxHeader.Text = "New First";
+        }
+
+        private void Old_Click(object sender, RoutedEventArgs e)
+        {
+            var newproduct = db.Products.OrderBy(ob => ob.ProductID);
+            ListViewCatalog.ItemsSource = newproduct.ToList();
+            PopupBoxHeader.Text = "Old First";
+
         }
     }
 }

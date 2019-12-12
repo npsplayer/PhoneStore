@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------------------------------------------------------
----------------------------------------------------PROCEDURE--------------------------------------------------------------------
+-----------------------------------------------------PROCEDURE------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ BEGIN
         COMMIT;
 END;
 --------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------ADMINADDCUSTOMER------------------------------------------------------------
+----------------------------------------------------AdminAddCustomer------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------
 DROP PROCEDURE ADMINADDCUSTOMER;
 CREATE OR REPLACE PROCEDURE ADMINADDCUSTOMER (p_username IN USERS."Username"%TYPE, 
@@ -72,7 +72,7 @@ BEGIN
 ADMINADDCUSTOMER('123456', '123456', 'User', 'qwerty', 'qwerty', '11', '11', 'qwerty','qwerty','qwerty', '02.07.2000', 'qwerty', '123456');
 END;
 --------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------ADMINUPDATECUSTOMER---------------------------------------------------------
+----------------------------------------------------AdminUpdateCustomer---------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------
 DROP PROCEDURE ADMINUPDATECUSTOMER;
 CREATE OR REPLACE PROCEDURE ADMINUPDATECUSTOMER(p_userid IN USERS."UserID"%TYPE,
@@ -103,7 +103,7 @@ UPDATE CUSTOMER SET CUSTOMER."FirstName" = p_firstname, CUSTOMER."SecondName" = 
 COMMIT;
 END;
 --------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------ADMINDELETECUSTOMER---------------------------------------------------------
+----------------------------------------------------AdminDeleteCustomer---------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------
 DROP PROCEDURE ADMINDELETECUSTOMER;
 CREATE OR REPLACE PROCEDURE ADMINDELETECUSTOMER (p_userid IN USERS."UserID"%TYPE,
@@ -117,7 +117,7 @@ DELETE FROM ADDRESS WHERE ADDRESS."AddressID" = p_addressid;
 COMMIT;
 END;
 --------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------ADMINADDPRODUCT-----------------------------------------------------------
+------------------------------------------------------AdminAddProduct-----------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------- 
 DROP PROCEDURE ADMINADDPRODUCT;
 CREATE OR REPLACE PROCEDURE ADMINADDPRODUCT(p_name IN PRODUCT."Name"%TYPE,
@@ -128,7 +128,7 @@ INSERT INTO PRODUCT("Name", "Manufacturer", "Price") VALUES (p_name, p_manuf, p_
 COMMIT;
 END;
 --------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------ADMINUPDATEPRODUCT--------------------------------------------------------
+------------------------------------------------------AdminUpdateProduct--------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------- 
 DROP PROCEDURE ADMINUPDATEPRODUCT;
 CREATE OR REPLACE PROCEDURE ADMINUPDATEPRODUCT(p_productid IN PRODUCT."ProductID"%TYPE,
@@ -141,7 +141,7 @@ WHERE PRODUCT."ProductID" = p_productid;
 COMMIT;
 END;
 --------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------ADMINDELETEPRODUCT--------------------------------------------------------
+------------------------------------------------------AdminDeleteProduct--------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------- 
 DROP PROCEDURE ADMINDELETEPRODUCT;
 CREATE OR REPLACE PROCEDURE ADMINDELETEPRODUCT(p_productid IN PRODUCT."ProductID"%TYPE) IS
@@ -150,7 +150,7 @@ DELETE FROM PRODUCT WHERE PRODUCT."ProductID" = p_productid;
 COMMIT;
 END;
 --------------------------------------------------------------------------------------------------------------------------------
--------------------------------------------------------ADMINADDOPTION-----------------------------------------------------------
+-------------------------------------------------------AdminAddOption-----------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------- 
 DROP PROCEDURE ADMINADDOPTION;
 CREATE OR REPLACE PROCEDURE ADMINADDOPTION(p_productid IN PRODUCTOPTION."ProductID"%TYPE,
@@ -162,7 +162,7 @@ INSERT INTO PRODUCTOPTION("ProductID", "OptionID", "Value", "Unit") VALUES (p_pr
 COMMIT;
 END;
 --------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------ADMINUPDATEOPTION---------------------------------------------------------
+------------------------------------------------------AdminUpdateOption---------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------- 
 DROP PROCEDURE ADMINUPDATEOPTION;
 CREATE OR REPLACE PROCEDURE ADMINUPDATEOPTION(p_productoptionid IN PRODUCTOPTION."ProductOptionID"%TYPE,
@@ -177,7 +177,7 @@ WHERE PRODUCTOPTION."ProductOptionID" = p_productoptionid;
 COMMIT;
 END;
 --------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------ADMINDELETEOPTION---------------------------------------------------------
+------------------------------------------------------AdminDeleteOption---------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------- 
 DROP PROCEDURE ADMINDELETEOPTION;
 CREATE OR REPLACE PROCEDURE ADMINDELETEOPTION(p_productoptionid IN PRODUCTOPTION."ProductOptionID"%TYPE) IS
@@ -319,17 +319,17 @@ END;
 --------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------ShowCatalog--------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------
+DROP PROCEDURE SHOWCATALOG;
 CREATE OR REPLACE PROCEDURE SHOWCATALOG(p_productid OUT "PRODUCT"."ProductID"%TYPE, p_name OUT "PRODUCT"."Name"%TYPE,
-                                        p_manufacturer OUT "PRODUCT"."Manufacturer"%TYPE, p_price OUT "PRODUCT"."Price"%TYPE,
-                                        p_photo OUT "PRODUCT"."Photo"%TYPE) IS
+                                        p_manufacturer OUT "PRODUCT"."Manufacturer"%TYPE, p_price OUT "PRODUCT"."Price"%TYPE) IS
 BEGIN
 FOR rec IN (
-SELECT PRODUCT."ProductID", PRODUCT."Name", PRODUCT."Manufacturer", PRODUCT."Price", PRODUCT."Photo"
-INTO p_productid, p_name, p_manufacturer, p_price, p_photo
+SELECT PRODUCT."ProductID", PRODUCT."Name", PRODUCT."Manufacturer", PRODUCT."Price"
+INTO p_productid, p_name, p_manufacturer, p_price
 FROM PRODUCT)
 LOOP
 DBMS_OUTPUT.enable;
-DBMS_OUTPUT.put_line( rec."ProductID" || rec."Name" || rec."Manufacturer" || rec."Price");
+DBMS_OUTPUT.put_line( rec."ProductID" || ' ' || rec."Name" || ' ' || rec."Manufacturer" || ' ' || rec."Price");
 END LOOP;
 END SHOWCATALOG;
 -------------------------------------------------EXAMPLE SHOWCATALOG------------------------------------------------------------
@@ -340,8 +340,21 @@ manufacturer "PRODUCT"."Manufacturer"%TYPE;
 price "PRODUCT"."Price"%TYPE;
 photo "PRODUCT"."Photo"%TYPE;
 BEGIN
-SHOWCATALOG(productid, name, manufacturer, price, photo);
+SHOWCATALOG(productid, name, manufacturer, price);
 END;
+--------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------BasketDeleteOne---------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+DROP PROCEDURE BASKETDELETEONE;
+CREATE OR REPLACE PROCEDURE BASKETDELETEONE(p_basketid IN BASKET."BasketID"%TYPE,
+                                            p_customerid IN BASKET."CustomerID"%TYPE) IS
+BEGIN
+DELETE FROM BASKET WHERE BASKET."BasketID" = p_basketid AND BASKET."CustomerID" = p_customerid;
+UPDATE ORDERHISTORY SET ORDERHISTORY."Status" = 'Delete from basket' WHERE ORDERHISTORY."CustomerID" = p_customerid AND 
+       ORDERHISTORY."KeyFindProduct" = p_basketid;
+END;
+
+
 --------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------Total Price Basket------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------
@@ -376,7 +389,20 @@ RATINGPRODUCT(21, rating);
 DBMS_OUTPUT.put_line(rating);
 END;
 --------------------------------------------------------------------------------------------------------------------------------
+SELECT XMLElement("User", XMLElement("username", USERS."Username"), XMLElement("password", USERS."Password"), XMLElement("status", USERS."Role")) FROM USERS;
 
 
 
+SET HEADING OFF;
+SET FEEDBACK OFF;
+spool D:\CP\test.xml;
+SELECT XMLElement("User",
+                XMLAttributes("UserID" as "usid"), 
+                XMLAgg(
+                    XMLElement("row", XMLForest(USERS."Username" "Username", USERS."Password" "Password")
+                    )
+                    ))
+                    as XMLRusult FROM USERS GROUP BY USERS."UserID";
+spoo off;
 
+SELECT XML_ARRAY

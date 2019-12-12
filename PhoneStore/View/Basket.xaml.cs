@@ -72,20 +72,23 @@ namespace PhoneStore.View
         
         private void Delete_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            //PROCEDURE
-            var basket = (Model.Basket)((TextBlock)sender).Tag;
-            int? basketid = basket.BasketID;
-            var delete = db.Baskets.Where(bs => bs.BasketID == basketid && bs.CustomerID == customer).FirstOrDefault();
-            db.Baskets.Remove(delete);
-            db.SaveChanges();
-            var updateorderhistory = db.OrderHistories.Where(oh => oh.CustomerID == customer && oh.KeyFindProduct == basketid).FirstOrDefault();
-            updateorderhistory.Status = "Delete from basket";
-            db.SaveChanges();
-            ShowBasket();
-            SnackBar.IsActive = true;
-            SnackBarMessage.Content = "You delete product from cart!";
-            var select = db.Baskets.Where(bask => bask.CustomerID == Login.CustomerID);
-            MainWindow.CountBasket.Text = Convert.ToString(select.LongCount());
+            try
+            {
+                var basket = (Model.Basket)((TextBlock)sender).Tag;
+                int? basketid = basket.BasketID;
+                var sql = "BEGIN BASKETDELETEONE(" + basketid + "," + customer + "); END;";
+                var update = db.Database.ExecuteSqlCommand(sql);
+                ShowBasket();
+                SnackBar.IsActive = true;
+                SnackBarMessage.Content = "You delete product from cart!";
+                var select = db.Baskets.Where(bask => bask.CustomerID == Login.CustomerID);
+                MainWindow.CountBasket.Text = Convert.ToString(select.LongCount());
+            }
+            catch
+            {
+                SnackBar.IsActive = true;
+                SnackBarMessage.Content = "There were problems uninstalling. Try later!";
+            }
         }
 
 
@@ -113,7 +116,6 @@ namespace PhoneStore.View
 
         private void PayButton_Click(object sender, RoutedEventArgs e)
         {
-            //PROCEDURE
             var update = db.OrderHistories.Where(oh => oh.CustomerID == customer).ToList();
             foreach(var row in update)
             {
