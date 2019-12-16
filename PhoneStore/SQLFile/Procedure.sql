@@ -389,20 +389,62 @@ RATINGPRODUCT(21, rating);
 DBMS_OUTPUT.put_line(rating);
 END;
 --------------------------------------------------------------------------------------------------------------------------------
-SELECT XMLElement("User", XMLElement("username", USERS."Username"), XMLElement("password", USERS."Password"), XMLElement("status", USERS."Role")) FROM USERS;
-
-
-
+---------------------------------------------------------EXPORT-----------------------------------------------------------------
+--1 способ
 SET HEADING OFF;
 SET FEEDBACK OFF;
 spool D:\CP\test.xml;
+SET LINESIZE 10000;
 SELECT XMLElement("User",
-                XMLAttributes("UserID" as "usid"), 
+                XMLAttributes("UserID" as "userid"), 
                 XMLAgg(
                     XMLElement("row", XMLForest(USERS."Username" "Username", USERS."Password" "Password")
                     )
                     ))
                     as XMLRusult FROM USERS GROUP BY USERS."UserID";
 spoo off;
+--2 способ
 
-SELECT XML_ARRAY
+create or replace directory XML_DIR as 'D:\CP\XML';
+create or replace procedure table_to_xml_file(table_name in varchar2) 
+as 
+ctx dbms_xmlgen.ctxhandle; 
+clb clob; 
+file utl_file.file_type; 
+buffer varchar2(32767); 
+position pls_integer := 1; 
+chars pls_integer := 32767; 
+begin 
+ctx := dbms_xmlgen.newcontext('select * from "' || table_name || '"'); 
+dbms_xmlgen.setrowsettag(ctx, 'RECORDS'); 
+dbms_xmlgen.setrowtag(ctx, 'RECORD'); 
+select xmlserialize(document xmlelement("XML", xmlelement(evalname(table_name), dbms_xmlgen.getxmltype(ctx))) indent size = 2) 
+into clb from dual; 
+dbms_xmlgen.closecontext(ctx); 
+file := utl_file.fopen('XML_DIR', table_name || '.xml', 'w', 32767); 
+while position < dbms_lob.getlength(clb) loop dbms_lob.read(clb, chars, position, buffer); 
+utl_file.put(file, buffer); 
+utl_file.fflush(file); 
+position := position + chars; end loop; 
+utl_file.fclose(file); 
+commit; 
+end table_to_xml_file;
+
+-----------------------------------------------------EXPORT---------------------------------------------------------------------
+
+DECLARE 
+xml_file BFILE; 
+xml_data CLOB; 
+BEGIN 
+xml_file := BFILENAME ('XML_DIR', 'USERS.xml'); 
+DBMS_LOB.createtemporary (xml_data, TRUE, DBMS_LOB.SESSION); 
+DBMS_LOB.fileopen (xml_file, DBMS_LOB.file_readonly); 
+DBMS_LOB.loadfromfile (xml_data, xml_file, DBMS_LOB.getlength(xml_file)); 
+DBMS_LOB.fileclose (xml_file); 
+INSERT INTO USERS (USERS."Username",USERS."Password",USERS."Role") SELECT ExtractValue(Value(x),'//Username') as login, 
+                   ExtractValue(Value(x),'//Password') as password, ExtractValue(Value(x),'//Role') as user_type 
+                   FROM TABLE(XMLSequence(Extract(XMLType(xml_data),'/XML/USERS/RECORDS/RECORD'))) x; 
+                   DBMS_OUTPUT.PUT_LINE( SQL%ROWCOUNT || ' rows inserted.' ); DBMS_LOB.freetemporary (xml_data);                   
+COMMIT; 
+END;
+
