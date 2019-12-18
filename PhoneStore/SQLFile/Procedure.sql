@@ -389,6 +389,105 @@ RATINGPRODUCT(21, rating);
 DBMS_OUTPUT.put_line(rating);
 END;
 --------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------SHOWREVIEW----------------------------------------------------------------
+
+CREATE OR REPLACE PROCEDURE SHOWREVIEW(p_productid IN PRODUCT."ProductID"%TYPE) AS
+BEGIN
+FOR rec IN (
+SELECT PRODUCT."Name", CUSTOMER."FirstName", REVIEW."Description", REVIEW."Rating", REVIEW."Date"
+FROM REVIEW INNER JOIN PRODUCT ON REVIEW."ProductID" = PRODUCT."ProductID" 
+            INNER JOIN CUSTOMER ON REVIEW."CustomerID" = CUSTOMER."CustomerID" 
+            WHERE REVIEW."ProductID" = p_productid)
+LOOP
+DBMS_OUTPUT.enable;
+DBMS_OUTPUT.put_line( rec."Name" || ' ' || rec."FirstName" || ' ' || rec."Description" || ' ' || 
+                      rec."Rating" || ' ' || rec."Date");
+END LOOP;
+END SHOWREVIEW;
+-------------------------------------------------EXAMPLE SHOWREVIEW-------------------------------------------------------------
+BEGIN
+SHOWREVIEW(21);
+END;
+--------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------SHOWBASKET----------------------------------------------------------------
+
+CREATE OR REPLACE PROCEDURE SHOWBASKET(p_customerid IN CUSTOMER."CustomerID"%TYPE) AS
+BEGIN
+FOR rec IN (
+SELECT PRODUCT."Name", CUSTOMER."FirstName", BASKET."Amount", BASKET."Price"
+FROM BASKET INNER JOIN PRODUCT ON BASKET."ProductID" = PRODUCT."ProductID" 
+            INNER JOIN CUSTOMER ON BASKET."CustomerID" = CUSTOMER."CustomerID" 
+            WHERE BASKET."CustomerID" = p_customerid)
+LOOP
+DBMS_OUTPUT.enable;
+DBMS_OUTPUT.put_line( rec."Name" || ' ' || rec."FirstName" || ' ' || rec."Amount" || ' ' || 
+                      rec."Price");
+END LOOP;
+END SHOWBASKET;
+-------------------------------------------------EXAMPLE SHOWBASKET-------------------------------------------------------------
+BEGIN
+SHOWBASKET(41);
+END;
+--------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------SHOWFAVORITE--------------------------------------------------------------
+
+CREATE OR REPLACE PROCEDURE SHOWFAVORITE(p_customerid IN CUSTOMER."CustomerID"%TYPE) AS
+BEGIN
+FOR rec IN (
+SELECT PRODUCT."Name", CUSTOMER."FirstName"
+FROM FAVORITE INNER JOIN PRODUCT ON FAVORITE."ProductID" = PRODUCT."ProductID" 
+            INNER JOIN CUSTOMER ON FAVORITE."CustomerID" = CUSTOMER."CustomerID" 
+            WHERE FAVORITE."CustomerID" = p_customerid)
+LOOP
+DBMS_OUTPUT.enable;
+DBMS_OUTPUT.put_line( rec."Name" || ' ' || rec."FirstName");
+END LOOP;
+END SHOWFAVORITE;
+-------------------------------------------------EXAMPLE SHOWFAVORITE-----------------------------------------------------------
+BEGIN
+SHOWFAVORITE(41);
+END;
+--------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------SHOWFAVORITE--------------------------------------------------------------
+
+CREATE OR REPLACE PROCEDURE SHOWHISTORY(p_customerid IN CUSTOMER."CustomerID"%TYPE) AS
+BEGIN
+FOR rec IN (
+SELECT PRODUCT."Name", CUSTOMER."FirstName", ORDERHISTORY."Status", ORDERHISTORY."Date", ORDERHISTORY."Amount", ORDERHISTORY."Price"
+FROM ORDERHISTORY INNER JOIN PRODUCT ON ORDERHISTORY."ProductID" = PRODUCT."ProductID" 
+            INNER JOIN CUSTOMER ON ORDERHISTORY."CustomerID" = CUSTOMER."CustomerID" 
+            WHERE ORDERHISTORY."CustomerID" = p_customerid)
+LOOP
+DBMS_OUTPUT.enable;
+DBMS_OUTPUT.put_line( rec."Name" || ' ' || rec."FirstName" || ' ' || rec."Status" || ' ' || rec."Date" || ' ' || rec."Amount" || ' ' || rec."Price");
+END LOOP;
+END SHOWHISTORY;
+-------------------------------------------------EXAMPLE SHOWFAVORITE-----------------------------------------------------------
+BEGIN
+SHOWHISTORY(41);
+END;
+--------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------SHOWOPTIONPRODUCT--------------------------------------------------------------
+
+CREATE OR REPLACE PROCEDURE SHOWOPTIONPRODUCT(p_productid IN PRODUCT."ProductID"%TYPE) AS
+BEGIN
+FOR rec IN (
+SELECT APPUSER."PRODUCT"."Name", APPUSER."OPTIONTYPE"."OptionTypeName", APPUSER."OPTION"."OptionName", 
+       APPUSER."PRODUCTOPTION"."Value", APPUSER."PRODUCTOPTION"."Unit"
+FROM APPUSER."PRODUCTOPTION" INNER JOIN APPUSER."PRODUCT" ON APPUSER."PRODUCTOPTION"."ProductID" = APPUSER."PRODUCT"."ProductID" 
+            INNER JOIN APPUSER."OPTION" ON APPUSER."PRODUCTOPTION"."OptionID" = APPUSER."OPTION"."OptionID" 
+            INNER JOIN APPUSER."OPTIONTYPE" ON APPUSER."OPTION"."OptionTypeID" = APPUSER."OPTIONTYPE"."OptionTypeID" 
+            WHERE APPUSER."PRODUCTOPTION"."ProductID" = p_productid)
+LOOP
+DBMS_OUTPUT.enable;
+DBMS_OUTPUT.put_line( rec."Name" || ' ' || rec."OptionTypeName" || ' ' || rec."OptionName" || ' ' || rec."Value" || ' ' || 
+                      rec."Unit");
+END LOOP;
+END SHOWOPTIONPRODUCT;
+-------------------------------------------------EXAMPLE SHOWOPTIONPRODUCT-----------------------------------------------------------
+BEGIN
+SHOWOPTIONPRODUCT(21);
+END;
 ---------------------------------------------------------EXPORT-----------------------------------------------------------------
 --1 способ
 SET HEADING OFF;
@@ -405,46 +504,62 @@ SELECT XMLElement("User",
 spoo off;
 --2 способ
 
-create or replace directory XML_DIR as 'D:\CP\XML';
-create or replace procedure table_to_xml_file(table_name in varchar2) 
-as 
-ctx dbms_xmlgen.ctxhandle; 
-clb clob; 
-file utl_file.file_type; 
-buffer varchar2(32767); 
-position pls_integer := 1; 
-chars pls_integer := 32767; 
-begin 
-ctx := dbms_xmlgen.newcontext('select * from "' || table_name || '"'); 
-dbms_xmlgen.setrowsettag(ctx, 'RECORDS'); 
-dbms_xmlgen.setrowtag(ctx, 'RECORD'); 
-select xmlserialize(document xmlelement("XML", xmlelement(evalname(table_name), dbms_xmlgen.getxmltype(ctx))) indent size = 2) 
-into clb from dual; 
-dbms_xmlgen.closecontext(ctx); 
-file := utl_file.fopen('XML_DIR', table_name || '.xml', 'w', 32767); 
-while position < dbms_lob.getlength(clb) loop dbms_lob.read(clb, chars, position, buffer); 
-utl_file.put(file, buffer); 
-utl_file.fflush(file); 
-position := position + chars; end loop; 
-utl_file.fclose(file); 
-commit; 
-end table_to_xml_file;
+CREATE OR REPLACE DIRECTORY XML_DIR as 'D:\CP\XML';
+CREATE OR REPLACE PROCEDURE TABLE_TO_XML_FILE(table_name IN VARCHAR2) 
+AS
+ctx DBMS_XMLGEN.CTXHANDLE; 
+clb CLOB; 
+file UTL_FILE.FILE_TYPE; 
+buffer VARCHAR2(32767); 
+position PLS_INTEGER := 1; 
+chars PLS_INTEGER := 32767; 
+BEGIN 
+ctx := DBMS_XMLGEN.NEWCONTEXT('SELECT * FROM "' || table_name || '"'); 
+DBMS_XMLGEN.SETROWSETTAG(ctx, 'RECORDS'); 
+DBMS_XMLGEN.SETROWTAG(ctx, 'RECORD'); 
+SELECT XMLSERIALIZE(DOCUMENT XMLELEMENT("XML", XMLELEMENT(EVALNAME(table_name), DBMS_XMLGEN.GETXMLTYPE(ctx))) INDENT SIZE = 2) 
+INTO clb FROM dual; 
+DBMS_XMLGEN.CLOSECONTEXT(ctx); 
+file := UTL_FILE.FOPEN('XML_DIR', table_name || '.xml', 'w', 32767); 
+WHILE position < DBMS_LOB.GETLENGTH(clb) 
+LOOP DBMS_LOB.READ(clb, chars, position, buffer); 
+UTL_FILE.PUT(file, buffer); 
+UTL_FILE.FFLUSH(file); 
+position := position + chars; 
+END LOOP; 
+UTL_FILE.FCLOSE(file); 
+COMMIT; 
+END TABLE_TO_XML_FILE;
 
------------------------------------------------------EXPORT---------------------------------------------------------------------
-
+-----------------------------------------------------IMPORT---------------------------------------------------------------------
 DECLARE 
 xml_file BFILE; 
 xml_data CLOB; 
 BEGIN 
-xml_file := BFILENAME ('XML_DIR', 'USERS.xml'); 
-DBMS_LOB.createtemporary (xml_data, TRUE, DBMS_LOB.SESSION); 
-DBMS_LOB.fileopen (xml_file, DBMS_LOB.file_readonly); 
-DBMS_LOB.loadfromfile (xml_data, xml_file, DBMS_LOB.getlength(xml_file)); 
-DBMS_LOB.fileclose (xml_file); 
-INSERT INTO USERS (USERS."Username",USERS."Password",USERS."Role") SELECT ExtractValue(Value(x),'//Username') as login, 
-                   ExtractValue(Value(x),'//Password') as password, ExtractValue(Value(x),'//Role') as user_type 
-                   FROM TABLE(XMLSequence(Extract(XMLType(xml_data),'/XML/USERS/RECORDS/RECORD'))) x; 
-                   DBMS_OUTPUT.PUT_LINE( SQL%ROWCOUNT || ' rows inserted.' ); DBMS_LOB.freetemporary (xml_data);                   
-COMMIT; 
+    xml_file := BFILENAME ('XML_DIR', 'USERS.xml'); 
+    DBMS_LOB.createtemporary (xml_data, TRUE, DBMS_LOB.SESSION); 
+    DBMS_LOB.fileopen (xml_file, DBMS_LOB.file_readonly); 
+    DBMS_LOB.loadfromfile (xml_data, xml_file, DBMS_LOB.getlength(xml_file)); 
+    DBMS_LOB.fileclose (xml_file); 
+    INSERT INTO USERS (USERS."Username",USERS."Password",USERS."Role") SELECT ExtractValue(Value(x),'//Username') as login, 
+                       ExtractValue(Value(x),'//Password') as password, ExtractValue(Value(x),'//Role') as user_type 
+                       FROM TABLE(XMLSequence(Extract(XMLType(xml_data),'/XML/USERS/RECORDS/RECORD'))) x; 
+    DBMS_OUTPUT.PUT_LINE( SQL%ROWCOUNT || ' rows inserted.' ); 
+    DBMS_LOB.freetemporary (xml_data);                   
+    COMMIT; 
 END;
+EXPLAIN PLAN FOR SELECT * FROM PRODUCT WHERE PRODUCT."ProductID" > 200000;
+SELECT * FROM TABLE(dbms_xplan.display(null,null,'basic'));
+
+DECLARE 
+i NUMBER := 1;
+BEGIN
+LOOP
+INSERT INTO PRODUCT(PRODUCT."Name", PRODUCT."Manufacturer", PRODUCT."Price") VALUES ('name', 'brand', 1000);
+COMMIT;
+i := i + 1;
+EXIT WHEN (i > 100000);
+END LOOP;
+END;
+
 

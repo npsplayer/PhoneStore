@@ -173,7 +173,7 @@ namespace PhoneStore.View
                 try
                 {
                     var USERNAME = new OracleParameter("Username", OracleDbType.NVarchar2, Username.Text, ParameterDirection.Input);
-                    var PASSWORD = new OracleParameter("Password", OracleDbType.NVarchar2, Password.Text, ParameterDirection.Input);
+                    var PASSWORD = new OracleParameter("Password", OracleDbType.NVarchar2, User.setHash(Password.Text), ParameterDirection.Input);
                     var ROLE = new OracleParameter("Role", OracleDbType.NVarchar2, Role.Text, ParameterDirection.Input);
                     var CITY = new OracleParameter("City", OracleDbType.NVarchar2, City.Text, ParameterDirection.Input);
                     var STREET = new OracleParameter("Street", OracleDbType.NVarchar2, Street.Text, ParameterDirection.Input);
@@ -226,7 +226,7 @@ namespace PhoneStore.View
                 try
                 {
                     var USERNAME = new OracleParameter("USERNAME", OracleDbType.NVarchar2, Username.Text, ParameterDirection.InputOutput);
-                    var PASSWORD = new OracleParameter("PASSWORD", OracleDbType.NVarchar2, Password.Text, ParameterDirection.InputOutput);
+                    var PASSWORD = new OracleParameter("PASSWORD", OracleDbType.NVarchar2, User.setHash(Password.Text), ParameterDirection.InputOutput);
                     var ROLE = new OracleParameter("Role", OracleDbType.NVarchar2, Role.Text, ParameterDirection.Input);
                     var CITY = new OracleParameter("CITY", OracleDbType.NVarchar2, City.Text, ParameterDirection.InputOutput);
                     var STREET = new OracleParameter("STREET", OracleDbType.NVarchar2, Street.Text, ParameterDirection.InputOutput);

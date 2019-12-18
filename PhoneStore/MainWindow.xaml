@@ -19,9 +19,9 @@
             </Grid.RowDefinitions>
             <Grid Height="50" VerticalAlignment="Top" Background="{DynamicResource PrimaryHueDarkBrush}" Grid.Row="0">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <materialDesign:PackIcon x:Name="Logo" Kind="CarLimousine" Foreground="White" Width="35" Height="35" VerticalAlignment="Center" 
+                    <materialDesign:PackIcon x:Name="Logo" Kind="Alien" Foreground="White" Width="35" Height="35" VerticalAlignment="Center" 
                                              Margin="5" FontFamily="Xfinity" PreviewMouseDown="LogoName_PreviewMouseDown"/>
-                    <TextBlock  x:Name="LogoName" Text="NextStore" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0 7 0 0" FontSize="25" 
+                    <TextBlock  x:Name="LogoName" Text="4You" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0 7 0 0" FontSize="25" 
                                 FontFamily="XFINITY Standard" FontWeight="Bold" Foreground="White" PreviewMouseDown="LogoName_PreviewMouseDown"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">

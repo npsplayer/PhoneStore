@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using Oracle.ManagedDataAccess.Types;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
 
 namespace PhoneStore.Model
 {
@@ -30,5 +31,20 @@ namespace PhoneStore.Model
         {
             Customers = new List<Customer>();
         }
+
+        public static string setHash(string password)
+        {
+            if (String.IsNullOrEmpty(password))
+            {
+                return "-1";
+            }
+            else
+            {
+                var md5 = MD5.Create();
+                var HASH = md5.ComputeHash(Encoding.UTF8.GetBytes(password));
+                return Convert.ToBase64String(HASH);
+            }
+        }
+        
     }
 }

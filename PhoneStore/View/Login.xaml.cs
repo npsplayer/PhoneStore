@@ -41,7 +41,7 @@ namespace PhoneStore.View
                 db = new OracleDbContext();
                 
                 var USERNAME = new OracleParameter("Username", OracleDbType.NVarchar2, Username.Text, ParameterDirection.Input);
-                var PASSWORD = new OracleParameter("Password", OracleDbType.NVarchar2, Password.Password, ParameterDirection.Input);
+                var PASSWORD = new OracleParameter("Password", OracleDbType.NVarchar2, User.setHash(Password.Password), ParameterDirection.Input);
                 var ROLE_OUT = new OracleParameter("Role_OUT", OracleDbType.NVarchar2, ParameterDirection.Output); ROLE_OUT.Size = 50;
                 var USERID_OUT = new OracleParameter("UserID_OUT", OracleDbType.Int32, ParameterDirection.Output);
                 var ADDRESSID_OUT = new OracleParameter("AddressID_OUT", OracleDbType.Decimal, ParameterDirection.Output);

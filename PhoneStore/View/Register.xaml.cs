@@ -38,7 +38,7 @@ namespace PhoneStore.View
                 try
                 {
                     var USERNAME = new OracleParameter("Username", OracleDbType.NVarchar2, Username.Text, ParameterDirection.Input);
-                    var PASSWORD = new OracleParameter("Password", OracleDbType.NVarchar2, Password.Password, ParameterDirection.Input);
+                    var PASSWORD = new OracleParameter("Password", OracleDbType.NVarchar2, User.setHash(Password.Password), ParameterDirection.Input);
                     var sqluser = "BEGIN REGISTERUSER(:Username, :Password); END;";
                     var sqladmin = "BEGIN REGISTEADMIN(:Username, :Password); END;";
                     var check = db.Users.Where(u => u.Role == "Admin");
@@ -46,15 +46,19 @@ namespace PhoneStore.View
                     if(check.LongCount() == 0)
                     {
                         db.Database.ExecuteSqlCommand(sqladmin, USERNAME, PASSWORD);
+                        MainWindow.Snackbar.IsActive = true;
+                        MainWindow.SnackbarMessage.Content = "Registration successful!";
+                        this.Close();
                     }
-                    else if(check.LongCount() > 1)
+                    else if(check.LongCount() >= 1)
                     {
                         db.Database.ExecuteSqlCommand(sqluser, USERNAME, PASSWORD);
+                        MainWindow.Snackbar.IsActive = true;
+                        MainWindow.SnackbarMessage.Content = "Registration successful!";
+                        this.Close();
                     }
                     
-                    MainWindow.Snackbar.IsActive = true;
-                    MainWindow.SnackbarMessage.Content = "Registration successful!";
-                    this.Close();
+                    
                 }
                 catch
                 {

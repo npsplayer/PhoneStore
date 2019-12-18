@@ -60,7 +60,7 @@ namespace PhoneStore.View
                 db = new OracleDbContext();
                 var id_out = new OracleParameter("id_out", OracleDbType.Decimal, ParameterDirection.Output);
                 var username_out = new OracleParameter("username_out", OracleDbType.NVarchar2, ParameterDirection.Output); username_out.Size = 50;
-                var password_out = new OracleParameter("password_out", OracleDbType.NVarchar2, Password.Password, ParameterDirection.Output); password_out.Size = 50;
+                var password_out = new OracleParameter("password_out", OracleDbType.NVarchar2, User.setHash(Password.Password), ParameterDirection.Output); password_out.Size = 50;
                 var city_out = new OracleParameter("city_out", OracleDbType.NVarchar2, ParameterDirection.Output); city_out.Size = 50;
                 var street_out = new OracleParameter("street_out", OracleDbType.NVarchar2, ParameterDirection.Output); street_out.Size = 50;
                 var homenumber_out = new OracleParameter("homenumber_out", OracleDbType.NVarchar2, ParameterDirection.Output); homenumber_out.Size = 50;
@@ -116,7 +116,7 @@ namespace PhoneStore.View
                 try
                 {
                     var USERNAME = new OracleParameter("USERNAME", OracleDbType.NVarchar2, Username.Text, ParameterDirection.InputOutput);
-                    var PASSWORD = new OracleParameter("PASSWORD", OracleDbType.NVarchar2, Password.Password, ParameterDirection.InputOutput);
+                    var PASSWORD = new OracleParameter("PASSWORD", OracleDbType.NVarchar2, User.setHash(Password.Password), ParameterDirection.InputOutput);
                     var CITY = new OracleParameter("CITY", OracleDbType.NVarchar2, City.Text, ParameterDirection.InputOutput);
                     var STREET = new OracleParameter("STREET", OracleDbType.NVarchar2, Street.Text, ParameterDirection.InputOutput);
                     var HOMENUMBER = new OracleParameter("HOUSENUMBER", OracleDbType.NVarchar2, HomeNumber.Text, ParameterDirection.InputOutput);
